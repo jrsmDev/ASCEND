@@ -893,7 +893,7 @@ export default function Settings({ page = null, find = null, via = null, entryKe
         <a href="https://github.com/jrsmDev/ASCEND" target="_blank" rel="noopener">{t('Source code')}</a><br />
         {/* Attribution the media licence asks for word for word (agreement §8c), so it is not translated */}
         Exercise media © Aliaksandr Makatserchyk, <a href="https://gymvisual.com/" target="_blank" rel="noopener">Gym visual</a>, gymvisual.com.
-        Media licensed to openGym by Gym visual; see <a href="https://github.com/jrsmDev/ASCEND/blob/main/NOTICE.md" target="_blank" rel="noopener">NOTICE.md</a>
+        Media licensed to ASCEND by Gym visual; see <a href="https://github.com/jrsmDev/ASCEND/blob/main/NOTICE.md" target="_blank" rel="noopener">NOTICE.md</a>
       </div>
     </>,
 

@@ -3,19 +3,19 @@
 > Free, open-source gym & body-weight tracker (AGPL-3.0). Evolve beyond your limits.
 > Runs as a standalone Android app (sideloaded APK), on iPhone through the self-hosted
 > web app (PWA), or self-hosted with Docker (passkey profiles, multi-device sync, PWA).
-> No account required, no cloud, no telemetry. The production site is opengym.ch; the
+> No account required, no cloud, no telemetry. The demo site is https://ascend-jet-xi.vercel.app; the
 > app is ASCEND.
 
 ## Docs
-- [Complete reference](https://opengym.ch/docs.html): every feature, self-hosting, every .env setting, AI Coach, imports (FitNotes/Strong/Hevy/Apple Health), backups, MCP server, troubleshooting
-- [HTTP API](https://opengym.ch/api.html): OpenAPI spec, also at [openapi.yaml](https://opengym.ch/openapi.yaml)
+- [Complete reference](https://ascend-jet-xi.vercel.app/docs.html): every feature, self-hosting, every .env setting, AI Coach, imports (FitNotes/Strong/Hevy/Apple Health), backups, MCP server, troubleshooting
+- [HTTP API](https://ascend-jet-xi.vercel.app/api.html): OpenAPI spec, also at [openapi.yaml](https://ascend-jet-xi.vercel.app/openapi.yaml)
 - [README](https://raw.githubusercontent.com/jrsmDev/ASCEND/main/README.md): project overview in Markdown
 - [Documentation index](https://github.com/jrsmDev/ASCEND/blob/main/docs/README.md): every guide by audience, plus an [FAQ](https://raw.githubusercontent.com/jrsmDev/ASCEND/main/docs/FAQ.md)
 
 ## Try & get it
 - [Live demo](https://ascend-jet-xi.vercel.app/): the real app with example data, in the browser
-- [Android APK](https://opengym.ch/#download): the signed Standard build (180 px animations) direct from the site with its SHA-256; the older Plus (240 px) and HD (360 px) packs remain on the upstream openGym release and use a different signing key
-- [About](https://opengym.ch/about.html): the story and every release
+- [Android APK](https://ascend-jet-xi.vercel.app/#download): the signed Standard build (180 px animations) direct from the site with its SHA-256; the older Plus (240 px) and HD (360 px) packs remain on the upstream openGym release and use a different signing key
+- [About](https://ascend-jet-xi.vercel.app/about.html): the story and every release
 
 ## How it is built
 - ASCEND is a rebrand of openGym, whose codebase was developed with Claude Code. ASCEND changes are reviewed, tested and released by the maintainer. The app itself needs no AI service; the AI coach and MCP server are optional.

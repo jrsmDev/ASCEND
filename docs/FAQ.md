@@ -12,7 +12,7 @@ to support the upstream project, there's an openGym
 
 No, there are three ways to use it:
 
-- **Try it:** the [online demo](https://opengym.ch/demo/) runs entirely in your
+- **Try it:** the [online demo](https://ascend-jet-xi.vercel.app) runs entirely in your
   browser with example data.
 - **Phone only:** the Android app needs no server and no account; everything stays on the phone.
   See [MOBILE.md](MOBILE.md).
@@ -30,7 +30,7 @@ build the native app onto your own phone with Xcode. Both are described in [MOBI
 That's deliberate. The APK is signed, published with a `.sha256` next to every release, and the app
 checks for updates itself. Get it from the
 [ASCEND release](https://github.com/jrsmDev/ASCEND/releases/latest) or
-[opengym.ch](https://opengym.ch/#download).
+[ASCEND releases](https://github.com/jrsmDev/ASCEND/releases).
 
 ### Where is my data?
 

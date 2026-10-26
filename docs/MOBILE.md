@@ -1,7 +1,7 @@
 # The phone app (Android and iOS)
 
 **Just want the app?** Download the signed Standard APK from
-[opengym.ch](https://opengym.ch/#download) (`ASCEND-1.4.2.apk`) or the
+[ASCEND releases](https://github.com/jrsmDev/ASCEND/releases) (`ASCEND-1.4.2.apk`) or the
 [ASCEND releases](https://github.com/jrsmDev/ASCEND/releases), then read
 [how the phone app works](#how-the-phone-app-works) and
 [connecting it to your server](#connecting-the-app-to-your-own-server). On an iPhone, see
@@ -327,7 +327,7 @@ release is live. The published Android build is the sideloaded APK. Build and up
 
 ### Android: sideload the APK
 
-The Standard APK is served by [opengym.ch](https://opengym.ch/#download), with its `.sha256`
+The Standard APK is served by [ASCEND releases](https://github.com/jrsmDev/ASCEND/releases), with its `.sha256`
 beside it. The same file is attached to the
 [ASCEND GitHub release](https://github.com/jrsmDev/ASCEND/releases):
 

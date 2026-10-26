@@ -484,17 +484,17 @@ const html = `<!DOCTYPE html>
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
 <meta property="og:title" content="ASCEND API reference">
 <meta property="og:description" content="The complete ASCEND HTTP API as an OpenAPI spec: passkey auth, state sync, push notifications, pairing and admin routes.">
-<meta property="og:image" content="https://opengym.ch/img/social.jpg?v=2">
+<meta property="og:image" content="https://ascend-jet-xi.vercel.app/img/social.jpg?v=2">
 <meta property="og:image:width" content="1200">
 <meta property="og:image:height" content="630">
 <meta property="og:image:alt" content="ASCEND: Your workouts. Your weights. Your ascent. Two phones showing the home and workout screens.">
-<meta property="og:url" content="https://opengym.ch/api.html">
+<meta property="og:url" content="https://ascend-jet-xi.vercel.app/api.html">
 <meta property="og:type" content="website">
 <meta property="og:site_name" content="ASCEND">
 <meta name="twitter:card" content="summary_large_image">
 <meta name="twitter:title" content="ASCEND API reference">
-<meta name="twitter:image" content="https://opengym.ch/img/social.jpg?v=2">
-<link rel="canonical" href="https://opengym.ch/api.html">
+<meta name="twitter:image" content="https://ascend-jet-xi.vercel.app/img/social.jpg?v=2">
+<link rel="canonical" href="https://ascend-jet-xi.vercel.app/api.html">
 <link rel="icon" href="/favicon.ico" sizes="48x48">
 <link rel="icon" type="image/png" sizes="96x96" href="/icon-96.png">
 <link rel="icon" type="image/png" sizes="192x192" href="/icon-192.png">

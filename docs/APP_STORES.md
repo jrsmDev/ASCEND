@@ -6,7 +6,7 @@ openGym can reach phones three ways, all from the same code and the same version
 
 | | Where | Who installs updates | Built where |
 |---|---|---|---|
-| Android APK | GitHub release, opengym.ch | the app itself (Settings → About) | release machine |
+| Android APK | GitHub release | the app itself (Settings → About) | release machine |
 | Android, Google Play (not live) | Play Store | Google Play | release machine |
 | iPhone + Apple Watch (not live) | App Store, TestFlight beta | the App Store | Mac runner (compile) + release machine (finish, sign, upload) |
 

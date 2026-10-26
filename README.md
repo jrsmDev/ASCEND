@@ -7,13 +7,13 @@
 Plan your week, run guided workouts, log every set and your body weight,<br>
 on your phone, synced across your devices, behind your own passkey login.
 
-[![Website](https://img.shields.io/badge/website-opengym.ch-a3e635?style=flat-square)](https://opengym.ch)
+[![Website](https://img.shields.io/badge/demo-ascend--jet--xi.vercel.app-a3e635?style=flat-square)](https://ascend-jet-xi.vercel.app)
 [![License: AGPL v3](https://img.shields.io/badge/license-AGPL--3.0-a3e635?style=flat-square)](LICENSE)
-[![Android](https://img.shields.io/badge/Android-signed%20APK-a3e635?style=flat-square)](https://opengym.ch/#download)
+[![GitHub](https://img.shields.io/badge/GitHub-jrsmDev%2FASCEND-a3e635?style=flat-square)](https://github.com/jrsmDev/ASCEND)
 
-[Website](https://opengym.ch) ·
-[Live demo](https://opengym.ch/demo/) ·
-[Android APK](https://opengym.ch/#download) ·
+[Live demo](https://ascend-jet-xi.vercel.app) ·
+[GitHub repository](https://github.com/jrsmDev/ASCEND) ·
+[Releases](https://github.com/jrsmDev/ASCEND/releases) ·
 [iPhone / PWA](docs/MOBILE.md) ·
 [Self-hosting guide](docs/SELF_HOSTING.md) ·
 [Roadmap](ROADMAP.md) ·
@@ -42,7 +42,7 @@ sign-in, works offline, syncs between your phone and your laptop.
 No account on someone else's server, no subscription, no ads, no telemetry. One
 `docker compose up` and it's running.
 
-The [in-browser demo](https://opengym.ch/demo/) is the real app with example data,
+The [in-browser demo](https://ascend-jet-xi.vercel.app) is the real app with example data,
 if you want to try it before installing anything.
 
 ## Features
@@ -179,7 +179,7 @@ variable. The [self-hosting guide](docs/SELF_HOSTING.md) covers every option in 
 The same codebase builds a standalone app with Capacitor: no account, no server, everything stays
 on the phone, with native reminders and a rest countdown in the notification shade.
 
-- **Android:** download the signed Standard APK from the [website](https://opengym.ch/#download)
+- **Android:** download the signed Standard APK from the [GitHub repository](https://github.com/jrsmDev/ASCEND)
   or the [GitHub release](https://github.com/jrsmDev/ASCEND/releases/latest)
   (`ASCEND-1.4.2.apk`, 180 px animations, about 224 MB). This build carries a new ASCEND
   signing key: if an older openGym APK is already installed, export a backup, uninstall the old
@@ -210,7 +210,7 @@ Details and build instructions: [docs/MOBILE.md](docs/MOBILE.md).
 The training logic (progression rules, 1RM, how a logged session is read back) lives in pure
 functions under `frontend/src/lib/` with tests beside them. The HTTP API is documented as an
 OpenAPI spec in [`api/openapi.yaml`](api/openapi.yaml), browsable at
-[opengym.ch/api.html](https://opengym.ch/api.html).
+[API documentation](docs/API.md).
 
 ### How sync works
 
