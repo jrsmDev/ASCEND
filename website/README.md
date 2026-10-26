@@ -16,6 +16,9 @@ Committed assets:
 - `icon-180.png` / `icon-512.png` (plus the smaller favicon sizes) — copied from
   `../frontend/public/`, so the browser tab, home screen and app all match.
 
+The browser-only demo is also deployed to
+[GitHub Pages](https://jrsmdev.github.io/ASCEND/) by `.github/workflows/pages.yml`.
+
 Local-only asset:
 
 - `ASCEND-1.4.2.apk` — the signed Standard Android build served in development by

@@ -180,6 +180,7 @@ The same codebase builds a standalone app with Capacitor: no account, no server,
 on the phone, with native reminders and a rest countdown in the notification shade.
 
 - **Android:** download the signed Standard APK from the [website](https://opengym.ch/#download)
+  or the [GitHub release](https://github.com/jrsmDev/ASCEND/releases/latest)
   (`ASCEND-1.4.2.apk`, 180 px animations, about 224 MB). This build carries a new ASCEND
   signing key: if an older openGym APK is already installed, export a backup, uninstall the old
   app, then install ASCEND and import the backup. Future ASCEND builds update in place. The
