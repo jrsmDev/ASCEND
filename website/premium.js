@@ -154,16 +154,27 @@ if (!reduceMotion) {
   const horizontalTrack = document.querySelector('.horizontal-track')
   
   if (horizontalScroll && horizontalTrack) {
-    horizontalScroll.style.height = '400vh'
     const panels = horizontalTrack.querySelectorAll('.horizontal-panel')
+    horizontalScroll.style.height = panels.length * 125 + 'vh'
     horizontalTrack.style.width = panels.length * 100 + 'vw'
+    horizontalTrack.style.position = 'fixed'
+    
     window.addEventListener('scroll', () => {
-      const rect = horizontalScroll.getBoundingClientRect()
-      const scrollProgress = Math.max(0, Math.min(1, -rect.top / (rect.height - window.innerHeight)))
-      const translateX = scrollProgress * (horizontalTrack.scrollWidth - window.innerWidth)
-      horizontalTrack.style.transform = `translateX(-${translateX}px)`
+      const scrollTop = window.scrollY
+      const start = horizontalScroll.offsetTop
+      const end = start + horizontalScroll.offsetHeight - window.innerHeight
+      if (scrollTop >= start && scrollTop <= end) {
+        const progress = (scrollTop - start) / (end - start)
+        const translateX = progress * (horizontalTrack.scrollWidth - window.innerWidth)
+        horizontalTrack.style.transform = `translateX(-${translateX}px)`
+      } else if (scrollTop < start) {
+        horizontalTrack.style.transform = 'translateX(0px)'
+      } else {
+        horizontalTrack.style.transform = `translateX(-${horizontalTrack.scrollWidth - window.innerWidth}px)`
+      }
     }, { passive: true })
   }
+}
 }
 
 // Scroll-driven parallax for hero

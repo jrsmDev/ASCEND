@@ -83,17 +83,18 @@ img { display: block; max-width: 100%; }
 .menu-toggle { display: none; }
 
 .horizontal-scroll {
-  height: 400vh;
+  height: 500vh !important;
   position: relative;
   background: radial-gradient(ellipse at center, #0a0b08 0%, var(--paper) 100%);
 }
 .horizontal-track {
-  position: sticky;
+  position: fixed !important;
   top: 0;
+  left: 0;
   height: 100vh;
   display: flex;
-  width: 400vw;
   will-change: transform;
+  transition: transform 0.1s linear;
 }
 .horizontal-panel {
   width: 100vw;
