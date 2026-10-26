@@ -1,14 +1,46 @@
 {
+  "$schema": "https://openapi.vercel.sh/vercel.json",
   "buildCommand": "npm run build",
   "outputDirectory": "dist",
   "installCommand": "npm install",
   "framework": "vite",
+  "cleanUrls": false,
   "env": {
     "VITE_DEMO": "1",
-    "VITE_ASCEND_SITE_URL": "https://ascend-jet-xi.vercel.app/site"
+    "VITE_ASCEND_SITE_URL": "https://ascend-jet-xi.vercel.app/site",
+    "VITE_ASCEND_DOWNLOAD_URL": "https://ascend-jet-xi.vercel.app/site#download"
   },
+  "redirects": [
+    {
+      "source": "/(.*)ASCEND-1.4.3.apk",
+      "destination": "https://github.com/jrsmDev/ASCEND/releases/download/v1.4.3/ASCEND.apk",
+      "permanent": false
+    },
+    {
+      "source": "/(.*)ASCEND.apk",
+      "destination": "https://github.com/jrsmDev/ASCEND/releases/download/v1.4.3/ASCEND.apk",
+      "permanent": false
+    },
+    {
+      "source": "/(.*)ASCEND-1.4.3.apk.sha256",
+      "destination": "https://github.com/jrsmDev/ASCEND/releases/download/v1.4.3/ASCEND-1.4.3.apk.sha256",
+      "permanent": false
+    },
+    {
+      "source": "/download",
+      "destination": "/site#download",
+      "permanent": false
+    }
+  ],
   "rewrites": [
+    { "source": "/demo/exercise-media/(.*)", "destination": "/exercise-media/$1" },
     { "source": "/site", "destination": "/site/index.html" },
-    { "source": "/website", "destination": "/site/index.html" }
+    { "source": "/site/", "destination": "/site/index.html" },
+    { "source": "/website", "destination": "/site/index.html" },
+    { "source": "/website/", "destination": "/site/index.html" },
+    { "source": "/demo", "destination": "/demo/index.html" },
+    { "source": "/demo/", "destination": "/demo/index.html" },
+    { "source": "/app", "destination": "/index.html" },
+    { "source": "/app/", "destination": "/index.html" }
   ]
 }

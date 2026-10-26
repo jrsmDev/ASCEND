@@ -185,7 +185,7 @@ on the phone, with native reminders and a rest countdown in the notification sha
   signing key: if an older openGym APK is already installed, export a backup, uninstall the old
   app, then install ASCEND and import the backup. Future ASCEND builds update in place. The
   larger Plus and HD animation packs remain on the
-  [upstream openGym release](https://github.com/DuarteSantos8/openGym/releases/latest); they use
+  [ASCEND releases](https://github.com/jrsmDev/ASCEND/releases/latest); they use
   the older key, so do not mix them with this build. There is no Google Play release yet.
 - **iPhone / web:** there is no App Store build. Self-host ASCEND and add the PWA to your
   home screen from Safari. The path is in [docs/MOBILE.md](docs/MOBILE.md).
@@ -287,8 +287,7 @@ two weeks after it.
 - **[Pull requests](https://github.com/jrsmDev/ASCEND/pulls)** are welcome; start with
   [CONTRIBUTING.md](CONTRIBUTING.md).
 
-The original openGym community also has a
-[Discord server](https://discord.gg/e62jY6fwVb) for upstream releases and self-hosting help.
+The ASCEND community has a [Discord server](https://discord.gg/e62jY6fwVb) for release announcements, feature requests and self-hosting help.
 
 ### Where the code lives
 

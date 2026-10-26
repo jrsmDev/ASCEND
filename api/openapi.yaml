@@ -135,7 +135,7 @@ info:
 servers:
   - url: /
     description: Same origin as the ASCEND web app (the normal deployment)
-  - url: https://opengym.example.com
+  - url: https://ascend.example.com
     description: Your self-hosted instance
 
 tags:

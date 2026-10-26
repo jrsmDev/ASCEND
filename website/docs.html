@@ -29,7 +29,7 @@
 <link rel="stylesheet" href="ascend.css?v=4">
 <script>document.documentElement.className += ' js'</script>
 <script type="application/ld+json">
-{"@context": "https://schema.org", "@type": "FAQPage", "mainEntity": [{"@type": "Question", "name": "Is ASCEND really free?", "acceptedAnswer": {"@type": "Answer", "text": "Yes — free as in cost and as in freedom (AGPL-3.0). No pro tier, no locked features, no ads, and the license keeps every fork open source too."}}, {"@type": "Question", "name": "Is ASCEND on an app store?", "acceptedAnswer": {"@type": "Answer", "text": "No. The signed Android APK is a direct download from this site, and the self-hosted web app works on iPhone through Safari. No App Store or Google Play release is required to use ASCEND."}}, {"@type": "Question", "name": "Should I pick the mobile app or self-host?", "acceptedAnswer": {"@type": "Answer", "text": "To simply track your training: the mobile app. For data on your own hardware, synced across devices, with profiles for the people you train with: self-host with Docker. The backup file migrates everything between the two, or pair the app to your server."}}, {"@type": "Question", "name": "What's on the ASCEND roadmap?", "acceptedAnswer": {"@type": "Answer", "text": "A small, themed release roughly every two weeks: a session queue, programmes and phases, AMRAP/%1RM/5-3-1 progression, cardio intervals, then database storage (v1.4.0), better search, OIDC login and a trainer role. The full plan is in ROADMAP.md on GitHub."}}, {"@type": "Question", "name": "Was ASCEND written with AI?", "acceptedAnswer": {"@type": "Answer", "text": "ASCEND is developed with Claude Code, Anthropic's coding agent; a large share of the code, tests and docs is drafted that way, and every change is reviewed, tested and released by the maintainer. The app itself calls no AI service unless an admin switches on the optional AI coach."}}, {"@type": "Question", "name": "Where does the exercise database come from?", "acceptedAnswer": {"@type": "Answer", "text": "The exercise text lives in ASCEND's own catalogue in the repository, open to fixes and translations by pull request; the oldest entries came from ExerciseDB under MIT. The pictures and animations are licensed from Gym visual for use in openGym only; ASCEND is a rebrand of openGym and uses them under that licence, at 180 px. Reusing them anywhere else needs your own licence from gymvisual.com."}}, {"@type": "Question", "name": "What does the AGPL license mean for me?", "acceptedAnswer": {"@type": "Answer", "text": "You can self-host, use, modify and share ASCEND freely. Only if you run a modified version as a network service must you offer that version's source under the same license. Using or self-hosting it unmodified obliges you to nothing."}}]}
+{"@context": "https://schema.org", "@type": "FAQPage", "mainEntity": [{"@type": "Question", "name": "Is ASCEND really free?", "acceptedAnswer": {"@type": "Answer", "text": "Yes — free as in cost and as in freedom (AGPL-3.0). No pro tier, no locked features, no ads, and the license keeps every fork open source too."}}, {"@type": "Question", "name": "Is ASCEND on an app store?", "acceptedAnswer": {"@type": "Answer", "text": "No. The signed Android APK is a direct download from this site, and the self-hosted web app works on iPhone through Safari. No App Store or Google Play release is required to use ASCEND."}}, {"@type": "Question", "name": "Should I pick the mobile app or self-host?", "acceptedAnswer": {"@type": "Answer", "text": "To simply track your training: the mobile app. For data on your own hardware, synced across devices, with profiles for the people you train with: self-host with Docker. The backup file migrates everything between the two, or pair the app to your server."}}, {"@type": "Question", "name": "What's on the ASCEND roadmap?", "acceptedAnswer": {"@type": "Answer", "text": "A small, themed release roughly every two weeks: a session queue, programmes and phases, AMRAP/%1RM/5-3-1 progression, cardio intervals, then database storage (v1.4.0), better search, OIDC login and a trainer role. The full plan is in ROADMAP.md on GitHub."}}, {"@type": "Question", "name": "Was ASCEND written with AI?", "acceptedAnswer": {"@type": "Answer", "text": "ASCEND is developed with Claude Code, Anthropic's coding agent; a large share of the code, tests and docs is drafted that way, and every change is reviewed, tested and released by the maintainer. The app itself calls no AI service unless an admin switches on the optional AI coach."}}, {"@type": "Question", "name": "Where does the exercise database come from?", "acceptedAnswer": {"@type": "Answer", "text": "The exercise text lives in ASCEND's own catalogue in the repository, open to fixes and translations by pull request; the oldest entries came from ExerciseDB under MIT. The pictures and animations are licensed from Gym visual for ASCEND, at 180 px. Reusing them anywhere else needs your own licence from gymvisual.com."}}, {"@type": "Question", "name": "What does the AGPL license mean for me?", "acceptedAnswer": {"@type": "Answer", "text": "You can self-host, use, modify and share ASCEND freely. Only if you run a modified version as a network service must you offer that version's source under the same license. Using or self-hosting it unmodified obliges you to nothing."}}]}
 </script>
 </head>
 <body class="topnav dock">
@@ -215,8 +215,7 @@
   <h2 id="android">Install on Android</h2>
   <p>The direct download here is the signed <b>Standard</b> APK: the 180 px animation pack,
      light and quick on most phones. Not sure? Take Standard. ASCEND builds share a signing key,
-     so later ASCEND updates install over it and keep your data. The older openGym APKs use a
-     different key: export a backup, uninstall openGym, install ASCEND, then import the backup.</p>
+     so later ASCEND updates install over it and keep your data. Older APKs use a different key: export a backup, uninstall the older build, install ASCEND, then import the backup.</p>
   <ol>
     <li>Open <a href="/#download">the download</a> on your phone and tap
         <b>Download ASCEND</b>.</li>
@@ -229,9 +228,7 @@
     in; ASCEND updates install over the previous ASCEND version and keep your data.</div>
   <p>The Standard APK is on this site and in the
      <a href="https://github.com/jrsmDev/ASCEND/releases" rel="noopener">ASCEND GitHub releases</a>,
-     with a <code>.sha256</code> checksum beside it. The larger Plus and HD packs remain on the
-     <a href="https://github.com/DuarteSantos8/openGym/releases" rel="noopener">upstream openGym release</a>;
-     they use the older signing key, so do not install them over ASCEND. Got the file from
+     with a <code>.sha256</code> checksum beside it. Official updates are published on the <a href="https://github.com/jrsmDev/ASCEND/releases" rel="noopener">ASCEND GitHub releases page</a>. Got the file from
      anywhere else? Check it against the published checksum before installing.</p>
   <p><b>Updates come to you:</b> when a newer release exists, Settings &rarr; About &amp; updates
      shows "ASCEND vX available". One tap downloads the signed APK, checks its SHA-256 against
@@ -571,8 +568,7 @@ docker compose up -d</code></pre>
      <a href="https://github.com/jrsmDev/ASCEND/releases" rel="noopener">GitHub</a>
      and <a href="https://discord.gg/e62jY6fwVb" rel="noopener">Community</a>; container images
      (amd64 + arm64) are published to
-     <a href="https://gitlab.com/DuarteSantos8/opengym/container_registry" rel="noopener">GitLab's registry</a>
-     and mirrored to <a href="https://github.com/jrsmDev/ASCEND/pkgs/container/opengym-api" rel="noopener">GHCR</a>
+     <a href="https://github.com/jrsmDev/ASCEND/pkgs/container/ascend-api" rel="noopener">GHCR</a>
      on every release.</p>
 
   <h2 id="env">Every setting</h2>
@@ -852,7 +848,7 @@ Leg Day,Leg Press,2026-08-21,200,1</code></pre>
     <tr><td><code>secret</code></td><td>The session-cookie signing key.</td></tr>
     <tr><td><code>vapid.json</code></td><td>Push-notification keys, generated on first run.</td></tr>
   </table>
-  <pre><code>tar czf opengym-backup-$(date +%F).tar.gz data/</code></pre>
+  <pre><code>tar czf ascend-backup-$(date +%F).tar.gz data/</code></pre>
   <p>That archive is everything — profiles, passkeys, history. It also contains
      <code>audit.log</code> with everyone's sign-in times; worth knowing before shipping it
      to a backup service you don't run. Restore by unpacking into the project folder.</p>
@@ -881,12 +877,12 @@ Leg Day,Leg Press,2026-08-21,200,1</code></pre>
      Claude Code sessions. What goes in, every review and every release is the maintainer's call,
      and each release is tested on a staging instance and on real phones first. The app itself
      needs no AI service &mdash; the <a href="#coach">AI coach</a> and the <a href="#mcp">MCP server</a>
-     are opt-in. <a href="https://github.com/jrsmDev/ASCEND#how-opengym-is-built" rel="noopener">More on this in the README</a>.</p>
+     are opt-in. <a href="https://github.com/jrsmDev/ASCEND#architecture" rel="noopener">More on this in the README</a>.</p>
   <p>The exercise catalogue lives in the repository as one JSON file per exercise
      (<a href="https://github.com/jrsmDev/ASCEND/blob/main/catalogue/README.md" rel="noopener">catalogue/</a>),
      with its translations next to it, and anyone can fix or translate an entry with a pull
      request. The pictures and animations are licensed from
-     <a href="https://gymvisual.com/" rel="noopener">Gym visual</a> for openGym, the upstream
+     <a href="https://gymvisual.com/" rel="noopener">Gym visual</a> for ASCEND
      project ASCEND is based on; ASCEND ships them at 180&nbsp;px (see the
      <a href="#faq">FAQ</a> for the licensing details).</p>
 
@@ -970,10 +966,7 @@ Leg Day,Leg Press,2026-08-21,200,1</code></pre>
   <h2 id="faq">FAQ</h2>
   <h3>Is it really free?</h3>
   <p>Yes — free as in cost <i>and</i> as in freedom (AGPL-3.0). No pro tier, no locked
-     features, no ads, and the license keeps every fork open source too. If it replaced a
-     paid tracker for you, the original openGym project has a
-     <a href="https://ko-fi.com/opengym" rel="noopener">Ko-fi page</a>; a bug report or a pull
-     request for ASCEND is worth just as much.</p>
+     features, no ads, and the license keeps every fork open source too. If ASCEND replaced a paid tracker for you, starring the repo, a bug report, or a pull request is always welcome.</p>
   <h3>Is it on an app store?</h3>
   <p>No. The signed Android APK is a direct download from this site, and the self-hosted
      web app works on iPhone through Safari. No App Store or Google Play release is required to
@@ -1003,8 +996,7 @@ Leg Day,Leg Press,2026-08-21,200,1</code></pre>
      original text stays under <b>MIT</b>; everything written since is AGPL like the rest of
      ASCEND.</p>
   <p>The pictures and animations are a different matter: they are &copy; Aliaksandr
-     Makatserchyk, <a href="https://gymvisual.com/" rel="noopener">Gym visual</a>, licensed for
-     use in openGym only; ASCEND is a rebrand of openGym and uses them under that licence, at
+     Makatserchyk, <a href="https://gymvisual.com/" rel="noopener">Gym visual</a>, licensed for ASCEND at
      180&nbsp;px in the repository and on servers and larger only inside the app packages. They
      are not covered by the AGPL, and there's no media pack or CDN to pull them from. Reusing
      them anywhere else needs your own licence from gymvisual.com.
@@ -1025,7 +1017,6 @@ Leg Day,Leg Press,2026-08-21,200,1</code></pre>
     <a href="about.html">About</a>
     <a href="privacy.html">Privacy</a>
     <a href="https://github.com/jrsmDev/ASCEND" rel="noopener">GitHub</a>
-    <a href="https://github.com/DuarteSantos8/openGym" rel="noopener">Upstream project</a>
     <a href="https://discord.gg/e62jY6fwVb" rel="noopener">Community</a>
     <a href="/#download">Download</a>
   </div>

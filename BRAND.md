@@ -36,7 +36,7 @@ used between sets, not a coach talking at the user.
 - Android package ID: `ch.duartesantos.opengym`
 - Backup folder: `Documents/openGym`
 - Environment keys, backup files and update cache names
-- Upstream domain: `opengym.ch`; ASCEND demo: `ascend-jet-xi.vercel.app`
+- ASCEND website & demo: `https://ascend-jet-xi.vercel.app`
 - Health Connect / Apple Health sync IDs and widget group IDs
 
 ## Attribution

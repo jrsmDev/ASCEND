@@ -1,20 +1,19 @@
 // Where the marketing site lives.
 //
-// In this repository the app and the site are two different origins: Vite serves the
-// app on :5173 and run-local.mjs serves ../website on :5174. Production uses
-// https://ascend-jet-xi.vercel.app/site. The Android/iOS app never opens the
-// localhost site; the "Get the Android app" row only exists in the browser build.
-
-function localSite() {
-  if (typeof window === 'undefined') return null
-  const { hostname, protocol } = window.location
-  if (/^(localhost|127\.0\.0\.1|\[::1\])$/.test(hostname)) {
-    return `${protocol}//${hostname}:5174`
-  }
-  return null
-}
+// In this repository the app and the site can be two different origins or paths:
+// Vite serves the app on :5173 and run-local.mjs serves ../website on :5174.
+// Production on Vercel serves the ASCEND website at https://ascend-jet-xi.vercel.app
+// with the demo app framed inside or at /demo/. The "Get the Android app" row
+// takes the visitor to the ASCEND download section.
 
 const PROD_SITE = 'https://ascend-jet-xi.vercel.app/site'
+
+function localSite() {
+  if (typeof window === 'undefined' || !import.meta.env.DEV) return null
+  const { hostname, protocol } = window.location
+  if (!/^(localhost|127\.0\.0\.1|\[::1\])$/.test(hostname)) return null
+  return `${protocol}//${hostname}:5174`
+}
 
 export const SITE_URL = (
   import.meta.env.VITE_ASCEND_SITE_URL || localSite() || PROD_SITE
@@ -26,3 +25,4 @@ export const SITE_DOWNLOAD = (
 )
 
 export const SITE_IS_LOCAL = SITE_URL.startsWith('http://localhost') || SITE_URL.startsWith('http://127.0.0.1')
+

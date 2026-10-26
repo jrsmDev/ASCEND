@@ -334,7 +334,7 @@ beside it. The same file is attached to the
 - **`ASCEND-1.4.2.apk` (Standard):** the exercise animations built in at 180 px, about 224 MB.
 
 The larger Plus (240 px) and HD (360 px) packs remain on the
-[upstream openGym release](https://github.com/DuarteSantos8/openGym/releases). They use the older
+[ASCEND release](https://github.com/jrsmDev/ASCEND/releases). They use the older
 signing key, so they cannot be installed over ASCEND; keep one or the other.
 
 ASCEND builds share an app id and signing key: install a newer ASCEND APK over the old one and

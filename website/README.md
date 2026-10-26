@@ -27,9 +27,9 @@ Local-only asset:
   `4c51454e82805d03b457df11abf8d55a4b02baff2e16f01b23a596d9d4b4e02a`).
   The checksum is served beside it as `ASCEND-1.4.3.apk.sha256`. The download link uses
   `download="ASCEND.apk"`, so the saved file keeps the brand name while the source file keeps
-  its version. Plus and HD animation packs stay on the upstream openGym release.
+  its version. Plus and HD animation packs stay on the upstream ASCEND release.
 
-  This build is signed with the new ASCEND release key, not the upstream openGym key. Android
+  This build is signed with the new ASCEND release key, not the upstream ASCEND key. Android
   therefore cannot update the old upstream-signed app in place: export a backup, uninstall the
   old app, install ASCEND, then import the backup. The in-app updater only installs a newer build
   with the same key.
