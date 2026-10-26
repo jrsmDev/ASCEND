@@ -148,22 +148,21 @@ if (readingProgress) {
   updateProgress()
 }
 
-const reduceMotion = window.matchMedia('(prefers-reduced-motion: reduce)').matches
-if (!reduceMotion && 'IntersectionObserver' in window) {
-  const revealTargets = document.querySelectorAll(
-    '.section-heading, .experience-card, .privacy-note, .screens-head, .screen-story-visual, .screens-footnote, .demo-head, .demo-window, .download-content, .download-art, .founder-mark, .founder-copy'
-  )
-  const revealObserver = new IntersectionObserver(entries => {
-    for (const entry of entries) {
-      if (!entry.isIntersecting) continue
-      entry.target.classList.add('is-visible')
-      revealObserver.unobserve(entry.target)
-    }
-  }, { threshold: 0.12, rootMargin: '0px 0px -5% 0px' })
-
-  revealTargets.forEach((target, index) => {
-    target.classList.add('scroll-reveal')
-    target.style.setProperty('--reveal-delay', `${(index % 4) * 70}ms`)
-    revealObserver.observe(target)
+// 3D card tilt effect
+document.querySelectorAll('.experience-card').forEach(card => {
+  card.addEventListener('mousemove', (e) => {
+    const rect = card.getBoundingClientRect()
+    const x = e.clientX - rect.left
+    const y = e.clientY - rect.top
+    const centerX = rect.width / 2
+    const centerY = rect.height / 2
+    const rotateX = (y - centerY) / 10
+    const rotateY = (centerX - x) / 10
+    card.style.setProperty('--mouse-x', x + 'px')
+    card.style.setProperty('--mouse-y', y + 'px')
+    card.style.transform = `translateY(-8px) rotateX(${rotateX}deg) rotateY(${rotateY}deg)`
   })
-}
+  card.addEventListener('mouseleave', () => {
+    card.style.transform = 'translateY(0px) rotateX(0deg) rotateY(0deg)'
+  })
+})
