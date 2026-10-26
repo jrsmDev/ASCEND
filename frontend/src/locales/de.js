@@ -1409,7 +1409,7 @@ export default {
   'You have the latest version.': 'Du hast die neueste Version.',
   'Couldn’t check for updates. Are you online?': 'Update-Prüfung fehlgeschlagen. Bist du online?',
   'Get the Android app': 'Android-App holen',
-  'Download the APK from the ASCEND site': 'APK von opengym.ch laden',
+  'Download the APK from the ASCEND site': 'APK von ASCEND site laden',
   'Releases are checked on GitHub. The download is verified against its checksum before the installer opens.': 'Releases werden auf GitHub geprüft. Der Download wird vor dem Öffnen des Installers gegen seine Prüfsumme verifiziert.',
   'The web app updates together with your server. The Android app installs its own updates from here.': 'Die Web-App aktualisiert sich mit deinem Server. Die Android-App installiert ihre Updates von hier aus.',
   'Starting download…': 'Download wird gestartet…',

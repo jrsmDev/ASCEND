@@ -293,13 +293,12 @@ function panel({ opener, panelEl, flag, closeBtn }) {
    the app instead of the production /demo/ path. */
 ;(() => {
   const local = /^(localhost|127\.0\.0\.1|\[::1\])$/.test(location.hostname)
-  const app = local ? 'http://' + location.hostname + ':5173/?demo=1' : null
-  if (local) {
-    document.querySelectorAll('a[href="/demo/"]').forEach(a => { a.href = app })
-  }
+  const VERCEL_DEMO = 'https://ascend-jet-xi.vercel.app/'
+  const app = local ? 'http://' + location.hostname + ':5173/?demo=1' : VERCEL_DEMO
+  document.querySelectorAll('a[href="/demo/"]').forEach(a => { a.href = app; a.target = '_blank'; a.rel = 'noopener' })
   const slot = document.querySelector('[data-demo]')
   if (!slot) return
-  if (local) slot.dataset.demo = app
+  slot.dataset.demo = app
 
   const mount = () => {
     if (slot.dataset.mounted) return

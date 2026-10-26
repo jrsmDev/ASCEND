@@ -1389,7 +1389,7 @@ export default {
   'You have the latest version.': 'A legújabb verziód van.',
   'Couldn’t check for updates. Are you online?': 'Nem sikerült frissítéseket keresni. Online vagy?',
   'Get the Android app': 'Android-alkalmazás letöltése',
-  'Download the APK from the ASCEND site': 'Töltsd le az APK-t az opengym.ch oldalról',
+  'Download the APK from the ASCEND site': 'Töltsd le az APK-t az ASCEND site oldalról',
   'Releases are checked on GitHub. The download is verified against its checksum before the installer opens.': 'A kiadásokat a GitHub-on ellenőrizzük. A letöltést a telepítő megnyitása előtt az ellenőrzőösszeggel vetjük össze.',
   'The web app updates together with your server. The Android app installs its own updates from here.': 'A webalkalmazás a szerverrel együtt frissül. Az Android-alkalmazás innen telepíti a frissítéseit.',
   'Starting download…': 'Letöltés indítása…',

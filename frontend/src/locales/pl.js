@@ -1389,7 +1389,7 @@ export default {
   'You have the latest version.': 'Masz najnowszą wersję.',
   'Couldn’t check for updates. Are you online?': 'Nie udało się sprawdzić aktualizacji. Czy jesteś online?',
   'Get the Android app': 'Pobierz aplikację na Androida',
-  'Download the APK from the ASCEND site': 'Pobierz APK z opengym.ch',
+  'Download the APK from the ASCEND site': 'Pobierz APK z ASCEND site',
   'Releases are checked on GitHub. The download is verified against its checksum before the installer opens.': 'Wydania są sprawdzane na GitHub. Pobrany plik jest weryfikowany sumą kontrolną przed otwarciem instalatora.',
   'The web app updates together with your server. The Android app installs its own updates from here.': 'Aplikacja webowa aktualizuje się razem z serwerem. Aplikacja na Androida instaluje aktualizacje stąd.',
   'Starting download…': 'Rozpoczynanie pobierania…',

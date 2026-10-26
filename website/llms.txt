@@ -13,7 +13,7 @@
 - [Documentation index](https://github.com/jrsmDev/ASCEND/blob/main/docs/README.md): every guide by audience, plus an [FAQ](https://raw.githubusercontent.com/jrsmDev/ASCEND/main/docs/FAQ.md)
 
 ## Try & get it
-- [Live demo](https://opengym.ch/demo/): the real app with example data, in the browser
+- [Live demo](https://ascend-jet-xi.vercel.app/): the real app with example data, in the browser
 - [Android APK](https://opengym.ch/#download): the signed Standard build (180 px animations) direct from the site with its SHA-256; the older Plus (240 px) and HD (360 px) packs remain on the upstream openGym release and use a different signing key
 - [About](https://opengym.ch/about.html): the story and every release
 
