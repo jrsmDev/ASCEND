@@ -120,43 +120,102 @@ if (copyrightYear) copyrightYear.textContent = String(new Date().getFullYear())
 
 const narrative = document.querySelector('.horizontal-scroll')
 const narrativeTrack = narrative?.querySelector('.horizontal-track')
-const narrativeRail = narrative?.querySelector('.horizontal-rail')
 const narrativePanels = narrative ? [...narrative.querySelectorAll('.horizontal-panel')] : []
 const narrativeContent = narrativePanels.map(panel => panel.querySelector('.panel-content'))
 const narrativeVisuals = narrativePanels.map(panel => panel.querySelector('.panel-visual'))
+const narrativeImages = narrativeVisuals.map(visual => visual?.querySelector('img'))
 const narrativeProgressFill = document.getElementById('narrative-progress-fill')
-if (narrative && narrativeTrack && narrativeRail && narrativePanels.length && narrativeContent.every(Boolean) && narrativeVisuals.every(Boolean) && !reduceMotion) {
+if (narrative && narrativeTrack && narrativePanels.length && narrativeContent.every(Boolean) && narrativeVisuals.every(Boolean) && narrativeImages.every(Boolean)) {
+  const desktopViewport = window.matchMedia('(min-width: 901px) and (pointer: fine)')
+  const narrativeMotion = window.matchMedia('(prefers-reduced-motion: reduce)')
+  const clamp = (value, min, max) => Math.min(max, Math.max(min, value))
   let narrativeFrame = 0
+  let narrativeEnabled = desktopViewport.matches && !narrativeMotion.matches
+  let narrativeStart = 0
+  let narrativeRange = 1
+
+  const clearNarrativeStyles = () => {
+    narrativePanels.forEach((panel, index) => {
+      panel.style.removeProperty('transform')
+      panel.style.removeProperty('opacity')
+      panel.style.removeProperty('z-index')
+      panel.classList.toggle('is-current', index === 0)
+      panel.removeAttribute('aria-hidden')
+      narrativeContent[index]?.style.removeProperty('opacity')
+      narrativeContent[index]?.style.removeProperty('translate')
+      narrativeVisuals[index]?.style.removeProperty('opacity')
+      narrativeImages[index]?.style.removeProperty('transform')
+    })
+    if (narrativeProgressFill) narrativeProgressFill.style.removeProperty('transform')
+  }
+
+  const measureNarrative = () => {
+    const bounds = narrative.getBoundingClientRect()
+    narrativeStart = bounds.top + window.scrollY - (window.innerHeight - narrativeTrack.offsetHeight)
+    narrativeRange = Math.max(1, narrative.offsetHeight - narrativeTrack.offsetHeight)
+    if (narrativeEnabled) scheduleNarrative()
+  }
+
   const updateNarrative = () => {
     narrativeFrame = 0
-    const bounds = narrative.getBoundingClientRect()
-    const range = narrative.offsetHeight - narrativeTrack.offsetHeight
-    const progress = range > 0
-      ? Math.min(1, Math.max(0, (window.innerHeight - narrativeTrack.offsetHeight - bounds.top) / range))
-      : 0
-    const currentPosition = progress * (narrativePanels.length - 1)
-    narrativeRail.style.setProperty('--story-progress', String(progress))
+    if (!narrativeEnabled) return
+
+    const progress = clamp((window.scrollY - narrativeStart) / narrativeRange, 0, 1)
+    const position = progress * (narrativePanels.length - 1)
+    const activeIndex = Math.min(narrativePanels.length - 1, Math.round(position))
+
     narrativePanels.forEach((panel, index) => {
-      const distance = currentPosition - index
-      const opacity = Math.pow(Math.max(0, 1 - Math.abs(distance)), 1.7)
-      const depth = Math.max(-42, Math.min(42, distance * -42))
+      const distance = index - position
+      const depth = Math.abs(distance)
+      const near = clamp(depth, 0, 1)
+      const far = clamp(depth - 1, 0, 2)
+      const direction = distance >= 0 ? 1 : -1
+      const offsetX = direction * (132 * near + 28 * far)
+      const offsetY = direction * (150 * near + 36 * far)
+      const scale = 1 - .12 * near - .035 * far
+      const tilt = clamp(distance * 3.2, -4, 4)
       const content = narrativeContent[index]
       const visual = narrativeVisuals[index]
-      if (!content || !visual) return
-      content.style.opacity = String(opacity)
-      content.style.translate = `${-depth}px 0`
-      visual.style.opacity = String(opacity)
-      visual.style.translate = `${depth}px 0`
-      panel.classList.toggle('is-current', Math.abs(distance) < .5)
+      const image = narrativeImages[index]
+
+      panel.style.transform = `translate3d(${offsetX}px, ${offsetY}px, 0) scale(${scale}) rotateX(${tilt}deg)`
+      panel.style.opacity = String(1 - .48 * near - .12 * far)
+      panel.style.zIndex = String(100 - Math.round(depth * 10))
+      panel.classList.toggle('is-current', index === activeIndex)
+      if (panel.getAttribute('aria-hidden') !== String(index !== activeIndex)) {
+        panel.setAttribute('aria-hidden', String(index !== activeIndex))
+      }
+
+      if (content) {
+        content.style.opacity = String(1 - near)
+        content.style.translate = `0 ${clamp(distance * 36, -36, 36)}px`
+      }
+      if (visual && image) {
+        visual.style.opacity = String(1 - .4 * near)
+        image.style.transform = `translate3d(${clamp(distance, -1, 1) * 16}px, ${clamp(distance, -1, 1) * 24}px, 0) rotateZ(${clamp(distance * 3.5, -4, 4)}deg) scale(${1 - .055 * near})`
+      }
     })
-    narrativeProgressFill?.parentElement?.style.setProperty('--story-progress', String(progress))
+
+    if (narrativeProgressFill) narrativeProgressFill.style.transform = `scaleX(${progress})`
   }
+
   const scheduleNarrative = () => {
     if (!narrativeFrame) narrativeFrame = window.requestAnimationFrame(updateNarrative)
   }
+
+  const syncNarrativeMode = () => {
+    narrativeEnabled = desktopViewport.matches && !narrativeMotion.matches
+    if (narrativeEnabled) measureNarrative()
+    else clearNarrativeStyles()
+  }
+
   window.addEventListener('scroll', scheduleNarrative, { passive: true })
-  window.addEventListener('resize', scheduleNarrative)
-  updateNarrative()
+  window.addEventListener('resize', measureNarrative, { passive: true })
+  window.addEventListener('load', measureNarrative, { once: true })
+  desktopViewport.addEventListener('change', syncNarrativeMode)
+  narrativeMotion.addEventListener('change', syncNarrativeMode)
+  document.fonts?.ready.then(measureNarrative)
+  measureNarrative()
 }
 
 const story = document.querySelector('.screen-story')
