@@ -617,11 +617,15 @@ function panel({ opener, panelEl, flag, closeBtn }) {
    and force the saved filename to ASCEND.apk; the static link already works without JS. */
 ;(() => {
   const isLocal = location.hostname === 'localhost' || location.hostname === '127.0.0.1' || location.hostname === '[::1]'
-  if (!isLocal) return
   const btn = document.querySelector('.dl-row .btn[href*="ASCEND-1.4.3.apk"]')
   if (!btn) return
-  btn.href = '/ASCEND-1.4.3.apk'
-  btn.setAttribute('download', 'ASCEND.apk')
+  if (isLocal) {
+    btn.href = '/ASCEND-1.4.3.apk'
+    btn.setAttribute('download', 'ASCEND.apk')
+  } else {
+    btn.href = 'https://github.com/jrsmDev/ASCEND/releases'
+    btn.removeAttribute('download')
+  }
 })()
 
 /* ------------------------------------------------------- the ascent trace
