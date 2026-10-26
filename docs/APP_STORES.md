@@ -1,12 +1,14 @@
-# openGym in Google Play and the App Store
+# Publishing openGym to Google Play and the App Store
 
-openGym ships to phones three ways, all from the same code and the same version number:
+Neither store release is live yet. This is the build-and-publish runbook for when they are.
+
+openGym can reach phones three ways, all from the same code and the same version number:
 
 | | Where | Who installs updates | Built where |
 |---|---|---|---|
 | Android APK | GitHub release, opengym.ch | the app itself (Settings → About) | release machine |
-| Android, Google Play | Play Store | Google Play | release machine |
-| iPhone (+ Apple Watch) | App Store, TestFlight beta | the App Store | Mac runner (compile) + release machine (finish, sign, upload) |
+| Android, Google Play (not live) | Play Store | Google Play | release machine |
+| iPhone + Apple Watch (not live) | App Store, TestFlight beta | the App Store | Mac runner (compile) + release machine (finish, sign, upload) |
 
 The two Android builds are flavours of one Gradle project (`frontend/android/app/build.gradle`):
 `sideload` keeps the updater (InstallPlugin, `REQUEST_INSTALL_PACKAGES`), `play` leaves both out,

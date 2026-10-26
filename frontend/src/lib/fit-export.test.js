@@ -72,7 +72,7 @@ describe('the FIT CRC', () => {
     expect(fitCrc(new TextEncoder().encode('123456789'))).toBe(0xBB3D)
     expect(fitCrc(new Uint8Array(0))).toBe(0)
     // It can be fed in pieces.
-    const bytes = new TextEncoder().encode('openGym .fit')
+    const bytes = new TextEncoder().encode('ASCEND .fit')
     expect(fitCrc(bytes.subarray(5), fitCrc(bytes.subarray(0, 5)))).toBe(fitCrc(bytes))
   })
 })
@@ -90,7 +90,7 @@ describe('FIT time', () => {
 describe('encodeFit', () => {
   const file = encodeFit([
     { global: MSG.fileId, fields: [[0, 'enum', 4], [1, 'uint16', 255], [3, 'uint32z', 1234], [4, 'uint32', 1000]] },
-    { global: MSG.deviceInfo, fields: [[0, 'uint8', 0], [27, 'string', 'openGym', 16]] },
+    { global: MSG.deviceInfo, fields: [[0, 'uint8', 0], [27, 'string', 'ASCEND', 16]] },
   ])
   const d = decode(file)
 
@@ -108,7 +108,7 @@ describe('encodeFit', () => {
     expect(d.definitions.map(x => x.global)).toEqual([MSG.fileId, MSG.deviceInfo])
     expect(d.messages).toEqual([
       { global: MSG.fileId, local: 0, f: { 0: 4, 1: 255, 3: 1234, 4: 1000 } },
-      { global: MSG.deviceInfo, local: 1, f: { 0: 0, 27: 'openGym' } },
+      { global: MSG.deviceInfo, local: 1, f: { 0: 0, 27: 'ASCEND' } },
     ])
   })
 
@@ -171,7 +171,7 @@ describe('a strength workout as FIT', () => {
   const sets = of(d, MSG.set)
   const active = sets.filter(s => s[5] === 1)
 
-  it('is a valid activity file from openGym', () => {
+  it('is a valid activity file from ASCEND', () => {
     expect(fitCrc(workoutFit(strength))).toBe(0)
     const [id] = of(d, MSG.fileId)
     expect(id[0]).toBe(4)                         // activity
@@ -179,7 +179,7 @@ describe('a strength workout as FIT', () => {
     expect(id[3]).toBeGreaterThan(0)              // serial, stable per workout
     expect(id[4]).toBe(fitTime(T0))
     expect(of(d, MSG.fileCreator)[0][0]).toBe(104)
-    expect(of(d, MSG.deviceInfo)[0][27]).toBe('openGym')
+    expect(of(d, MSG.deviceInfo)[0][27]).toBe('ASCEND')
     expect(decode(workoutFit(strength)).messages.find(m => m.global === MSG.fileId).f[3]).toBe(id[3])
   })
 

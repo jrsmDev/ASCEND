@@ -83,7 +83,7 @@ export function connectionView(sync, { mobile = MOBILE, online = isOnline() } = 
       }
     case 'error':
       return err.code === 'bad-response'
-        ? { tone: 'bad', icon: 'warning', action: 'retry', line: t('Not an openGym answer (HTTP {0})', err.status), banner: t('Your server’s address answered with something other than openGym (HTTP {0}). Your changes are kept here.', err.status) }
+        ? { tone: 'bad', icon: 'warning', action: 'retry', line: t('Not an ASCEND answer (HTTP {0})', err.status), banner: t('Your server’s address answered with something other than ASCEND (HTTP {0}). Your changes are kept here.', err.status) }
         : { tone: 'bad', icon: 'warning', action: 'retry', line: t('Server error (HTTP {0})', err.status), banner: t('Your server answered with an error (HTTP {0}). Your changes are kept here.', err.status) }
     case 'auth':
       if (!mobile) return { tone: 'bad', icon: 'lock', action: 'signin', line: t('The server refuses this browser'), banner: t('Your server no longer accepts this browser. Your changes are kept here.') }

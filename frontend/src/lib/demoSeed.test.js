@@ -1,4 +1,4 @@
-// The demo build is the only openGym most people ever see, so its seeded history has to
+// The demo build is the only ASCEND most people ever see, so its seeded history has to
 // exercise the stats it is there to show off — including the effort card, which renders as
 // dashes on a history that is rated too thinly or not at all.
 import { describe, it, expect, vi, beforeAll, afterAll } from 'vitest'
@@ -122,7 +122,10 @@ describe('demo seed — the training stream is a fixture', () => {
   let D = null
 
   beforeAll(() => {
-    vi.useFakeTimers({ now: new Date(TODAY + 'T12:00:00Z'), toFake: ['Date'] })
+    // Local noon, not UTC noon: the seed skips today's session before 18:00 local, and the
+    // fixture is about the newest completed session (Friday), not about which time zone the
+    // suite happens to run in.
+    vi.useFakeTimers({ now: new Date(TODAY + 'T12:00:00'), toFake: ['Date'] })
     D = buildDemoState()
   })
   afterAll(() => vi.useRealTimers())

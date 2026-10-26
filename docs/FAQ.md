@@ -5,7 +5,7 @@ Short answers, with a link to the long one.
 ### What does it cost?
 
 Nothing. openGym is open source under the AGPL: no subscription, no paid tier, no ads. If you'd like
-to support it anyway, there's [Buy Me a Coffee](https://buymeacoffee.com/duartesantos).
+to support it anyway, there's a [Ko-fi page](https://ko-fi.com/opengym).
 
 ### Do I need my own server?
 

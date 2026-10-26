@@ -33,7 +33,7 @@ function mount(settings) {
   document.body.appendChild(host)
   root = createRoot(host)
   act(() => root.render(<Stats />))
-  return mocks.charts.find(c => c.color === 'var(--blue)')
+  return mocks.charts.find(c => c.color === 'var(--chart-blue)')
 }
 
 describe('Stats — cardio speed', () => {

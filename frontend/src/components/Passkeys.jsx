@@ -168,7 +168,7 @@ function RemovePasskeySheet({ passkey, title, state, close, done }) {
    because each prompt wants a tap of its own (Safari refuses a second prompt opened from the same
    one), and a password, where that is the proof, is typed before either. What it is for: a
    security key, a password manager, a phone through the browser's own QR prompt. Another device
-   that can open openGym itself is easier with a code (DeviceLinkSheet). */
+   that can open ASCEND itself is easier with a code (DeviceLinkSheet). */
 function AddPasskeySheet({ state, close, done }) {
   // Blank to start with: what gets added here is rarely this browser (a key, a phone, a manager).
   const [name, setName] = useState('')
@@ -238,7 +238,7 @@ export function DeviceLinkSheet({ close }) {
       <Button variant="primary" onClick={() => setLink(null)}>{t('Make a new code')}</Button>
     </> : <>
       <div className="muted small" style={{ marginBottom: 14 }}>
-        {t('Scan this with the other device, or open openGym there and enter the code on the sign-in screen. It works once, for {0} minutes.', LINK_MINUTES)}
+        {t('Scan this with the other device, or open ASCEND there and enter the code on the sign-in screen. It works once, for {0} minutes.', LINK_MINUTES)}
       </div>
       <div className="ci-qr-plate" style={{ width: 'fit-content', margin: '0 auto 14px' }}><QrCanvas value={url} size={200} /></div>
       {/* Read out or typed character by character: left to right in every language. */}

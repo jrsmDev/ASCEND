@@ -207,7 +207,7 @@ export default function Measurements() {
       </div>}
       <Segmented className="seg-range" value={range} onChange={setRange}
         options={[{ value: 30, label: '1M' }, { value: 90, label: '3M' }, { value: 365, label: '1Y' }, { value: 0, label: t('All') }]} />
-      <div className="chart"><LineChart points={points} h={170} unit={unit} color="var(--teal)" /></div>
+      <div className="chart"><LineChart points={points} h={170} unit={unit} color="var(--chart-teal)" /></div>
     </div>
 
     {!available.length && <div className="card">

@@ -40,7 +40,7 @@ function mount(workouts) {
   act(() => root.render(<Stats />))
 }
 // The exercise card's chart is the last one drawn; the body weight chart has no colour of its own.
-const exChart = () => mocks.charts.filter(c => c.color === 'var(--blue)' || c.series).at(-1)
+const exChart = () => mocks.charts.filter(c => c.color === 'var(--chart-blue)' || c.series).at(-1)
 const exCard = () => [...host.querySelectorAll('.card')].find(c => c.querySelector('h2')?.textContent === 'Exercise progress')
 const press = (scope, label) => act(() => [...scope.querySelectorAll('.seg button')].find(b => b.textContent === label).click())
 

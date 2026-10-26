@@ -3,22 +3,21 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width,initial-scale=1,viewport-fit=cover">
-<title>Docs — openGym</title>
-<meta name="description" content="The complete openGym reference: every feature, installing on Android and iPhone, self-hosting with Docker, every .env setting, the AI Coach, importing from FitNotes/Strong/Hevy, backups, the MCP server, and how it's built.">
+<title>Docs — ASCEND</title>
+<meta name="description" content="The complete ASCEND reference: every feature, installing on Android, using the web app on iPhone, self-hosting with Docker, every .env setting, the AI Coach, importing from FitNotes, Strong or Hevy, backups, the MCP server, and how it is built.">
 <meta name="theme-color" content="#000000">
 <meta name="robots" content="index,follow,max-image-preview:large">
-<link rel="preconnect" href="https://stats.duarte-santos.ch">
-<meta property="og:title" content="openGym Docs — the complete reference">
-<meta property="og:description" content="The complete openGym reference: every feature, self-hosting with Docker, every setting, the AI Coach, imports, backups, MCP, troubleshooting.">
+<meta property="og:title" content="ASCEND Docs — the complete reference">
+<meta property="og:description" content="The complete ASCEND reference: every feature, self-hosting with Docker, every setting, the AI Coach, imports, backups, MCP, troubleshooting.">
 <meta property="og:image" content="https://opengym.ch/img/social.jpg">
 <meta property="og:image:width" content="1200">
 <meta property="og:image:height" content="630">
-<meta property="og:image:alt" content="openGym: your training, your data, your server. Two phones showing the home and workout screens.">
+<meta property="og:image:alt" content="ASCEND: your training, your data, your server. Two phones showing the home and workout screens.">
 <meta property="og:url" content="https://opengym.ch/docs.html">
 <meta property="og:type" content="website">
-<meta property="og:site_name" content="openGym">
+<meta property="og:site_name" content="ASCEND">
 <meta name="twitter:card" content="summary_large_image">
-<meta name="twitter:title" content="openGym Docs: the complete reference">
+<meta name="twitter:title" content="ASCEND Docs: the complete reference">
 <meta name="twitter:image" content="https://opengym.ch/img/social.jpg">
 <link rel="canonical" href="https://opengym.ch/docs.html">
 <link rel="icon" href="/favicon.ico" sizes="48x48">
@@ -26,38 +25,38 @@
 <link rel="icon" type="image/png" sizes="192x192" href="/icon-192.png">
 <link rel="icon" type="image/png" sizes="512x512" href="/icon-512.png">
 <link rel="apple-touch-icon" href="icon-180.png">
-<link rel="stylesheet" href="styles.css?v=28">
+<link rel="stylesheet" href="styles.css?v=30">
+<link rel="stylesheet" href="ascend.css?v=3">
 <script>document.documentElement.className += ' js'</script>
-<!-- Umami web analytics for opengym.ch (self-hosted, cookieless). -->
-<script defer src="https://stats.duarte-santos.ch/script.js" data-website-id="db36019e-50f4-453c-9c56-d0588aefe233"></script>
 <script type="application/ld+json">
-{"@context": "https://schema.org", "@type": "FAQPage", "mainEntity": [{"@type": "Question", "name": "Is openGym really free?", "acceptedAnswer": {"@type": "Answer", "text": "Yes — free as in cost and as in freedom (AGPL-3.0). No pro tier, no locked features, no ads, and the license keeps every fork open source too."}}, {"@type": "Question", "name": "Is openGym on the App Store and Google Play?", "acceptedAnswer": {"@type": "Answer", "text": "The App Store: yes, since 23 October 2026, for iPhone and Apple Watch (https://apps.apple.com/app/id6822275400). Google Play is next; until then the signed Android APK is a direct download."}}, {"@type": "Question", "name": "Should I pick the mobile app or self-host?", "acceptedAnswer": {"@type": "Answer", "text": "To simply track your training: the mobile app. For data on your own hardware, synced across devices, with profiles for the people you train with: self-host with Docker. The backup file migrates everything between the two, or pair the app to your server."}}, {"@type": "Question", "name": "What's on the openGym roadmap?", "acceptedAnswer": {"@type": "Answer", "text": "A small, themed release roughly every two weeks: a session queue, programmes and phases, AMRAP/%1RM/5-3-1 progression, cardio intervals, then database storage (v1.4.0), better search, OIDC login and a trainer role. The full plan is in ROADMAP.md on GitHub."}}, {"@type": "Question", "name": "Was openGym written with AI?", "acceptedAnswer": {"@type": "Answer", "text": "openGym is developed with Claude Code, Anthropic's coding agent; a large share of the code, tests and docs is drafted that way, and every change is reviewed, tested and released by the maintainer. The app itself calls no AI service unless an admin switches on the optional AI coach."}}, {"@type": "Question", "name": "Where does the exercise database come from?", "acceptedAnswer": {"@type": "Answer", "text": "The exercise text lives in openGym's own catalogue in the repository, open to fixes and translations by pull request; the oldest entries came from ExerciseDB under MIT. The pictures and animations are licensed from Gym visual for use in openGym only and ship with it at 180 px. Reusing them anywhere else needs your own licence from gymvisual.com."}}, {"@type": "Question", "name": "What does the AGPL license mean for me?", "acceptedAnswer": {"@type": "Answer", "text": "You can self-host, use, modify and share openGym freely. Only if you run a modified version as a network service must you offer that version's source under the same license. Using or self-hosting it unmodified obliges you to nothing."}}]}
+{"@context": "https://schema.org", "@type": "FAQPage", "mainEntity": [{"@type": "Question", "name": "Is ASCEND really free?", "acceptedAnswer": {"@type": "Answer", "text": "Yes — free as in cost and as in freedom (AGPL-3.0). No pro tier, no locked features, no ads, and the license keeps every fork open source too."}}, {"@type": "Question", "name": "Is ASCEND on an app store?", "acceptedAnswer": {"@type": "Answer", "text": "Not yet. The signed Android APK is a direct download from this site, and the self-hosted web app works on iPhone through Safari. No App Store or Google Play release is required to use ASCEND."}}, {"@type": "Question", "name": "Should I pick the mobile app or self-host?", "acceptedAnswer": {"@type": "Answer", "text": "To simply track your training: the mobile app. For data on your own hardware, synced across devices, with profiles for the people you train with: self-host with Docker. The backup file migrates everything between the two, or pair the app to your server."}}, {"@type": "Question", "name": "What's on the ASCEND roadmap?", "acceptedAnswer": {"@type": "Answer", "text": "A small, themed release roughly every two weeks: a session queue, programmes and phases, AMRAP/%1RM/5-3-1 progression, cardio intervals, then database storage (v1.4.0), better search, OIDC login and a trainer role. The full plan is in ROADMAP.md on GitHub."}}, {"@type": "Question", "name": "Was ASCEND written with AI?", "acceptedAnswer": {"@type": "Answer", "text": "ASCEND is developed with Claude Code, Anthropic's coding agent; a large share of the code, tests and docs is drafted that way, and every change is reviewed, tested and released by the maintainer. The app itself calls no AI service unless an admin switches on the optional AI coach."}}, {"@type": "Question", "name": "Where does the exercise database come from?", "acceptedAnswer": {"@type": "Answer", "text": "The exercise text lives in ASCEND's own catalogue in the repository, open to fixes and translations by pull request; the oldest entries came from ExerciseDB under MIT. The pictures and animations are licensed from Gym visual for use in ASCEND only and ship with it at 180 px. Reusing them anywhere else needs your own licence from gymvisual.com."}}, {"@type": "Question", "name": "What does the AGPL license mean for me?", "acceptedAnswer": {"@type": "Answer", "text": "You can self-host, use, modify and share ASCEND freely. Only if you run a modified version as a network service must you offer that version's source under the same license. Using or self-hosting it unmodified obliges you to nothing."}}]}
 </script>
 </head>
 <body class="topnav dock">
 <a class="skip" href="#main">Skip to content</a>
 
 <nav><div class="wrap nav-in">
-  <a class="brand" href="/">
-    <img src="icon-180.png" alt="" width="24" height="24">
-    openGym
+  <a class="brand" href="/" aria-label="ASCEND home">
+    <svg class="brand-mark" viewBox="0 0 200 200" aria-hidden="true" focusable="false"><g fill="currentColor"><polygon points="6,194 100,4 112,30 52,194"/><polygon points="137.6,80 194,194 150,194 121.8,137"/><polygon points="100,96 127,164 109,164 100,141 91,164 73,164"/></g></svg>
+    <span class="brand-word">ASCEND</span>
   </a>
   <div class="nav-quick">
     <a class="ql site" href="/#features">Features</a>
-    <a class="ql site" href="/#screens">Screenshots</a>
+    <a class="ql site" href="/#screens">Inside</a>
     <a class="ql site" href="/#demo">Demo</a>
     <a class="ql site" href="/docs.html">Docs</a>
     <a class="ql site" href="/api.html">API</a>
     <a class="ql site" href="/about.html">About</a>
-    <a class="ql" href="https://github.com/DuarteSantos8/openGym" rel="noopener">GitHub <span data-gh="stars"></span></a>
-    <a class="ql" href="https://discord.gg/e62jY6fwVb" rel="noopener">Discord <span data-dc="members"></span></a>
-    <a class="ql coffee" href="https://buymeacoffee.com/duartesantos" rel="noopener" aria-label="Buy me a coffee"><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M20.216 6.415l-.132-.666c-.119-.598-.388-1.163-1.001-1.379-.197-.069-.42-.098-.57-.241-.152-.143-.196-.366-.231-.572-.065-.378-.125-.756-.192-1.133-.057-.325-.102-.69-.25-.987-.195-.4-.597-.634-.996-.788a5.723 5.723 0 00-.626-.194c-1-.263-2.05-.36-3.077-.416a25.834 25.834 0 00-3.7.062c-.915.083-1.88.184-2.75.5-.318.116-.646.256-.888.501-.297.302-.393.77-.177 1.146.154.267.415.456.692.58.36.162.737.284 1.123.366 1.075.238 2.189.331 3.287.37 1.218.05 2.437.01 3.65-.118.299-.033.598-.073.896-.119.352-.054.578-.513.474-.834-.124-.383-.457-.531-.834-.473-.466.074-.96.108-1.382.146-1.177.08-2.358.082-3.536.006a22.228 22.228 0 01-1.157-.107c-.086-.01-.18-.025-.258-.036-.243-.036-.484-.08-.724-.13-.111-.027-.111-.185 0-.212h.005c.277-.06.557-.108.838-.147h.002c.131-.009.263-.032.394-.048a25.076 25.076 0 013.426-.12c.674.019 1.347.067 2.017.144l.228.031c.267.04.533.088.798.145.392.085.895.113 1.07.542.055.137.08.288.111.431l.319 1.484a.237.237 0 01-.199.284h-.003c-.037.006-.075.01-.112.015a36.704 36.704 0 01-4.743.295 37.059 37.059 0 01-4.699-.304c-.14-.017-.293-.042-.417-.06-.326-.048-.649-.108-.973-.161-.393-.065-.768-.032-1.123.161-.29.16-.527.404-.675.701-.154.316-.199.66-.267 1-.069.34-.176.707-.135 1.056.087.753.613 1.365 1.37 1.502a39.69 39.69 0 0011.343.376.483.483 0 01.535.53l-.071.697-1.018 9.907c-.041.41-.047.832-.125 1.237-.122.637-.553 1.028-1.182 1.171-.577.131-1.165.2-1.756.205-.656.004-1.31-.025-1.966-.022-.699.004-1.556-.06-2.095-.58-.475-.458-.54-1.174-.605-1.793l-.731-7.013-.322-3.094c-.037-.351-.286-.695-.678-.678-.336.015-.718.3-.678.679l.228 2.185.949 9.112c.147 1.344 1.174 2.068 2.446 2.272.742.12 1.503.144 2.257.156.966.016 1.942.053 2.892-.122 1.408-.258 2.465-1.198 2.616-2.657.34-3.332.683-6.663 1.024-9.995l.215-2.087a.484.484 0 01.39-.426c.402-.078.787-.212 1.074-.518.455-.488.546-1.124.385-1.766zm-1.478.772c-.145.137-.363.201-.578.233-2.416.359-4.866.54-7.308.46-1.748-.06-3.477-.254-5.207-.498-.17-.024-.353-.055-.47-.18-.22-.236-.111-.71-.054-.995.052-.26.152-.609.463-.646.484-.057 1.046.148 1.526.22.577.088 1.156.159 1.737.212 2.48.226 5.002.19 7.472-.14.45-.06.899-.13 1.345-.21.399-.072.84-.206 1.08.206.166.281.188.657.162.974a.544.544 0 01-.169.364zm-6.159 3.9c-.862.37-1.84.788-3.109.788a5.884 5.884 0 01-1.569-.217l.877 9.004c.065.78.717 1.38 1.5 1.38 0 0 1.243.065 1.658.065.447 0 1.786-.065 1.786-.065.783 0 1.434-.6 1.499-1.38l.94-9.95a3.996 3.996 0 00-1.322-.238c-.826 0-1.491.284-2.26.613z"/></svg><span>Buy me a coffee!</span></a>
+    <a class="ql" href="https://github.com/DuarteSantos8/openGym" rel="noopener">GitHub <span data-gh="stars">15,891</span></a>
+    <a class="ql" href="https://discord.gg/e62jY6fwVb" rel="noopener">Discord <span data-dc="members">1,877</span></a>
+    
     <a class="cta" href="/#download">Download</a>
   </div>
   <button class="nav-toggle" id="navtoggle" aria-expanded="false" aria-controls="sitemenu" aria-label="Menu">
     <span></span><span></span>
   </button>
 </div></nav>
+<div class="read-progress" id="readprogress" aria-hidden="true"></div>
 
 <!-- The navigation sheet: the header's links again, for the widths where the bar has
      room only for the brand and the download. Byte-identical on every page, like the
@@ -65,14 +64,14 @@
 <div class="navsheet" id="sitemenu" role="navigation" aria-label="Site" aria-hidden="true">
   <div class="nl-rows">
     <a class="nl" href="/#features">Features</a>
-    <a class="nl" href="/#screens">Screenshots</a>
+    <a class="nl" href="/#screens">Inside ASCEND</a>
     <a class="nl" href="/#demo">Demo</a>
     <a class="nl" href="/docs.html">Docs</a>
     <a class="nl" href="/api.html">API</a>
     <a class="nl" href="/about.html">About</a>
-    <a class="nl" href="https://github.com/DuarteSantos8/openGym" rel="noopener">GitHub <span data-gh="stars"></span></a>
-    <a class="nl" href="https://discord.gg/e62jY6fwVb" rel="noopener">Discord <span data-dc="members"></span></a>
-    <a class="nl coffee" href="https://buymeacoffee.com/duartesantos" rel="noopener">Buy me a coffee! <svg viewBox="0 0 24 24" aria-hidden="true"><path d="M20.216 6.415l-.132-.666c-.119-.598-.388-1.163-1.001-1.379-.197-.069-.42-.098-.57-.241-.152-.143-.196-.366-.231-.572-.065-.378-.125-.756-.192-1.133-.057-.325-.102-.69-.25-.987-.195-.4-.597-.634-.996-.788a5.723 5.723 0 00-.626-.194c-1-.263-2.05-.36-3.077-.416a25.834 25.834 0 00-3.7.062c-.915.083-1.88.184-2.75.5-.318.116-.646.256-.888.501-.297.302-.393.77-.177 1.146.154.267.415.456.692.58.36.162.737.284 1.123.366 1.075.238 2.189.331 3.287.37 1.218.05 2.437.01 3.65-.118.299-.033.598-.073.896-.119.352-.054.578-.513.474-.834-.124-.383-.457-.531-.834-.473-.466.074-.96.108-1.382.146-1.177.08-2.358.082-3.536.006a22.228 22.228 0 01-1.157-.107c-.086-.01-.18-.025-.258-.036-.243-.036-.484-.08-.724-.13-.111-.027-.111-.185 0-.212h.005c.277-.06.557-.108.838-.147h.002c.131-.009.263-.032.394-.048a25.076 25.076 0 013.426-.12c.674.019 1.347.067 2.017.144l.228.031c.267.04.533.088.798.145.392.085.895.113 1.07.542.055.137.08.288.111.431l.319 1.484a.237.237 0 01-.199.284h-.003c-.037.006-.075.01-.112.015a36.704 36.704 0 01-4.743.295 37.059 37.059 0 01-4.699-.304c-.14-.017-.293-.042-.417-.06-.326-.048-.649-.108-.973-.161-.393-.065-.768-.032-1.123.161-.29.16-.527.404-.675.701-.154.316-.199.66-.267 1-.069.34-.176.707-.135 1.056.087.753.613 1.365 1.37 1.502a39.69 39.69 0 0011.343.376.483.483 0 01.535.53l-.071.697-1.018 9.907c-.041.41-.047.832-.125 1.237-.122.637-.553 1.028-1.182 1.171-.577.131-1.165.2-1.756.205-.656.004-1.31-.025-1.966-.022-.699.004-1.556-.06-2.095-.58-.475-.458-.54-1.174-.605-1.793l-.731-7.013-.322-3.094c-.037-.351-.286-.695-.678-.678-.336.015-.718.3-.678.679l.228 2.185.949 9.112c.147 1.344 1.174 2.068 2.446 2.272.742.12 1.503.144 2.257.156.966.016 1.942.053 2.892-.122 1.408-.258 2.465-1.198 2.616-2.657.34-3.332.683-6.663 1.024-9.995l.215-2.087a.484.484 0 01.39-.426c.402-.078.787-.212 1.074-.518.455-.488.546-1.124.385-1.766zm-1.478.772c-.145.137-.363.201-.578.233-2.416.359-4.866.54-7.308.46-1.748-.06-3.477-.254-5.207-.498-.17-.024-.353-.055-.47-.18-.22-.236-.111-.71-.054-.995.052-.26.152-.609.463-.646.484-.057 1.046.148 1.526.22.577.088 1.156.159 1.737.212 2.48.226 5.002.19 7.472-.14.45-.06.899-.13 1.345-.21.399-.072.84-.206 1.08.206.166.281.188.657.162.974a.544.544 0 01-.169.364zm-6.159 3.9c-.862.37-1.84.788-3.109.788a5.884 5.884 0 01-1.569-.217l.877 9.004c.065.78.717 1.38 1.5 1.38 0 0 1.243.065 1.658.065.447 0 1.786-.065 1.786-.065.783 0 1.434-.6 1.499-1.38l.94-9.95a3.996 3.996 0 00-1.322-.238c-.826 0-1.491.284-2.26.613z"/></svg></a>
+    <a class="nl" href="https://github.com/DuarteSantos8/openGym" rel="noopener">GitHub <span data-gh="stars">15,891</span></a>
+    <a class="nl" href="https://discord.gg/e62jY6fwVb" rel="noopener">Discord <span data-dc="members">1,877</span></a>
+    
   </div>
 </div>
 
@@ -92,13 +91,13 @@
   </div>
   <p class="side-label">Documentation</p>
   <div class="side-group">
-    <a class="side-link" href="#flavors"><b>Which openGym?</b></a>
+    <a class="side-link" href="#flavors"><b>Which ASCEND?</b></a>
   </div>
   <div class="side-group">
     <a class="side-link" href="#android"><b>Install on Android</b></a>
   </div>
   <div class="side-group">
-    <a class="side-link" href="#iphone"><b>Use on iPhone</b></a>
+    <a class="side-link" href="#iphone"><b>Use on iPhone / web</b></a>
   </div>
   <div class="side-group">
     <a class="side-link" href="#features"><b>Feature guide</b></a>
@@ -186,13 +185,13 @@
 <main id="main" class="wrap prose">
   <h1>Docs</h1>
   <p class="lead">The complete reference — every feature, every setting, every way to run
-     openGym. The same documents live
+     ASCEND. The same documents live
      <a href="https://github.com/DuarteSantos8/openGym/blob/main/docs/README.md" rel="noopener">in the repository</a>,
      next to the code they describe.</p>
 
   <div class="toc">
     <a href="#android">Android</a>
-    <a href="#iphone">iPhone</a>
+    <a href="#iphone">iPhone / web</a>
     <a href="#selfhost">Self-hosting</a>
     <a href="#mcp">Ask an AI</a>
     <a href="#coach">AI Coach</a>
@@ -201,11 +200,11 @@
     <a href="#build">Build it yourself</a>
     <a href="#faq">FAQ</a>
   </div>
-  <h2 id="flavors">Which openGym? The three flavors</h2>
+  <h2 id="flavors">Which ASCEND? The three flavors</h2>
   <p>One codebase, three ways to run it. Everything below applies to all of them unless a
      section says otherwise.</p>
   <table class="cfg">
-    <tr><td><b>Mobile app</b></td><td>The <a href="https://apps.apple.com/app/id6822275400" rel="noopener">App Store app</a> for iPhone and Apple Watch, and a signed Android APK. No account, no server, no sync — the phone <i>is</i> the account, data lives in the app's private storage, workout-day reminders are native notifications. Install-and-done.</td></tr>
+    <tr><td><b>Mobile app</b></td><td>A signed Android APK, downloaded directly from this site. No account, no server, no sync — the phone <i>is</i> the account, data lives in the app's private storage, workout-day reminders are native notifications. Install-and-done.</td></tr>
     <tr><td><b>Self-hosted</b></td><td>Two Docker containers on your own machine. Adds passkey profiles, sync across devices, installable as a home-screen PWA, optional admin dashboard, web push notifications. The flavor for households and training groups.</td></tr>
     <tr><td><b>Demo</b></td><td><a href="/demo/">The in-browser demo</a> — the real app seeded with example data, storing everything in your browser only. Useful to try before installing, and as a free plan editor (see <a href="#import">Import</a>).</td></tr>
   </table>
@@ -214,27 +213,27 @@
      <a href="#mobile-server">connect directly to your server</a>.</p>
 
   <h2 id="android">Install on Android</h2>
-  <p>There are three APKs, and they are the same app; only the exercise animations built in
-     differ. <b>Standard</b> has them at 180 px and stays small, <b>Plus</b> at 240 px,
-     <b>HD</b> at 360 px: sharper on big screens, heavier on your storage. Not sure? Take
-     Standard. Changed your mind later? Install another one on top: same signing key, your data
-     stays.</p>
+  <p>The direct download here is the signed <b>Standard</b> APK: the 180 px animation pack,
+     light and quick on most phones. The larger <b>Plus</b> and <b>HD</b> packs are the same app
+     with sharper animations; they live on the GitHub release with their checksums. Not sure?
+     Take Standard. Changed your mind later? Install another one on top: same signing key, your
+     data stays.</p>
   <ol>
-    <li>Open <a href="/#download">the download</a> on your phone and tap <b>Standard</b>
-        (or <b>Plus</b> or <b>HD</b>).</li>
+    <li>Open <a href="/#download">the download</a> on your phone and tap
+        <b>Download ASCEND</b>.</li>
     <li>Your browser will ask whether it may install apps. Allow it: that is how any app
-        from outside the Play Store gets installed (<i>sideloading</i>), and you can take the
+        from outside an app store gets installed (<i>sideloading</i>), and you can take the
         permission back right after.</li>
-    <li>Open the downloaded <code>openGym-&lt;version&gt;.apk</code>, confirm, done. No account, no setup.</li>
+    <li>Open the downloaded <code>ASCEND.apk</code>, confirm, done. No account, no setup.</li>
   </ol>
-  <div class="note">A Google Play version is on its way. Until then the APK is the way in: it is
-    signed, updates install over the old version and keep your data.</div>
+  <div class="note">There is no App Store or Google Play release yet. The signed APK is the way
+    in: updates install over the old version and keep your data.</div>
   <p>Every release puts all three APKs on the
      <a href="https://github.com/DuarteSantos8/openGym/releases" rel="noopener">GitHub release</a>
      for that version, each with a <code>.sha256</code> checksum beside it. Got the file from
      anywhere else? Check it against that checksum before installing.</p>
   <p><b>Updates come to you:</b> when a newer release exists, Settings &rarr; About &amp; updates
-     shows "openGym vX available". One tap downloads the signed APK, checks its SHA-256 against
+     shows "ASCEND vX available". One tap downloads the signed APK, checks its SHA-256 against
      the published checksum and opens the installer (no checksum, no install; the first time
      Android asks for the "install unknown apps" permission). Each APK updates to its own kind
      (Standard to Standard, Plus to Plus, HD to HD), so nobody gets surprised by a download twice
@@ -247,18 +246,13 @@
      Reminders are scheduled per calendar date — a day you already trained, or rescheduled
      away, stays quiet. The missed-workout nudge, when switched on, is scheduled the same way.</p>
 
-  <h2 id="iphone">Use on iPhone</h2>
-  <p><b>openGym is in the App Store</b>, for iPhone and Apple Watch, in every App Store country:
-     <a href="https://apps.apple.com/app/id6822275400" rel="noopener">get it here</a>. It works on the
-     phone alone, or <a href="#mobile-server">paired with your own server</a>. Other ways:</p>
+  <h2 id="iphone">Use on iPhone / web</h2>
+  <p>There is no App Store release yet. ASCEND is a web app first, so iPhone users can run it
+     today from a server they control, then add it to the home screen from Safari.</p>
   <ul>
-    <li><b>Self-host + home screen:</b> open your own openGym instance in
+    <li><b>Self-host + home screen:</b> open your own ASCEND instance in
         Safari → <b>Share</b> → <b>Add to Home Screen</b>. You get a full-screen app with its
         own icon, passkey sign-in and sync — no expiry, no fees.</li>
-    <li><b>Build it onto your own iPhone:</b> with a Mac and Xcode 15+, the native Capacitor
-        app runs on your device with a free Apple ID (Apple expires the signature after
-        7 days; re-run from Xcode to renew — <b>AltStore</b> can automate that re-signing over
-        Wi-Fi). See <a href="https://github.com/DuarteSantos8/openGym/blob/main/docs/MOBILE.md" rel="noopener">docs/MOBILE.md</a>.</li>
     <li><b>Just looking?</b> Try the <a href="/demo/">in-browser demo</a> — the real app with
         example data, no account and nothing to install.</li>
   </ul>
@@ -490,13 +484,13 @@ curl http://localhost:8080/api/health      # {"ok":true,...}</code></pre>
      <code>docker compose up -d --build</code> — no Node needed locally either way.</p>
 
   <h3 id="sh-passkey">The passkey rule (read this before opening a port)</h3>
-  <p>openGym signs you in with <b>passkeys</b> (WebAuthn — Face ID, fingerprint, or your
+  <p>ASCEND signs you in with <b>passkeys</b> (WebAuthn — Face ID, fingerprint, or your
      password manager). Browsers enforce two rules: a passkey is bound to an exact
      <b>hostname</b>, and it only works over <b>HTTPS</b> — with one exception,
      <code>http://localhost</code>.</p>
   <p>So <code>http://localhost:8080</code> works on the Docker machine, but your phone
      <b>cannot</b> use <code>http://192.168.x.x:8080</code> — that's neither localhost nor
-     HTTPS, and the passkey prompt won't appear. To use openGym from your phone you need a
+     HTTPS, and the passkey prompt won't appear. To use ASCEND from your phone you need a
      real HTTPS hostname (below). Until then, LAN devices can still use <b>guest mode</b>
      (data stays in that browser) or the <a href="#mobile-server">mobile app's pairing
      mode</a>.</p>
@@ -560,7 +554,7 @@ docker compose up -d   # restart alone does NOT re-read .env</code></pre>
      changes go up when the connection is back.</p>
 
   <h3 id="sh-stack">Fitting it into an existing stack</h3>
-  <p>The defaults assume openGym is alone: a service called <code>api</code> on port 3000,
+  <p>The defaults assume ASCEND is alone: a service called <code>api</code> on port 3000,
      nginx on 80 inside the web container. Merging into a compose file that already has an
      <code>api</code>, or fronting it with your own proxy on another port, is four
      <code>.env</code> settings — <code>WEB_PORT</code>, <code>NGINX_PORT</code>,
@@ -586,7 +580,7 @@ docker compose up -d</code></pre>
   <table class="cfg">
     <tr><td><code>RP_ID</code></td><td>Hostname passkeys are bound to. A <b>bare hostname</b>: no scheme, no port, no slash. Default <code>localhost</code>.</td></tr>
     <tr><td><code>ORIGIN</code></td><td>Full URL the app is served from — <i>with</i> scheme, <i>without</i> trailing slash. Must match the address bar exactly. Default <code>http://localhost:8080</code>.</td></tr>
-    <tr><td><code>RP_NAME</code></td><td>Name shown in the passkey prompt. Default <code>openGym</code>.</td></tr>
+    <tr><td><code>RP_NAME</code></td><td>Name shown in the passkey prompt. Default <code>ASCEND</code>.</td></tr>
     <tr><td><code>WEB_PORT</code></td><td>Host port for the web UI. Default <code>8080</code>.</td></tr>
     <tr><td><code>NGINX_PORT</code></td><td>Port the web container listens on, inside the container. Default <code>80</code>.</td></tr>
     <tr><td><code>BACKEND</code></td><td>Name of the API service <code>/api</code> is proxied to — change it if yours isn't called <code>api</code>.</td></tr>
@@ -602,7 +596,7 @@ docker compose up -d</code></pre>
     <tr><td><code>PASSWORD_LOGIN</code></td><td>Set <code>1</code> to offer <a href="#admin-signin">name-and-password sign-in</a> next to passkeys. Default: off.</td></tr>
     <tr><td><code>TRUST_PROXY</code></td><td>Let the sign-in throttle read the visitor's address from proxy headers. <code>1</code> in <code>docker-compose.yml</code>, where the web container is the only way to the API; leave it off if you run the API without it.</td></tr>
     <tr><td><code>DEFAULT_LANG</code></td><td>Language of the sign-in screen and of new profiles, e.g. <code>de</code> or <code>pt-BR</code>. Default: the visitor's browser language.</td></tr>
-    <tr><td><code>BASE_PATH</code></td><td>Serve openGym under a subpath such as <code>/gym</code>, no trailing slash. Default: the site root.</td></tr>
+    <tr><td><code>BASE_PATH</code></td><td>Serve ASCEND under a subpath such as <code>/gym</code>, no trailing slash. Default: the site root.</td></tr>
     <tr><td><code>MEDIA_UPLOADS</code></td><td>Set <code>0</code> to turn off photo and video uploads (custom-exercise pictures, workout photos); the link field stays. Default: on.</td></tr>
     <tr><td><code>MEDIA_QUOTA_MB</code></td><td>Upload space per profile in MB; <code>0</code> for no cap. Default <code>200</code>. Lower it on an instance with open signup.</td></tr>
     <tr><td><code>MEDIA_MIN_FREE_MB</code></td><td>Uploads are refused while the disk under <code>./data</code> has less free space than this. Default <code>512</code>. Size limits per file type are in <a href="https://github.com/DuarteSantos8/openGym/blob/main/docs/SELF_HOSTING.md#photos-and-videos-of-custom-exercises" rel="noopener">SELF_HOSTING.md</a>.</td></tr>
@@ -673,7 +667,7 @@ ALLOW_GUEST=0              # remove "Continue without account"</code></pre>
      paired apps too. Use an <code>https://</code> address: the phone blocks a plain
      <code>http://</code> server before anything is sent. Pairing fails while the browser works?
      A reverse proxy or a login page in front of <code>/api/</code> is answering instead of
-     openGym; see <a href="https://github.com/DuarteSantos8/openGym/blob/main/docs/SELF_HOSTING.md#phone-app-and-cors" rel="noopener">Phone app and CORS</a>. A connected app keeps working without a network on the
+     ASCEND; see <a href="https://github.com/DuarteSantos8/openGym/blob/main/docs/SELF_HOSTING.md#phone-app-and-cors" rel="noopener">Phone app and CORS</a>. A connected app keeps working without a network on the
      last copy it synced — it shows an "Offline" line under the header and pushes your changes
      as soon as the connection is back, same as the browser PWA. Settings → Account → <b>Disconnect</b> syncs one last
      time, then drops the device cleanly back to local mode. (For the curious: it's
@@ -681,7 +675,7 @@ ALLOW_GUEST=0              # remove "Continue without account"</code></pre>
      <code>api/server.js</code>.)</p>
 
   <h2 id="coach">Let an AI coach write your plan</h2>
-  <p>Separate from the read-only bridge above, openGym has an optional <b>AI Coach</b>. Answer a
+  <p>Separate from the read-only bridge above, ASCEND has an optional <b>AI Coach</b>. Answer a
      few questions — goal, days a week, session length, equipment, anything to work around — and
      it designs a week of routines. Later it reviews what you actually logged and proposes
      changes; you can also ask it to look at <b>one workout</b> (a debrief: a score, what went
@@ -697,7 +691,7 @@ ALLOW_GUEST=0              # remove "Continue without account"</code></pre>
         you logged in the review window, weigh-ins, your intake answers, and a few preferences —
         under a pseudonym. Your name, e-mail, passkeys and everyone else's data are not in it,
         by construction: fields are copied in one by one, nothing is passed through.</li>
-    <li>That payload goes to the provider <b>you</b> configured — there is no openGym service in
+    <li>That payload goes to the provider <b>you</b> configured — there is no ASCEND service in
         the middle.</li>
     <li>The answer is parsed and <b>validated against a closed list of change types</b> (add,
         remove or swap an exercise, sets, reps, schedule, progression policy…). An answer that
@@ -720,8 +714,8 @@ ALLOW_GUEST=0              # remove "Continue without account"</code></pre>
 
   <h3 id="coach-local">Run it fully local — no cloud, no cost</h3>
   <p>A model on your own hardware is just the compatible endpoint with no key. The usual way is
-     an Ollama container next to openGym:</p>
-  <pre><code># docker-compose.yml — add next to the openGym services (same file = same network)
+     an Ollama container next to ASCEND:</p>
+  <pre><code># docker-compose.yml — add next to the ASCEND services (same file = same network)
   ollama:
     image: ollama/ollama
     restart: unless-stopped
@@ -771,7 +765,7 @@ ALLOW_GUEST=0              # remove "Continue without account"</code></pre>
      <a href="https://github.com/DuarteSantos8/openGym/blob/main/docs/AI_COACH.md" rel="noopener">docs/AI_COACH.md</a>.</p>
 
   <h2 id="mcp">Ask an AI about your training (MCP)</h2>
-  <p>openGym ships an optional <b>MCP server</b>: a small read-only bridge that lets a client
+  <p>ASCEND ships an optional <b>MCP server</b>: a small read-only bridge that lets a client
      like Claude Desktop, Cursor or Cline answer questions from your actual log — <i>"what
      did I bench last week?"</i>, <i>"which muscle have I not trained this month?"</i>. It
      runs on your machine, is spawned by the client over stdio, reads the same
@@ -813,7 +807,7 @@ ALLOW_GUEST=0              # remove "Continue without account"</code></pre>
   <h3 id="imp-hevy">Hevy, directly over the API</h3>
   <p>With <b>Hevy Pro</b>, skip the CSV: create an API key under
      <a href="https://hevy.com/settings?developer" rel="noopener">Hevy → Settings → Developer</a>,
-     then in openGym use <b>Settings → Data &amp; backup → Import from Hevy</b>, paste the key (used only for that
+     then in ASCEND use <b>Settings → Data &amp; backup → Import from Hevy</b>, paste the key (used only for that
      import — never saved), and choose any mix of <b>workouts</b>, <b>routines</b> and
      <b>weigh-ins</b>. Workout days that already have data here are left alone; imported
      routines are always added as new plans.</p>
@@ -847,7 +841,7 @@ Leg Day,Leg Press,2026-08-21,200,1</code></pre>
      weights, settings — into one file. On the mobile app it goes out through the share sheet
      (Files, AirDrop, mail…); in the browser it downloads. <b>Import backup</b> restores it
      anywhere: another phone, your self-hosted instance, or a fresh install. That file is the
-     whole point of openGym — your training log as a file <i>you</i> own.</p>
+     whole point of ASCEND — your training log as a file <i>you</i> own.</p>
   <h3>Per instance (self-hosted)</h3>
   <p>Everything lives in <code>./data</code> on your host:</p>
   <table class="cfg">
@@ -881,7 +875,7 @@ Leg Day,Leg Press,2026-08-21,200,1</code></pre>
      request runs the full suites (frontend, api, mcp) on GitHub Actions and builds and boots the
      api images. After the merge, CI on the GitLab mirror builds the amd64+arm64 images, signs the
      APK and publishes the release &mdash; tagging <code>vX.Y.Z</code> is what ships everything.</p>
-  <p>openGym is developed with <a href="https://claude.com/claude-code" rel="noopener">Claude Code</a>,
+  <p>ASCEND is developed with <a href="https://claude.com/claude-code" rel="noopener">Claude Code</a>,
      Anthropic's coding agent: a large share of the code, tests and documentation is drafted in
      Claude Code sessions. What goes in, every review and every release is the maintainer's call,
      and each release is tested on a staging instance and on real phones first. The app itself
@@ -891,7 +885,7 @@ Leg Day,Leg Press,2026-08-21,200,1</code></pre>
      (<a href="https://github.com/DuarteSantos8/openGym/blob/main/catalogue/README.md" rel="noopener">catalogue/</a>),
      with its translations next to it, and anyone can fix or translate an entry with a pull
      request. The pictures and animations are licensed from
-     <a href="https://gymvisual.com/" rel="noopener">Gym visual</a> for openGym and ship with it at
+     <a href="https://gymvisual.com/" rel="noopener">Gym visual</a> for ASCEND and ship with it at
      180&nbsp;px (see the <a href="#faq">FAQ</a> for the licensing details).</p>
 
   <h2 id="build">Build it yourself</h2>
@@ -967,23 +961,20 @@ Leg Day,Leg Press,2026-08-21,200,1</code></pre>
         Off, nothing is ever sent anywhere — <a href="#coach-privacy">details above</a>.</li>
     <li><b>The MCP server</b> is read-only, local, and never puts your data on the
         network.</li>
-    <li><b>This website</b> uses self-hosted, cookieless <a href="https://umami.is" rel="noopener">Umami</a>
-        page-view counting — no cookies, no cross-site tracking, and it never sees anything
-        from inside the app or the demo.</li>
+    <li><b>This website</b> is static: no analytics, no advertising cookies, no third-party
+        tracking scripts, and it never sees anything from inside the app or the demo.</li>
   </ul>
 
   <h2 id="faq">FAQ</h2>
   <h3>Is it really free?</h3>
   <p>Yes — free as in cost <i>and</i> as in freedom (AGPL-3.0). No pro tier, no locked
      features, no ads, and the license keeps every fork open source too. If it replaced a
-     paid tracker for you, there's a <a href="https://buymeacoffee.com/duartesantos" rel="noopener">coffee button</a>
-     and a <a href="https://ko-fi.com/opengym" rel="noopener">Ko-fi page</a>,
+     paid tracker for you, there's a <a href="https://ko-fi.com/opengym" rel="noopener">Ko-fi page</a>,
      though a star, a bug report or a pull request is worth just as much.</p>
-  <h3>Is it on the App Store and Google Play?</h3>
-  <p>The App Store: yes, since 23 October 2026, for iPhone and Apple Watch
-     (<a href="https://apps.apple.com/app/id6822275400" rel="noopener">link</a>). Google Play is next;
-     until then the signed Android APK is a direct download, and it updates itself. The store apps are
-     the same AGPL code as everything else here.</p>
+  <h3>Is it on an app store?</h3>
+  <p>Not yet. The signed Android APK is a direct download from this site, and the self-hosted
+     web app works on iPhone through Safari. No App Store or Google Play release is required to
+     use ASCEND, and the direct APK is the same AGPL code as everything else here.</p>
   <h3>Mobile app or self-hosted — which one should I pick?</h3>
   <p>If you just want to track your training: the mobile app. If you want your data on your
      own hardware, synced across devices, with profiles for the people you train with:
@@ -997,34 +988,34 @@ Leg Day,Leg Press,2026-08-21,200,1</code></pre>
      compatibility break), better search, OIDC login and a trainer role. The full plan with dates is in
      <a href="https://github.com/DuarteSantos8/openGym/blob/main/ROADMAP.md" rel="noopener">ROADMAP.md</a>;
      ideas and pull requests welcome.</p>
-  <h3>Was openGym written with AI?</h3>
+  <h3>Was ASCEND written with AI?</h3>
   <p>It's developed with Claude Code, and a large share of the code is drafted that way &mdash;
      reviewed, tested and released by the maintainer. The app itself calls no AI service unless
      you switch the coach on. See <a href="#arch">How it's built</a>.</p>
   <h3>Where does the exercise database come from?</h3>
-  <p>The text is openGym's own: one JSON file per exercise in
+  <p>The text is ASCEND's own: one JSON file per exercise in
      <a href="https://github.com/DuarteSantos8/openGym/blob/main/catalogue/README.md" rel="noopener">catalogue/</a>,
-     translations next to it, and fixes welcome as pull requests. The 1,324 exercises openGym
+     translations next to it, and fixes welcome as pull requests. The 1,324 exercises ASCEND
      started with came from ExerciseDB by way of hasaneyldrm/exercises-dataset, and their
      original text stays under <b>MIT</b>; everything written since is AGPL like the rest of
-     openGym.</p>
+     ASCEND.</p>
   <p>The pictures and animations are a different matter: they are &copy; Aliaksandr
      Makatserchyk, <a href="https://gymvisual.com/" rel="noopener">Gym visual</a>, licensed for
-     use in openGym only, at 180&nbsp;px in the repository and on servers and larger only inside
+     use in ASCEND only, at 180&nbsp;px in the repository and on servers and larger only inside
      the app packages. They are not covered by the AGPL, and there's no media pack or CDN to
      pull them from. Reusing them anywhere else needs your own licence from gymvisual.com.
      Full third-party notices, including the body-diagram geometry, are in
      <a href="https://github.com/DuarteSantos8/openGym/blob/main/NOTICE.md" rel="noopener">NOTICE.md</a>.</p>
   <h3>What does the AGPL mean for me?</h3>
-  <p>You can self-host, use, modify and share openGym freely. If you run a <i>modified</i>
+  <p>You can self-host, use, modify and share ASCEND freely. If you run a <i>modified</i>
      version as a network service, you must offer that version's source under the same
-     license — that's the clause that keeps openGym from ever becoming someone's closed,
+     license — that's the clause that keeps ASCEND from ever becoming someone's closed,
      proprietary product. Just using or self-hosting it unmodified obliges you to
      nothing.</p>
 </main>
 
 <footer><div class="wrap foot">
-  <span class="c">openGym · AGPL-3.0 · © 2026 <a href="https://duarte-santos.ch" rel="noopener">Duarte Santos</a></span>
+  <span class="c">ASCEND · AGPL-3.0 · © 2026 <a href="https://jrsm-dev-portfolio-one.vercel.app" rel="noopener">jrsmDev</a></span>
   <div class="links">
     <a href="docs.html">Docs</a>
     <a href="about.html">About</a>
@@ -1036,6 +1027,10 @@ Leg Day,Leg Press,2026-08-21,200,1</code></pre>
   </div>
 </div></footer>
 
-<script src="site.js?v=28" defer></script>
+<script src="site.js?v=31" defer></script>
 </body>
 </html>
+
+
+
+

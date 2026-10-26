@@ -3,65 +3,80 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width,initial-scale=1,viewport-fit=cover">
-<title>openGym: Free Gym Tracker, No Ads, No Subscription</title>
-<meta name="description" content="Plan your week, log every set and see which muscles you trained. Free and open source, loved by 8,000+ on GitHub. Android app or self-host with Docker.">
-<meta name="theme-color" content="#000000">
+<title>ASCEND — Evolve Beyond Your Limits</title>
+<meta name="description" content="ASCEND is a free, open-source gym and body-weight tracker. Guided workouts, progression, muscle maps and a year of training at a glance. Android, the web, or self-hosted. No ads, no subscription, no telemetry. Built by jrsmDev.">
+<meta name="theme-color" content="#090A09">
 <meta name="robots" content="index,follow,max-image-preview:large">
-<link rel="preconnect" href="https://stats.duarte-santos.ch">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
 <meta name="twitter:card" content="summary_large_image">
-<meta name="twitter:title" content="openGym: your workouts, your weights, your data">
-<meta name="twitter:description" content="Plan your week, log every set and see which muscles you trained. Free, open source, no ads, no subscription. Android app or self-host with Docker.">
+<meta name="twitter:title" content="ASCEND: your workouts, your weights, your ascent">
+<meta name="twitter:description" content="A free, open-source gym and body-weight tracker. Guided workouts, progression, muscle maps and your data, yours. Android, the web and self-hosted.">
 <meta name="twitter:image" content="https://opengym.ch/img/social.jpg">
-<meta property="og:title" content="openGym: your workouts, your weights, your data">
-<meta property="og:description" content="Plan your week, log every set and see which muscles you trained. Free, open source, no ads, no subscription. Android app or self-host with Docker.">
+<meta property="og:title" content="ASCEND: your workouts, your weights, your ascent">
+<meta property="og:description" content="A free, open-source gym and body-weight tracker. Guided workouts, progression, muscle maps and your data, yours. Android, the web and self-hosted.">
 <meta property="og:image" content="https://opengym.ch/img/social.jpg">
 <meta property="og:image:width" content="1200">
 <meta property="og:image:height" content="630">
-<meta property="og:image:alt" content="openGym: your training, your data, your server. Two phones showing the home and workout screens.">
+<meta property="og:image:alt" content="ASCEND: Your workouts. Your weights. Your ascent. Two phones showing the home and workout screens.">
 <meta property="og:url" content="https://opengym.ch/">
 <link rel="canonical" href="https://opengym.ch/">
 <meta property="og:type" content="website">
-<meta property="og:site_name" content="openGym">
+<meta property="og:site_name" content="ASCEND">
 <link rel="icon" href="/favicon.ico" sizes="48x48">
 <link rel="icon" type="image/png" sizes="96x96" href="/icon-96.png">
 <link rel="icon" type="image/png" sizes="192x192" href="/icon-192.png">
 <link rel="icon" type="image/png" sizes="512x512" href="/icon-512.png">
 <link rel="apple-touch-icon" href="icon-180.png">
-<link rel="preload" as="image" type="image/webp" imagesrcset="img/home-480.webp 480w, img/home-600.webp 600w, img/home-1170.webp 1170w" imagesizes="(max-width: 700px) 62vw, 300px" fetchpriority="high">
-<link rel="stylesheet" href="styles.css?v=28">
+<link rel="preload" as="image" type="image/webp" imagesrcset="img/home-480.webp 480w, img/home-600.webp 600w, img/home-1170.webp 1170w" imagesizes="(max-width: 900px) 62vw, 310px" fetchpriority="high">
+<link rel="stylesheet" href="styles.css?v=30">
+<link rel="stylesheet" href="ascend.css?v=3">
 <!-- Marks that JS is alive before first paint, so the scroll-reveal styles never
      hide content from a browser that will not run them. -->
 <script>
-/* Before first paint: .js arms the scroll reveals, .intro plays the hero entrance once per
-   tab. Deferred scripts run too late for this; the hero would paint, then vanish and
-   animate back in. site.js takes .intro off again when the animation ends. */
+/* Before first paint: .js arms the scroll reveals, .intro raises the curtain once per tab.
+   Deferred scripts run too late for this; the page would paint, then hide and animate back
+   in. The curtain is CSS-only, and site.js takes .intro off when the housekeeping is done. */
 document.documentElement.className += ' js'
 try {
-  if (!sessionStorage.getItem('og-intro')) {
-    sessionStorage.setItem('og-intro', '1')
+  if (!sessionStorage.getItem('ascend-intro')) {
+    sessionStorage.setItem('ascend-intro', '1')
     document.documentElement.className += ' intro'
   }
 } catch (e) { document.documentElement.className += ' intro' }
 </script>
-<!-- Umami web analytics for opengym.ch (self-hosted, cookieless). -->
-<script defer src="https://stats.duarte-santos.ch/script.js" data-website-id="db36019e-50f4-453c-9c56-d0588aefe233"></script>
 <script type="application/ld+json">
-{"@context":"https://schema.org","@type":"SoftwareApplication","name":"openGym",
+{"@context":"https://schema.org","@type":"SoftwareApplication","name":"ASCEND","alternateName":"openGym",
  "operatingSystem":"Android, Web","applicationCategory":"HealthApplication",
  "offers":{"@type":"Offer","price":"0","priceCurrency":"USD"},
  "license":"https://www.gnu.org/licenses/agpl-3.0.html",
  "url":"https://opengym.ch/",
  "image":"https://opengym.ch/img/social.jpg",
  "screenshot":["https://opengym.ch/img/home.png","https://opengym.ch/img/workout.png","https://opengym.ch/img/stats.png"],
- "softwareVersion":"1.4.2","datePublished":"2026-07-18","dateModified":"2026-10-23","isAccessibleForFree":true,
+ "softwareVersion":"1.4.2","datePublished":"2026-07-18","dateModified":"2026-10-26","isAccessibleForFree":true,
+ "brand":{"@type":"Brand","name":"ASCEND"},
  "featureList":["Weekly plan with a routine per weekday, or a rotation","Guided workouts with rest timer, supersets, warm-up and timed sets","Progression rules: linear, Greyskull LP, double progression","Estimated 1RM, activity heatmap, muscle balance and fatigue maps","Body-weight tracking with a goal line","Edit saved workouts, with photos and videos","Structural Balance between your lifts","Import from Hevy, Strong, FitNotes and Apple Health","Passkey login and multi-device sync when self-hosted","Standalone Android APK with no account","19 languages, including Arabic right-to-left","Optional AI coach on your own API key"],
- "downloadUrl":"https://github.com/DuarteSantos8/openGym/releases/latest/download/openGym-1.4.2.apk",
- "author":{"@type":"Person","name":"Duarte Santos","url":"https://duarte-santos.ch"},
- "sameAs":["https://github.com/DuarteSantos8/openGym","https://gitlab.com/DuarteSantos8/opengym","https://discord.gg/e62jY6fwVb"]}
+ "downloadUrl":"https://opengym.ch/ASCEND-1.4.2.apk",
+ "author":{"@type":"Person","name":"Joseph Rman Madrilejos","alternateName":"jrsmDev","url":"https://jrsm-dev-portfolio-one.vercel.app"},
+ "sameAs":["https://github.com/DuarteSantos8/openGym","https://gitlab.com/DuarteSantos8/opengym","https://discord.gg/e62jY6fwVb","https://jrsm-dev-portfolio-one.vercel.app"]}
 </script>
 </head>
-<body class="topnav">
+<body class="home topnav">
 <a class="skip" href="#main">Skip to content</a>
+
+<!-- First-visit curtain. CSS-only: the mark and wordmark settle, then the whole
+     sheet lifts away on a lime edge. No spinner, no fake progress. -->
+<div class="intro-curtain" id="intro" role="dialog" aria-label="Welcome to ASCEND">
+  <div class="intro-inner">
+    <div class="intro-lockup">
+      <svg class="intro-mark" viewBox="0 0 200 200" aria-hidden="true" focusable="false"><g fill="currentColor"><polygon points="6,194 100,4 112,30 52,194"/><polygon points="137.6,80 194,194 150,194 121.8,137"/><polygon points="100,96 127,164 109,164 100,141 91,164 73,164"/></g></svg>
+      <span class="intro-word">ASCEND</span>
+    </div>
+    <p class="intro-tagline">Evolve beyond your limits</p>
+  </div>
+  <div class="intro-meta"><span>Self-hosted fitness</span><span>Est. 2026</span></div>
+  <button class="intro-skip" type="button">Skip intro</button>
+</div>
 
 <!-- Icon set: one sprite, referenced with <use>. Line icons at 24×24, stroke 1.7. -->
 <svg width="0" height="0" style="position:absolute" aria-hidden="true" focusable="false"><defs>
@@ -92,30 +107,29 @@ try {
   <symbol id="i-archive" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round"><rect x="3.2" y="4.4" width="17.6" height="4.4" rx="1.6"/><path d="M5 8.8v9.2a2 2 0 0 0 2 2h10a2 2 0 0 0 2-2V8.8"/><path d="M9.8 12.6h4.4"/></symbol>
 </defs></svg>
 
-<!-- App Store launch bar (2026-10-23): one line above the nav, scrolls away with the page. -->
-<div class="announce"><a href="https://apps.apple.com/app/id6822275400" rel="noopener"><b>New:</b> openGym is on the App Store<span class="announce-more">, for iPhone and Apple Watch, in every country</span>. <span class="announce-go">Get it&nbsp;→</span></a></div>
 
 <nav><div class="wrap nav-in">
-  <a class="brand" href="/">
-    <img src="icon-180.png" alt="" width="24" height="24">
-    openGym
+  <a class="brand" href="/" aria-label="ASCEND home">
+    <svg class="brand-mark" viewBox="0 0 200 200" aria-hidden="true" focusable="false"><g fill="currentColor"><polygon points="6,194 100,4 112,30 52,194"/><polygon points="137.6,80 194,194 150,194 121.8,137"/><polygon points="100,96 127,164 109,164 100,141 91,164 73,164"/></g></svg>
+    <span class="brand-word">ASCEND</span>
   </a>
   <div class="nav-quick">
     <a class="ql site" href="/#features">Features</a>
-    <a class="ql site" href="/#screens">Screenshots</a>
+    <a class="ql site" href="/#screens">Inside</a>
     <a class="ql site" href="/#demo">Demo</a>
     <a class="ql site" href="/docs.html">Docs</a>
     <a class="ql site" href="/api.html">API</a>
     <a class="ql site" href="/about.html">About</a>
-    <a class="ql" href="https://github.com/DuarteSantos8/openGym" rel="noopener">GitHub <span data-gh="stars"></span></a>
-    <a class="ql" href="https://discord.gg/e62jY6fwVb" rel="noopener">Discord <span data-dc="members"></span></a>
-    <a class="ql coffee" href="https://buymeacoffee.com/duartesantos" rel="noopener" aria-label="Buy me a coffee"><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M20.216 6.415l-.132-.666c-.119-.598-.388-1.163-1.001-1.379-.197-.069-.42-.098-.57-.241-.152-.143-.196-.366-.231-.572-.065-.378-.125-.756-.192-1.133-.057-.325-.102-.69-.25-.987-.195-.4-.597-.634-.996-.788a5.723 5.723 0 00-.626-.194c-1-.263-2.05-.36-3.077-.416a25.834 25.834 0 00-3.7.062c-.915.083-1.88.184-2.75.5-.318.116-.646.256-.888.501-.297.302-.393.77-.177 1.146.154.267.415.456.692.58.36.162.737.284 1.123.366 1.075.238 2.189.331 3.287.37 1.218.05 2.437.01 3.65-.118.299-.033.598-.073.896-.119.352-.054.578-.513.474-.834-.124-.383-.457-.531-.834-.473-.466.074-.96.108-1.382.146-1.177.08-2.358.082-3.536.006a22.228 22.228 0 01-1.157-.107c-.086-.01-.18-.025-.258-.036-.243-.036-.484-.08-.724-.13-.111-.027-.111-.185 0-.212h.005c.277-.06.557-.108.838-.147h.002c.131-.009.263-.032.394-.048a25.076 25.076 0 013.426-.12c.674.019 1.347.067 2.017.144l.228.031c.267.04.533.088.798.145.392.085.895.113 1.07.542.055.137.08.288.111.431l.319 1.484a.237.237 0 01-.199.284h-.003c-.037.006-.075.01-.112.015a36.704 36.704 0 01-4.743.295 37.059 37.059 0 01-4.699-.304c-.14-.017-.293-.042-.417-.06-.326-.048-.649-.108-.973-.161-.393-.065-.768-.032-1.123.161-.29.16-.527.404-.675.701-.154.316-.199.66-.267 1-.069.34-.176.707-.135 1.056.087.753.613 1.365 1.37 1.502a39.69 39.69 0 0011.343.376.483.483 0 01.535.53l-.071.697-1.018 9.907c-.041.41-.047.832-.125 1.237-.122.637-.553 1.028-1.182 1.171-.577.131-1.165.2-1.756.205-.656.004-1.31-.025-1.966-.022-.699.004-1.556-.06-2.095-.58-.475-.458-.54-1.174-.605-1.793l-.731-7.013-.322-3.094c-.037-.351-.286-.695-.678-.678-.336.015-.718.3-.678.679l.228 2.185.949 9.112c.147 1.344 1.174 2.068 2.446 2.272.742.12 1.503.144 2.257.156.966.016 1.942.053 2.892-.122 1.408-.258 2.465-1.198 2.616-2.657.34-3.332.683-6.663 1.024-9.995l.215-2.087a.484.484 0 01.39-.426c.402-.078.787-.212 1.074-.518.455-.488.546-1.124.385-1.766zm-1.478.772c-.145.137-.363.201-.578.233-2.416.359-4.866.54-7.308.46-1.748-.06-3.477-.254-5.207-.498-.17-.024-.353-.055-.47-.18-.22-.236-.111-.71-.054-.995.052-.26.152-.609.463-.646.484-.057 1.046.148 1.526.22.577.088 1.156.159 1.737.212 2.48.226 5.002.19 7.472-.14.45-.06.899-.13 1.345-.21.399-.072.84-.206 1.08.206.166.281.188.657.162.974a.544.544 0 01-.169.364zm-6.159 3.9c-.862.37-1.84.788-3.109.788a5.884 5.884 0 01-1.569-.217l.877 9.004c.065.78.717 1.38 1.5 1.38 0 0 1.243.065 1.658.065.447 0 1.786-.065 1.786-.065.783 0 1.434-.6 1.499-1.38l.94-9.95a3.996 3.996 0 00-1.322-.238c-.826 0-1.491.284-2.26.613z"/></svg><span>Buy me a coffee!</span></a>
+    <a class="ql" href="https://github.com/DuarteSantos8/openGym" rel="noopener">GitHub <span data-gh="stars">15,891</span></a>
+    <a class="ql" href="https://discord.gg/e62jY6fwVb" rel="noopener">Discord <span data-dc="members">1,877</span></a>
+    
     <a class="cta" href="/#download">Download</a>
   </div>
   <button class="nav-toggle" id="navtoggle" aria-expanded="false" aria-controls="sitemenu" aria-label="Menu">
     <span></span><span></span>
   </button>
 </div></nav>
+<div class="read-progress" id="readprogress" aria-hidden="true"></div>
 
 <!-- The navigation sheet: the header's links again, for the widths where the bar has
      room only for the brand and the download. Byte-identical on every page, like the
@@ -123,14 +137,14 @@ try {
 <div class="navsheet" id="sitemenu" role="navigation" aria-label="Site" aria-hidden="true">
   <div class="nl-rows">
     <a class="nl" href="/#features">Features</a>
-    <a class="nl" href="/#screens">Screenshots</a>
+    <a class="nl" href="/#screens">Inside ASCEND</a>
     <a class="nl" href="/#demo">Demo</a>
     <a class="nl" href="/docs.html">Docs</a>
     <a class="nl" href="/api.html">API</a>
     <a class="nl" href="/about.html">About</a>
-    <a class="nl" href="https://github.com/DuarteSantos8/openGym" rel="noopener">GitHub <span data-gh="stars"></span></a>
-    <a class="nl" href="https://discord.gg/e62jY6fwVb" rel="noopener">Discord <span data-dc="members"></span></a>
-    <a class="nl coffee" href="https://buymeacoffee.com/duartesantos" rel="noopener">Buy me a coffee! <svg viewBox="0 0 24 24" aria-hidden="true"><path d="M20.216 6.415l-.132-.666c-.119-.598-.388-1.163-1.001-1.379-.197-.069-.42-.098-.57-.241-.152-.143-.196-.366-.231-.572-.065-.378-.125-.756-.192-1.133-.057-.325-.102-.69-.25-.987-.195-.4-.597-.634-.996-.788a5.723 5.723 0 00-.626-.194c-1-.263-2.05-.36-3.077-.416a25.834 25.834 0 00-3.7.062c-.915.083-1.88.184-2.75.5-.318.116-.646.256-.888.501-.297.302-.393.77-.177 1.146.154.267.415.456.692.58.36.162.737.284 1.123.366 1.075.238 2.189.331 3.287.37 1.218.05 2.437.01 3.65-.118.299-.033.598-.073.896-.119.352-.054.578-.513.474-.834-.124-.383-.457-.531-.834-.473-.466.074-.96.108-1.382.146-1.177.08-2.358.082-3.536.006a22.228 22.228 0 01-1.157-.107c-.086-.01-.18-.025-.258-.036-.243-.036-.484-.08-.724-.13-.111-.027-.111-.185 0-.212h.005c.277-.06.557-.108.838-.147h.002c.131-.009.263-.032.394-.048a25.076 25.076 0 013.426-.12c.674.019 1.347.067 2.017.144l.228.031c.267.04.533.088.798.145.392.085.895.113 1.07.542.055.137.08.288.111.431l.319 1.484a.237.237 0 01-.199.284h-.003c-.037.006-.075.01-.112.015a36.704 36.704 0 01-4.743.295 37.059 37.059 0 01-4.699-.304c-.14-.017-.293-.042-.417-.06-.326-.048-.649-.108-.973-.161-.393-.065-.768-.032-1.123.161-.29.16-.527.404-.675.701-.154.316-.199.66-.267 1-.069.34-.176.707-.135 1.056.087.753.613 1.365 1.37 1.502a39.69 39.69 0 0011.343.376.483.483 0 01.535.53l-.071.697-1.018 9.907c-.041.41-.047.832-.125 1.237-.122.637-.553 1.028-1.182 1.171-.577.131-1.165.2-1.756.205-.656.004-1.31-.025-1.966-.022-.699.004-1.556-.06-2.095-.58-.475-.458-.54-1.174-.605-1.793l-.731-7.013-.322-3.094c-.037-.351-.286-.695-.678-.678-.336.015-.718.3-.678.679l.228 2.185.949 9.112c.147 1.344 1.174 2.068 2.446 2.272.742.12 1.503.144 2.257.156.966.016 1.942.053 2.892-.122 1.408-.258 2.465-1.198 2.616-2.657.34-3.332.683-6.663 1.024-9.995l.215-2.087a.484.484 0 01.39-.426c.402-.078.787-.212 1.074-.518.455-.488.546-1.124.385-1.766zm-1.478.772c-.145.137-.363.201-.578.233-2.416.359-4.866.54-7.308.46-1.748-.06-3.477-.254-5.207-.498-.17-.024-.353-.055-.47-.18-.22-.236-.111-.71-.054-.995.052-.26.152-.609.463-.646.484-.057 1.046.148 1.526.22.577.088 1.156.159 1.737.212 2.48.226 5.002.19 7.472-.14.45-.06.899-.13 1.345-.21.399-.072.84-.206 1.08.206.166.281.188.657.162.974a.544.544 0 01-.169.364zm-6.159 3.9c-.862.37-1.84.788-3.109.788a5.884 5.884 0 01-1.569-.217l.877 9.004c.065.78.717 1.38 1.5 1.38 0 0 1.243.065 1.658.065.447 0 1.786-.065 1.786-.065.783 0 1.434-.6 1.499-1.38l.94-9.95a3.996 3.996 0 00-1.322-.238c-.826 0-1.491.284-2.26.613z"/></svg></a>
+    <a class="nl" href="https://github.com/DuarteSantos8/openGym" rel="noopener">GitHub <span data-gh="stars">15,891</span></a>
+    <a class="nl" href="https://discord.gg/e62jY6fwVb" rel="noopener">Discord <span data-dc="members">1,877</span></a>
+    
   </div>
 </div>
 
@@ -150,7 +164,7 @@ try {
   </div>
   <p class="side-label">On this page</p>
   <a class="side-link" href="#features"><b>Features</b><span>Built on the gym floor</span></a>
-  <a class="side-link" href="#screens"><b>Screenshots</b><span>Five screens, that's the app</span></a>
+  <a class="side-link" href="#screens"><b>Inside ASCEND</b><span>Five screens, one ascent</span></a>
   <a class="side-link" href="#demo"><b>Live demo</b><span>The real app, in your browser</span></a>
   <a class="side-link" href="#download"><b>Download</b><span>Android APK or self-hosted</span></a>
   <a class="side-link" href="#story"><b>The story</b><span>One user, zero ambitions</span></a>
@@ -163,36 +177,57 @@ try {
 </aside>
 
 <main id="main">
-<header class="hero">
-  <div class="wrap">
-    <p class="eyebrow">openGym</p>
-    <h1>Your workouts.<br>Your weights.<br><span>Your data.</span></h1>
-    <p class="lead">A free, open-source gym and body-weight tracker. No subscription, no
-       account required, and no telemetry. Not now, not later.</p>
-    <div class="actions">
-      <a class="btn" href="#download">Get openGym</a>
-      <a class="link" href="#demo">Try the live demo</a>
+<header class="hero" data-sc-ch="1" data-sc-label="Start">
+  <div class="hero-ambient" aria-hidden="true"></div>
+  <div class="wrap hero-in">
+    <div class="hero-copy">
+      <p class="eyebrow">Open source · Self-hosted · Built by a coach</p>
+      <h1>Your workouts.<br>Your weights. <em>Your ascent.</em></h1>
+      <p class="lead">ASCEND is a free, open-source gym and body-weight tracker. Built by a coach
+         with seven years on the gym floor. No subscription. No account. No telemetry.
+         Just the work, and a record of it.</p>
+      <div class="actions">
+        <a class="btn" href="#download">Download the Android app <span class="btn-arrow" aria-hidden="true">→</span></a>
+        <a class="link" href="#demo">Try the live demo</a>
+      </div>
+      <p class="hero-dl">v1.4.2 <span>·</span> 315 MB <span>·</span> signed APK <span>·</span> no account</p>
+      <div class="hero-trust" aria-label="ASCEND at a glance">
+        <span><b data-gh="stars">15,891</b> on GitHub</span>
+        <span><b data-dc="members">1,877</b> on Discord</span>
+        <span><b>5,632</b> exercises</span>
+        <span><b>19</b> languages</span>
+        <span><b>AGPL-3.0</b> forever</span>
+      </div>
     </div>
-    <a class="hero-badge store-badge" href="https://apps.apple.com/app/id6822275400" rel="noopener">
-      <img src="app-store-badge.svg" width="150" height="50" alt="Download on the App Store"></a>
-  </div>
-  <div class="hero-stage">
-    <div class="device">
-      <picture>
-        <source type="image/webp" srcset="img/home-480.webp 480w, img/home-600.webp 600w, img/home-1170.webp 1170w" sizes="(max-width: 700px) 62vw, 300px">
-        <img src="img/home.png" alt="openGym home screen: the week at a glance, today's session and a body-weight chart"
-             width="1170" height="2532" fetchpriority="high" decoding="async">
-      </picture>
+    <div class="hero-stage">
+      <div class="hero-orbit" aria-hidden="true"></div>
+      <div class="hero-glow" aria-hidden="true"></div>
+      <div class="hero-phone">
+        <picture>
+          <source type="image/webp" srcset="img/home-480.webp 480w, img/home-600.webp 600w, img/home-1170.webp 1170w" sizes="(max-width: 900px) 62vw, 310px">
+          <img src="img/home.png" alt="ASCEND home screen: the week at a glance, today's session and a body-weight chart"
+               width="1170" height="2532" fetchpriority="high" decoding="async">
+        </picture>
+      </div>
+      <div class="hero-float hero-float-a"><span>Week streak</span><b>12</b><i>weeks strong</i></div>
+      <div class="hero-float hero-float-b"><span>Body weight</span><b>78.4 <small>kg</small></b><i>1.4 kg to goal</i></div>
+      <div class="hero-float hero-float-c"><span class="float-dot"></span><span>Push Day<br><b>ready when you are</b></span></div>
     </div>
   </div>
-  <div class="hero-fade"></div>
 </header>
 
-<section id="features">
+<div class="ticker" aria-hidden="true">
+  <div class="ticker-track">
+    <span>Guided workouts</span><i>✦</i><span>Progression rules</span><i>✦</i><span>Muscle maps</span><i>✦</i><span>Body weight</span><i>✦</i><span>5,632 exercises</span><i>✦</i><span>Passkeys</span><i>✦</i><span>Self-hosted</span><i>✦</i><span>No telemetry</span><i>✦</i>
+    <span>Guided workouts</span><i>✦</i><span>Progression rules</span><i>✦</i><span>Muscle maps</span><i>✦</i><span>Body weight</span><i>✦</i><span>5,632 exercises</span><i>✦</i><span>Passkeys</span><i>✦</i><span>Self-hosted</span><i>✦</i><span>No telemetry</span><i>✦</i>
+  </div>
+</div>
+
+<section id="features" data-sc-ch="2" data-sc-label="Features">
   <div class="wrap">
     <div class="sec-head rv">
-      <p class="eyebrow">Features</p>
-      <h2>Built on the gym floor.</h2>
+      <p class="eyebrow">01 — Why ASCEND</p>
+      <h2>Built on the gym floor. <em>Not in a boardroom.</em></h2>
       <p class="lead">Every feature here exists because something was awkward between two sets.
          Nothing is here to sell you anything.</p>
     </div>
@@ -378,31 +413,105 @@ try {
   </div>
 </section>
 
-<section id="screens">
-  <div class="wrap">
+<section id="screens" class="sequence" data-sc-ch="3" data-sc-label="Inside">
+  <div class="seq-intro wrap">
     <div class="sec-head rv">
-      <p class="eyebrow">Screenshots</p>
-      <h2>Five screens, and that's the app.</h2>
+      <p class="eyebrow">02 — Inside ASCEND</p>
+      <h2>Five screens. <em>One ascent.</em></h2>
+    </div>
+    <p class="seq-lead rv"><b>Scroll to move through the app.</b> Every screen is the real thing, not a mockup.</p>
+  </div>
+
+  <div class="seq-track" id="seq-track">
+    <div class="seq-stage">
+      <div class="seq-bg" aria-hidden="true"></div>
+      <div class="seq-ghost" id="seq-ghost" aria-hidden="true">01</div>
+      <div class="seq-wrap wrap">
+        <div class="seq-copy">
+          <div class="seq-index"><span id="seq-current">01</span><span class="seq-line"></span><span>05</span></div>
+          <div class="seq-panels">
+            <article class="seq-panel is-active" data-step="0">
+              <p class="seq-kicker">Overview</p>
+              <h3>Know the day <em>before</em> you walk in.</h3>
+              <p>This week, today's session and your body-weight trend on one calm screen. The warm-up is already planned. Start in one tap.</p>
+              <ul class="seq-tags"><li>Week strip</li><li>Today's session</li><li>Body weight</li></ul>
+            </article>
+            <article class="seq-panel" data-step="1" aria-hidden="true">
+              <p class="seq-kicker">Workout</p>
+              <h3>Every set, <em>already filled in.</em></h3>
+              <p>Last time's weights, the next progression, rest between sets and a PR called out the moment you beat one.</p>
+              <ul class="seq-tags"><li>Guided sets</li><li>Rest timer</li><li>Progression</li></ul>
+            </article>
+            <article class="seq-panel" data-step="2" aria-hidden="true">
+              <p class="seq-kicker">Stats</p>
+              <h3>See the shape <em>of the work.</em></h3>
+              <p>A year of training as a heatmap, muscle balance, fatigue and estimated strength — the numbers behind the feeling.</p>
+              <ul class="seq-tags"><li>Heatmap</li><li>Muscle map</li><li>1RM</li></ul>
+            </article>
+            <article class="seq-panel" data-step="3" aria-hidden="true">
+              <p class="seq-kicker">Plan</p>
+              <h3>A week that fits <em>your week.</em></h3>
+              <p>A routine per weekday or a rotation. Move one day without rewriting the plan, and keep the history intact.</p>
+              <ul class="seq-tags"><li>Weekly plan</li><li>Rotation</li><li>Reschedule</li></ul>
+            </article>
+            <article class="seq-panel" data-step="4" aria-hidden="true">
+              <p class="seq-kicker">Library</p>
+              <h3>5,632 exercises. <em>Zero guesswork.</em></h3>
+              <p>Animated demos, filters for the equipment you actually own, and your own exercises alongside the rest.</p>
+              <ul class="seq-tags"><li>5,632 moves</li><li>Equipment</li><li>Custom</li></ul>
+            </article>
+          </div>
+          <div class="seq-controls">
+            <button class="seq-arrow" type="button" data-dir="-1" aria-label="Previous screen"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.9" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M14.5 5.5L8 12l6.5 6.5"/></svg></button>
+            <div class="seq-dots" role="group" aria-label="Choose a screen">
+              <button class="seq-dot is-active" type="button" data-step="0" aria-label="Home"></button>
+              <button class="seq-dot" type="button" data-step="1" aria-label="Workout"></button>
+              <button class="seq-dot" type="button" data-step="2" aria-label="Stats"></button>
+              <button class="seq-dot" type="button" data-step="3" aria-label="Plan"></button>
+              <button class="seq-dot" type="button" data-step="4" aria-label="Library"></button>
+            </div>
+            <button class="seq-arrow" type="button" data-dir="1" aria-label="Next screen"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.9" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M9.5 5.5L16 12l-6.5 6.5"/></svg></button>
+          </div>
+        </div>
+        <div class="seq-visual">
+          <div class="seq-bloom" aria-hidden="true"></div>
+          <div class="seq-phone">
+            <div class="seq-screen">
+              <picture class="seq-shot is-active" data-step="0">
+                <source type="image/webp" srcset="img/home-480.webp 480w, img/home-600.webp 600w, img/home-1170.webp 1170w" sizes="(max-width: 900px) 48vw, 300px">
+                <img src="img/home.png" alt="ASCEND home screen with the week, today's session and body-weight trend" width="1170" height="2532" loading="lazy" decoding="async">
+              </picture>
+              <picture class="seq-shot" data-step="1" aria-hidden="true">
+                <source type="image/webp" srcset="img/workout-480.webp 480w, img/workout-600.webp 600w, img/workout-1170.webp 1170w" sizes="(max-width: 900px) 48vw, 300px">
+                <img src="img/workout.png" alt="ASCEND guided workout with sets, rest timer and pre-filled weights" width="1170" height="2532" loading="lazy" decoding="async">
+              </picture>
+              <picture class="seq-shot" data-step="2" aria-hidden="true">
+                <source type="image/webp" srcset="img/stats-480.webp 480w, img/stats-600.webp 600w, img/stats-1170.webp 1170w" sizes="(max-width: 900px) 48vw, 300px">
+                <img src="img/stats.png" alt="ASCEND stats screen with an activity heatmap and muscle balance" width="1170" height="2532" loading="lazy" decoding="async">
+              </picture>
+              <picture class="seq-shot" data-step="3" aria-hidden="true">
+                <source type="image/webp" srcset="img/plan-480.webp 480w, img/plan-600.webp 600w, img/plan-1170.webp 1170w" sizes="(max-width: 900px) 48vw, 300px">
+                <img src="img/plan.png" alt="ASCEND weekly plan with a routine for each day" width="1170" height="2532" loading="lazy" decoding="async">
+              </picture>
+              <picture class="seq-shot" data-step="4" aria-hidden="true">
+                <source type="image/webp" srcset="img/library-480.webp 480w, img/library-600.webp 600w, img/library-1170.webp 1170w" sizes="(max-width: 900px) 48vw, 300px">
+                <img src="img/library.png" alt="ASCEND exercise library with search, filters and animated demos" width="1170" height="2532" loading="lazy" decoding="async">
+              </picture>
+            </div>
+          </div>
+          <div class="seq-label" aria-live="polite"><span id="seq-label">Home</span><i>Live screen</i></div>
+        </div>
+      </div>
     </div>
   </div>
-  <div class="bleed rv">
-    <div class="rail">
-      <figure><div class="device"><picture><source type="image/webp" srcset="img/home-480.webp 480w, img/home-600.webp 600w, img/home-1170.webp 1170w" sizes="(max-width: 700px) 60vw, 240px"><img src="img/home.png" alt="Home screen with the weekly overview and body-weight chart" loading="lazy" decoding="async" width="1170" height="2532"></picture></div><figcaption>Home</figcaption></figure>
-      <figure><div class="device"><picture><source type="image/webp" srcset="img/workout-480.webp 480w, img/workout-600.webp 600w, img/workout-1170.webp 1170w" sizes="(max-width: 700px) 60vw, 240px"><img src="img/workout.png" alt="Guided workout screen with sets, rest timer and pre-filled weights" loading="lazy" decoding="async" width="1170" height="2532"></picture></div><figcaption>Workout</figcaption></figure>
-      <figure><div class="device"><picture><source type="image/webp" srcset="img/stats-480.webp 480w, img/stats-600.webp 600w, img/stats-1170.webp 1170w" sizes="(max-width: 700px) 60vw, 240px"><img src="img/stats.png" alt="Stats screen with the activity heatmap and charts" loading="lazy" decoding="async" width="1170" height="2532"></picture></div><figcaption>Stats</figcaption></figure>
-      <figure><div class="device"><picture><source type="image/webp" srcset="img/plan-480.webp 480w, img/plan-600.webp 600w, img/plan-1170.webp 1170w" sizes="(max-width: 700px) 60vw, 240px"><img src="img/plan.png" alt="Weekly plan screen with a routine per weekday" loading="lazy" decoding="async" width="1170" height="2532"></picture></div><figcaption>Plan</figcaption></figure>
-      <figure><div class="device"><picture><source type="image/webp" srcset="img/library-480.webp 480w, img/library-600.webp 600w, img/library-1170.webp 1170w" sizes="(max-width: 700px) 60vw, 240px"><img src="img/library.png" alt="Exercise library with search and filters" loading="lazy" decoding="async" width="1170" height="2532"></picture></div><figcaption>Library</figcaption></figure>
-    </div>
-  </div>
-  <div class="wrap"><p class="rail-hint">Swipe through them.</p></div>
 </section>
 
-<section id="demo">
+<section id="demo" data-sc-ch="4" data-sc-label="Demo">
   <div class="wrap">
     <div class="sec-head rv">
-      <p class="eyebrow">Live demo</p>
-      <h2>Try it right here.</h2>
-      <p class="lead">The real app with a seeded example history, running in your browser.
+      <p class="eyebrow">03 — Live demo</p>
+      <h2>The real app. <em>Right here.</em></h2>
+      <p class="lead">ASCEND with a seeded example history, running in your browser.
          Start a workout, break something, change anything you like.</p>
     </div>
 
@@ -422,11 +531,11 @@ try {
   </div>
 </section>
 
-<section id="download">
+<section id="download" data-sc-ch="5" data-sc-label="Download">
   <div class="wrap">
     <div class="sec-head rv">
-      <p class="eyebrow">Get openGym</p>
-      <h2>One app, two flavors.</h2>
+      <p class="eyebrow">04 — Get ASCEND</p>
+      <h2>One app. <em>Two ways to own it.</em></h2>
       <p class="lead">Same codebase. The choice is where your data lives: entirely on your
          phone, or on a server you control.</p>
     </div>
@@ -443,34 +552,21 @@ try {
           <li class="no">No sync across devices</li>
         </ul>
         <div class="push">
-          <!-- Three APKs per release, same app, same key, same data. Each one updates itself and
-               stays the kind it is (lib/update.js pickApk). Bump the file names, sizes and the
-               version on every release: releases/latest/download/<name> only finds the newest one. -->
+          <!-- The signed Standard APK lives beside this page. `download` saves it as
+               ASCEND.apk even though the source file carries its version. -->
           <div class="dl-row">
-            <a class="btn" href="https://github.com/DuarteSantos8/openGym/releases/latest/download/openGym-1.4.2.apk">Standard</a>
-            <a class="btn ghost" href="https://github.com/DuarteSantos8/openGym/releases/latest/download/openGym-Plus-1.4.2.apk">Plus</a>
-            <a class="btn ghost" href="https://github.com/DuarteSantos8/openGym/releases/latest/download/openGym-HD-1.4.2.apk">HD</a>
+            <a class="btn" href="ASCEND-1.4.2.apk" download="ASCEND.apk">Download ASCEND <span class="btn-arrow" aria-hidden="true">↓</span></a>
+            <a class="link" href="https://github.com/DuarteSantos8/openGym/releases" rel="noopener">Checksums &amp; other builds</a>
           </div>
-          <ul class="dl-sizes">
-            <li><b>Standard</b> · 315 MB · light and quick, right for most phones.</li>
-            <li><b>Plus</b> · 424 MB · crisper animations, still pocket-sized.</li>
-            <li><b>HD</b> · 759 MB · every rep in high definition. Bring storage.</li>
-          </ul>
-          <p class="meta">v1.4.2 · Android 7.0+ · signed APKs. Same app, same data, only the exercise
-             animations differ. Not sure? Standard. Switch any time by installing another one on top.</p>
-          <p class="meta">Your browser will ask before installing; that is normal outside the Play Store.
-             Every release is signed and attached to the
-             <a href="https://github.com/DuarteSantos8/openGym/releases" rel="noopener">GitHub
-             releases page</a>, checksums and all.</p>
-          <p class="meta"><b>Google Play?</b> Coming soon. We are rounding up testers first, Google insists.</p>
-          <!-- App Store toggle: set data-appstore="live" once the app is out (and "soon" until then). -->
-          <div class="ios" data-appstore="live">
-            <p class="meta ios-soon"><b>On iPhone?</b> The App Store app is waiting for Apple's thumbs up.
-               Until then, use the self-hosted version as a home-screen app, or see
-               <a href="docs.html#iphone">the docs</a>.</p>
-            <a class="ios-live store-badge" href="https://apps.apple.com/app/id6822275400" rel="noopener">
-              <img src="app-store-badge.svg" width="150" height="50" alt="Download on the App Store"></a>
-          </div>
+          <p class="dl-facts"><b>315 MB</b><span>v1.4.2</span><span>Android 7.0+</span><span>Signed APK</span></p>
+          <p class="meta">No account, no server, no store gatekeeper. The APK installs directly;
+             your browser will ask once for permission to install apps. Android updates install
+             over it and keep your data.</p>
+          <p class="meta">Standard ships here. The larger <b>Plus</b> and <b>HD</b> animation packs
+             are attached to the <a href="https://github.com/DuarteSantos8/openGym/releases" rel="noopener">GitHub release</a>
+             with their checksums.</p>
+          <p class="meta"><b>On iPhone?</b> Use the self-hosted web app in Safari and add it to
+             your home screen. See <a href="docs.html#iphone">the iPhone guide</a>.</p>
         </div>
       </div>
       <div class="card rv">
@@ -481,7 +577,7 @@ try {
           <li>Sync across all your devices</li>
           <li>Passkey profiles for several people</li>
           <li>Your data readable on the desktop</li>
-          <li>A home-screen app on iPhone and Android</li>
+          <li>The web app on desktop, iPhone and Android</li>
           <li>One <code>docker compose up</code></li>
         </ul>
         <div class="push">
@@ -493,41 +589,64 @@ try {
   </div>
 </section>
 
-<section id="story">
-  <div class="wrap story rv">
-    <blockquote>openGym started as <b>a tiny app I built for myself.</b> I wanted to log my
-      workouts and my weight without a subscription app claiming my training data. Then
-      friends wanted in, and it grew a mind of its own.</blockquote>
-    <p class="who">Duarte Santos · <a href="about.html">read the whole story</a></p>
+<section id="story" data-sc-ch="6" data-sc-label="Story">
+  <div class="wrap story">
+    <blockquote class="kinetic rv">
+      <span class="kl"><span>After <b>seven years in the fitness industry</b> —</span></span>
+      <span class="kl"><span>two competitions, and coaching clients at every level —</span></span>
+      <span class="kl"><span>I kept hitting the same wall:</span></span>
+      <span class="kl"><span>the apps I recommended claimed the data.</span></span>
+      <span class="kl"><span>So I built the one I wanted: free, open, and yours.</span></span>
+    </blockquote>
+    <div class="founder rv">
+      <div class="founder-mark" aria-hidden="true"><b>JRM</b><span>jrsmDev</span></div>
+      <div class="founder-copy">
+        <p class="eyebrow">The person behind the work</p>
+        <h3>Joseph Rman Madrilejos</h3>
+        <p>Seven years in the fitness industry. Two competitions. Clients at every level.
+           ASCEND started a couple of months ago as the training log I wanted for myself:
+           quiet between sets, honest after them.</p>
+        <div class="founder-links">
+          <a href="https://jrsm-dev-portfolio-one.vercel.app" rel="noopener">Portfolio <span aria-hidden="true">↗</span></a>
+          <a href="mailto:joseph.r.madrilejos@gmail.com">Email</a>
+          <a href="about.html">Read the full story <span aria-hidden="true">→</span></a>
+        </div>
+      </div>
+      <dl class="founder-facts">
+        <div><dt>Years in fitness</dt><dd>07</dd></div>
+        <div><dt>Competitions</dt><dd>02</dd></div>
+        <div><dt>App, built from the floor</dt><dd>01</dd></div>
+      </dl>
+    </div>
   </div>
 </section>
 
-<section id="opensource">
+<section id="opensource" data-sc-ch="7" data-sc-label="Open source">
   <div class="wrap">
     <div class="sec-head rv">
-      <p class="eyebrow">Open source</p>
-      <h2>AGPL-licensed, and staying that way.</h2>
+      <p class="eyebrow">05 — Open source</p>
+      <h2>AGPL-licensed. <em>Staying that way.</em></h2>
       <p class="lead">The code is public, the license keeps every fork open, and there is no
          commercial edition waiting behind a curtain.</p>
     </div>
 
-    <div class="specs rv">
+    <div class="specs">
       <div class="spec-head">
-        <span>openGym in numbers</span>
+        <span>ASCEND in numbers</span>
         <span class="live">counts are live</span>
       </div>
       <div class="spec-cells">
-        <div><b data-gh="stars-n">–</b><span>stars</span></div>
-        <div><b data-gh="forks-n">–</b><span>forks</span></div>
-        <div><b data-gh="issues-n">–</b><span>open issues</span></div>
-        <div><b data-dc="members-n">–</b><span>on Discord</span></div>
-        <div><b>5,632</b><span>exercises</span></div>
-        <div><b>19</b><span>languages</span></div>
+        <div class="reveal-cell"><b data-gh="stars-n">15,891</b><span>stars</span></div>
+        <div class="reveal-cell"><b data-gh="forks-n">2,085</b><span>forks</span></div>
+        <div class="reveal-cell"><b data-gh="issues-n">223</b><span>open issues</span></div>
+        <div class="reveal-cell"><b data-dc="members-n">1,877</b><span>on Discord</span></div>
+        <div class="reveal-cell"><b>5,632</b><span>exercises</span></div>
+        <div class="reveal-cell"><b>19</b><span>languages</span></div>
       </div>
     </div>
 
     <div class="actions rv" style="margin-top:28px">
-      <a class="btn ghost" href="https://github.com/DuarteSantos8/openGym" rel="noopener">openGym on GitHub <span class="ct" data-gh="stars">★</span></a>
+      <a class="btn ghost" href="https://github.com/DuarteSantos8/openGym" rel="noopener">ASCEND on GitHub <span class="ct" data-gh="stars">★ 15,891</span></a>
       <a class="link" href="https://github.com/DuarteSantos8/openGym/blob/main/CONTRIBUTING.md" rel="noopener">Contributing</a>
       <a class="link" href="https://github.com/DuarteSantos8/openGym/blob/main/CHANGELOG.md" rel="noopener">Changelog</a>
     </div>
@@ -535,11 +654,11 @@ try {
   </div>
 </section>
 
-<section id="elsewhere">
+<section id="elsewhere" data-sc-ch="8" data-sc-label="Elsewhere">
   <div class="wrap">
     <div class="sec-head rv">
-      <p class="eyebrow">Elsewhere</p>
-      <h2>Where openGym lives.</h2>
+      <p class="eyebrow">06 — Elsewhere</p>
+      <h2>Where ASCEND lives.</h2>
     </div>
 
     <div class="quad rv">
@@ -568,11 +687,11 @@ try {
         <span class="pad-ic"><svg viewBox="0 0 24 24" aria-hidden="true"><use href="#i-bmc"/></svg></span>
         <span class="pad-body">
           <b>Support the project</b>
-          <span>openGym is free, and stays free.</span>
+          <span>ASCEND is free, and stays free.</span>
           <span class="rest">If it saved you a subscription, pick your favourite cup and say thanks.</span>
         </span>
         <span class="pad-links">
-          <a class="pad-go" href="https://buymeacoffee.com/duartesantos" rel="noopener">Buy me a coffee</a>
+          
           <a class="pad-go kofi" href="https://ko-fi.com/opengym" rel="noopener"><svg viewBox="0 0 24 24" aria-hidden="true"><use href="#i-kofi"/></svg>Ko-fi</a>
         </span>
       </div>
@@ -591,7 +710,7 @@ try {
 </section>
 
 
-<section id="contact">
+<section id="contact" data-sc-ch="8" data-sc-label="Contact">
   <div class="wrap">
     <div class="sec-head rv">
       <p class="eyebrow">Contact &amp; support</p>
@@ -601,17 +720,32 @@ try {
       The quickest answers live on <a href="https://discord.gg/e62jY6fwVb" rel="noopener">Discord</a>.
       Bugs and ideas are welcome as <a href="https://github.com/DuarteSantos8/openGym/issues" rel="noopener">GitHub issues</a>,
       questions in <a href="https://github.com/DuarteSantos8/openGym/discussions" rel="noopener">GitHub Discussions</a>.
-      Rather write an email? <a href="mailto:contact@duarte-santos.ch">contact@duarte-santos.ch</a> reaches me directly.
-      More about who builds this: <a href="https://duarte-santos.ch" rel="noopener">duarte-santos.ch</a>.
+      Rather write an email? <a href="mailto:joseph.r.madrilejos@gmail.com">joseph.r.madrilejos@gmail.com</a> reaches me directly.
+      More about who builds this: <a href="https://jrsm-dev-portfolio-one.vercel.app" rel="noopener">jrsm-dev-portfolio-one.vercel.app</a>.
       How your data is handled: <a href="privacy.html">Privacy</a>.
     </p>
   </div>
 </section>
 
+<!-- The ascent trace: a thin horizontal trace fixed at the bottom edge of the
+     viewport, present through the whole page. It draws a real waveform as the
+     visitor scrolls — the scroll position is the playhead. Each chapter stamps
+     a marker on the trace that stays. By the footer the trace is a complete
+     record of the journey. It is also navigation: clicking a marker jumps to
+     that chapter. This is the signature move for this build. -->
+<div class="ascent-trace" id="ascent-trace" role="navigation" aria-label="Chapter markers">
+  <svg viewBox="0 0 1000 48" preserveAspectRatio="none" aria-hidden="true">
+    <path class="at-fill" d="M0,40 L0,40 Z"></path>
+    <path class="at-line" d="M0,24"></path>
+    <g class="at-markers"></g>
+    <circle class="at-playhead" cx="0" cy="24" r="2.5"></circle>
+  </svg>
+</div>
+ 
 </main>
-
+ 
 <footer><div class="wrap foot">
-  <span class="c">openGym · AGPL-3.0 · © 2026 <a href="https://duarte-santos.ch" rel="noopener">Duarte Santos</a></span>
+  <span class="c">ASCEND · AGPL-3.0 · © 2026 <a href="https://jrsm-dev-portfolio-one.vercel.app" rel="noopener">jrsmDev</a></span>
   <div class="links">
     <a href="docs.html">Docs</a>
     <a href="about.html">About</a>
@@ -624,6 +758,10 @@ try {
   </div>
 </div></footer>
 
-<script src="site.js?v=28" defer></script>
+<script src="site.js?v=31" defer></script>
 </body>
 </html>
+
+
+
+

@@ -72,7 +72,7 @@ function applyPrefs(theme, accent) {
   de.dataset.theme = resolveTheme(theme)
   applyAccent(de, accent, de.dataset.theme)
   const meta = document.querySelector('meta[name="theme-color"]')
-  if (meta) meta.content = de.dataset.theme === 'light' ? '#f2f2f7' : '#000000'
+  if (meta) meta.content = de.dataset.theme === 'light' ? '#F2F1ED' : '#090A09'
   if (MOBILE) setSystemBarsLight(de.dataset.theme === 'light')
 }
 
@@ -317,6 +317,7 @@ function Page({ loc, render, under = false, scrollY = 0 }) {
   }, [under])
   return <div ref={ref} className={'page' + (under ? ' under' : wasUnder.current ? '' : ' vfade')}
     data-path={loc.pathname} data-promoted={promoted ? '' : undefined}
+    role={under ? undefined : 'main'}
     aria-hidden={under || undefined} inert={under || undefined}>
     <div className="page-in" style={under && scrollY ? { transform: `translateY(${-scrollY}px)` } : undefined}>
       <ErrorBoundary>{render(loc)}</ErrorBoundary>

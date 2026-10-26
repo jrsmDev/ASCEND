@@ -176,7 +176,7 @@ export default function AdminCoach() {
     </div>
   </div>
 
-  return <div className="card" style={{ borderColor: live ? 'var(--acc)' : undefined }}>
+  return <div className="card" style={{ borderColor: live ? 'var(--acc-text)' : undefined }}>
     <div className="row between" style={{ marginBottom: 2 }}>
       <h2 style={{ margin: 0 }}>AI Coach</h2>
       <Switch checked={!!d.enabled} disabled={busy} onChange={v => patch({ enabled: v })} />
@@ -377,7 +377,7 @@ export default function AdminCoach() {
           <div className="adm-group-t">Recent jobs</div>
           {d.recent?.length ? <div className="adm-log">
             {d.recent.slice(0, 10).map((e, i) => <div key={i} className="adm-log-row">
-              <span>{e.kind === 'create' ? 'Plan' : 'Review'}{e.trigger === 'scheduled' ? ' · scheduled' : ''} · <span style={{ color: e.outcome === 'failed' ? 'var(--red)' : e.outcome === 'ready' ? 'var(--acc)' : 'var(--label-2)' }}>{e.outcome}</span>{e.ms ? ' · ' + Math.round(e.ms / 1000) + ' s' : ''}</span>
+              <span>{e.kind === 'create' ? 'Plan' : 'Review'}{e.trigger === 'scheduled' ? ' · scheduled' : ''} · <span style={{ color: e.outcome === 'failed' ? 'var(--red)' : e.outcome === 'ready' ? 'var(--acc-text)' : 'var(--label-2)' }}>{e.outcome}</span>{e.ms ? ' · ' + Math.round(e.ms / 1000) + ' s' : ''}</span>
               <span className="when">{rel(e.at)}</span>
             </div>)}
           </div> : <div className="adm-empty">No jobs yet.</div>}

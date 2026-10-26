@@ -98,8 +98,8 @@ export function inkOn(hex) {
 // --label-2 makes every button look switched off. A grey goes further: to text contrast (4.5:1)
 // on the theme, and at least 2:1 away from --label-2.
 export const THEMES = {
-  dark: { bgs: ['#000000', '#1c1c1e'], min: 3, toward: '#ffffff', label2: ['#8d8d93', '#98989f'] },
-  light: { bgs: ['#f2f2f7', '#ffffff'], min: 3, toward: '#000000', label2: ['#85858b', '#8a8a8e'] },
+  dark: { bgs: ['#090A09', '#1a1b1a'], min: 3, toward: '#ffffff', label2: ['#8d8d93', '#98989f'] },
+  light: { bgs: ['#F2F1ED', '#ffffff'], min: 3, toward: '#000000', label2: ['#85858b', '#8a8a8e'] },
 }
 // Below this HSL saturation a colour counts as a grey (white, black, #808080, near-whites).
 export const GREY_SAT = 0.25

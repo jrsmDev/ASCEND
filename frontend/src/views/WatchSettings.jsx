@@ -42,8 +42,8 @@ export default function WatchSettingsPage() {
 
   const linkLine = !link ? t('Checking…')
     : !link.paired ? t('No Apple Watch paired with this iPhone')
-    : !link.installed ? t('openGym is not on your Apple Watch yet. Install it in the Watch app.')
-    : t('openGym is on your Apple Watch')
+    : !link.installed ? t('ASCEND is not on your Apple Watch yet. Install it in the Watch app.')
+    : t('ASCEND is on your Apple Watch')
   const denied = healthOn && status?.health === 'denied'
   const healthValue = healthOn == null ? '' : denied ? t('Not allowed') : healthOn ? t('On') : t('Off')
   const healthLine = denied ? t('Not allowed on the watch. Allow it in the Health app on your iPhone.')
@@ -59,7 +59,7 @@ export default function WatchSettingsPage() {
       </Row>
     </Section>
     {prefs.enabled && <>
-      <Section footer={t('Start a workout on the phone and openGym pops up on your wrist.')}>
+      <Section footer={t('Start a workout on the phone and ASCEND pops up on your wrist.')}>
         <Row icon="bolt" iconTint="var(--green)" title={t('Open on the watch')}>
           <Switch checked={prefs.autoShow} onChange={v => set({ autoShow: v })} aria-label={t('Open on the watch')} />
         </Row>

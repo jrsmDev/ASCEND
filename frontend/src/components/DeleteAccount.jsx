@@ -70,7 +70,7 @@ export function DeleteAccountSheet({ close, exportBackup, exportBackupZip, hasMe
       {t('Your profile, workouts, body weight, photos and videos are deleted from this server for good. There is no undo, and not even your admin can bring them back.')}
     </div>
     {step === 'name' ? <>
-      <div className="small" style={{ marginBottom: 8 }}>{t('Want a copy first? Export a backup. You can import it into openGym anytime.')}</div>
+      <div className="small" style={{ marginBottom: 8 }}>{t('Want a copy first? Export a backup. You can import it into ASCEND anytime.')}</div>
       {hasMedia && exportBackupZip
         ? <Button icon="share" onClick={exportBackupZip}>{t('Export with photos & videos (.zip)')}</Button>
         : <Button icon="share" onClick={exportBackup}>{t('Export backup (JSON)')}</Button>}
@@ -107,7 +107,7 @@ function DeviceConfirm({ onConfirmed }) {
     if (busy) return
     setBusy(true); setErr(null)
     try {
-      const r = await confirmDeviceOwner(t('Confirm it’s you to delete your openGym account'))
+      const r = await confirmDeviceOwner(t('Confirm it’s you to delete your ASCEND account'))
       if (r !== 'ok' && r !== 'none') { setErr(t('Not confirmed on this phone. Nothing was deleted.')); return }
       await onConfirmed()
     } catch (e) { setErr(deleteAccountError(e)) }

@@ -1,5 +1,14 @@
 {
+  "name": "opengym",
+  "private": true,
+  "scripts": {
+    "test:e2e": "playwright test --config=playwright.config.js",
+    "test:e2e:ui": "playwright test --config=playwright.config.js --ui",
+    "lint": "npm run lint --prefix api && npm run lint --prefix frontend",
+    "format": "npm run format --prefix api && npm run format --prefix frontend"
+  },
   "devDependencies": {
+    "@playwright/test": "^1.64.1",
     "js-yaml": "^4.1.0"
   }
 }

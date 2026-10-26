@@ -131,9 +131,9 @@ describe('keeping in step', () => {
   })
 })
 
-// The owner, TestFlight: a workout or a weigh-in deleted in openGym goes from Apple Health too,
+// The owner, TestFlight: a workout or a weigh-in deleted in ASCEND goes from Apple Health too,
 // wherever the deletion was made, and nothing else ever does.
-describe('deleting in openGym', () => {
+describe('deleting in ASCEND', () => {
   const bw = (d, w) => ({ d: `2026-09-${d}`, w, t: at(d, 7) })
   it('takes a deleted workout and a removed weigh-in out, and rewrites an edited one', async () => {
     await hs.enableHealth(state([workout('w1', 17), workout('w2', 18)], [bw(17, 80), bw(18, 79)]))

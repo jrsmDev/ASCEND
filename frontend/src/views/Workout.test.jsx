@@ -1348,9 +1348,9 @@ describe('effort cell (colour-coded RIR/RPE quick picker)', () => {
     expect(outer[0].className).toContain('effcell-stp')   // logged: the stepper, not the label
     // 0 RIR = to failure = purple; 2 RIR = yellow (the colours effortColor assigns) — the
     // colour rides the outer stepper (border + tinted background), not the inner value button
-    expect(outer[0].getAttribute('style')).toContain('--purple')
+    expect(outer[0].getAttribute('style')).toContain('--chart-purple')
     expect(cells[1].textContent).toBe('2')
-    expect(outer[1].getAttribute('style')).toContain('--yellow')
+    expect(outer[1].getAttribute('style')).toContain('--chart-yellow')
     expect(cells[2].textContent).toBe('RIR')      // the unrated one stays a label
     expect(outer[2].className).toContain('is-empty')
   })
@@ -1367,7 +1367,7 @@ describe('effort cell (colour-coded RIR/RPE quick picker)', () => {
     await act(async () => { root.render(React.createElement(Workout)) })
     expect(effCells()[0].textContent).toBe('8')
     // RPE 8 == RIR 2 == yellow: the colour is the effort, independent of the scale shown
-    expect(effCellList()[0].getAttribute('style')).toContain('--yellow')
+    expect(effCellList()[0].getAttribute('style')).toContain('--chart-yellow')
   })
 
   it('opens the picker for the set on tap, passing scale, current value and a writer', async () => {

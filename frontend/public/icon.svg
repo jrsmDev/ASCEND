@@ -1,0 +1,8 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 200 200" role="img" aria-label="ASCEND">
+  <rect width="200" height="200" rx="44" fill="#090A09"/>
+  <g fill="#C7F45A" transform="translate(36.3 38.5) scale(.62)">
+    <polygon points="6,194 100,4 112,30 52,194"/>
+    <polygon points="137.6,80 194,194 150,194 121.8,137"/>
+    <polygon points="100,96 127,164 109,164 100,141 91,164 73,164"/>
+  </g>
+</svg>

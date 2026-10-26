@@ -5,7 +5,7 @@ import V13_IDS from './catalogue-v13-ids.json' with { type: 'json' }
 // Workouts, routines, records and backups store exercise ids, so an id that ever shipped must
 // resolve forever (catalogue/README.md). This is every id of the v1.3 dataset, frozen.
 describe('catalogue continuity', () => {
-  it('still knows every exercise id openGym shipped before v1.4.0', () => {
+  it('still knows every exercise id ASCEND shipped before v1.4.0', () => {
     expect(V13_IDS).toHaveLength(1324)
     const gone = V13_IDS.filter(id => !EXIDX[id])
     expect(gone).toEqual([])

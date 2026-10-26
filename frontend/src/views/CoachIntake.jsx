@@ -277,7 +277,7 @@ function Consent({ onAgree, onDecline }) {
     <div className="ob-fine">
       <div>{who}</div>
       <div>{t('Your name, your sign-in details and everything else about your account stay here. Other people’s data is never included.')}</div>
-      <div style={{ color: 'var(--yellow)' }}>{t('The Coach is not a doctor or a physiotherapist. If something hurts, ask a professional.')}</div>
+      <div style={{ color: 'var(--chart-yellow)' }}>{t('The Coach is not a doctor or a physiotherapist. If something hurts, ask a professional.')}</div>
     </div>
     <div className="ob-foot" style={{ flexDirection: 'column' }}>
       <Button variant="primary" onClick={() => onAgree(info)}>{t('I understand, let’s go')}</Button>

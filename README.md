@@ -1,8 +1,8 @@
 <div align="center">
 
-<img src="assets/banner.png" alt="openGym" width="720">
+<img src="assets/banner.png" alt="ASCEND" width="720">
 
-**A self-hosted gym and body-weight tracker you actually own.**
+**ASCEND — a self-hosted gym and body-weight tracker you actually own.**
 
 Plan your week, run guided workouts, log every set and your body weight,<br>
 on your phone, synced across your devices, behind your own passkey login.
@@ -21,17 +21,14 @@ on your phone, synced across your devices, behind your own passkey login.
 [![Coverage](https://gitlab.com/DuarteSantos8/opengym/badges/main/coverage.svg?job=test:frontend&style=flat-square)](https://gitlab.com/DuarteSantos8/opengym/-/pipelines?ref=main)
 [![License: AGPL v3](https://img.shields.io/badge/license-AGPL--3.0-a3e635?style=flat-square)](LICENSE)
 
-<a href="https://apps.apple.com/app/id6822275400"><img src="website/app-store-badge.svg" alt="Download on the App Store" height="44"></a>
-
 [Website](https://opengym.ch) ·
 [Live demo](https://opengym.ch/demo/) ·
-[Android APK](https://github.com/DuarteSantos8/openGym/releases/latest) ·
-[App Store](https://apps.apple.com/app/id6822275400) ·
+[Android APK](https://opengym.ch/#download) ·
+[iPhone / PWA](docs/MOBILE.md) ·
 [Self-hosting guide](docs/SELF_HOSTING.md) ·
 [Roadmap](ROADMAP.md) ·
 [Changelog](CHANGELOG.md)
 
-<a href="https://buymeacoffee.com/duartesantos" target="_blank"><img src="https://cdn.buymeacoffee.com/buttons/v2/default-yellow.png" alt="Buy Me A Coffee" height="45" width="163"></a>
 <a href="https://ko-fi.com/opengym" target="_blank"><img src="https://ko-fi.com/img/githubbutton_sm.svg" alt="Support openGym on Ko-fi" height="45"></a>
 
 </div>
@@ -191,13 +188,14 @@ variable. The [self-hosting guide](docs/SELF_HOSTING.md) covers every option in 
 The same codebase builds a standalone app with Capacitor: no account, no server, everything stays
 on the phone, with native reminders and a rest countdown in the notification shade.
 
-- **Android:** download the signed APK from the [latest release](https://github.com/DuarteSantos8/openGym/releases/latest)
-  or the [website](https://opengym.ch): Standard (`openGym-X.Y.Z.apk`, 180 px animations, about
-  315 MB), Plus (`openGym-Plus-X.Y.Z.apk`, 240 px, about 424 MB) or HD (`openGym-HD-X.Y.Z.apk`,
-  360 px, about 760 MB). Each sits next to its `.sha256`,
-  checks for updates itself and stays the kind you picked. A Google Play version is on its way.
-- **iPhone and Apple Watch:** the [App Store app](https://apps.apple.com/app/id6822275400), in
-  every App Store country. Or self-host and add the PWA to your home screen from Safari.
+- **Android:** download the signed Standard APK from the [website](https://opengym.ch/#download)
+  (`ASCEND-1.4.2.apk`, 180 px animations, about 315 MB); Plus (`openGym-Plus-X.Y.Z.apk`, 240 px,
+  about 424 MB) and HD (`openGym-HD-X.Y.Z.apk`, 360 px, about 760 MB) sit on the
+  [latest release](https://github.com/DuarteSantos8/openGym/releases/latest) with their
+  `.sha256` files. The app checks for updates itself and stays the kind you picked. There is no
+  Google Play release yet.
+- **iPhone / web:** there is no App Store build yet. Self-host ASCEND and add the PWA to your
+  home screen from Safari. The path is in [docs/MOBILE.md](docs/MOBILE.md).
 
 Details and build instructions: [docs/MOBILE.md](docs/MOBILE.md).
 
@@ -335,11 +333,11 @@ the same way.
 ## Support
 
 openGym is free and stays free: AGPL, no paid tier, nothing held back for sponsors. If it replaced a
-paid tracker for you and you'd like to chip in, there's a coffee button below. A star, a bug report
+paid tracker for you and you'd like to chip in, there's a Ko-fi page below. A star, a bug report
 or a pull request helps just as much.
 
-<a href="https://buymeacoffee.com/duartesantos" target="_blank">
-  <img src="https://cdn.buymeacoffee.com/buttons/v2/default-yellow.png" alt="Buy Me A Coffee" height="60" width="217">
+<a href="https://ko-fi.com/opengym" target="_blank">
+  <img src="https://ko-fi.com/img/githubbutton_sm.svg" alt="Support openGym on Ko-fi" height="45">
 </a>
 
 [![Star History Chart](https://api.star-history.com/svg?repos=duartesantos8/opengym&type=Date)](https://star-history.com/#DuarteSantos8/openGym&Date)
@@ -358,7 +356,7 @@ version's source under the same license.
 > from gymvisual.com. The exercise text in `catalogue/` is openGym's and open to contributions.
 
 **Contributing:** pull requests are signed off once with the [Contributor License Agreement](CLA.md):
-you keep the copyright in your work, openGym may use and relicense it (so the app can stay in the
-App Store and Google Play long term), and every version released under the AGPL stays AGPL.
+you keep the copyright in your work, openGym may use and relicense it, and every version released
+under the AGPL stays AGPL.
 
 Full third-party notices, including the body-diagram geometry, are in [NOTICE.md](NOTICE.md).

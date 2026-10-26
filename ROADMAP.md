@@ -11,9 +11,9 @@ the next release is the last published one plus one patch (1.3.7 → 1.3.8), and
 reserved for a step as big as the new exercise database (v1.4.0).
 
 - Milestones: https://github.com/DuarteSantos8/openGym/milestones (every open issue sits in exactly one)
-- Tracks, in order: the App Store (v1.4.2) → community features (v1.4.3) → programmes →
-  Google Play with the progression engine → cardio → search → accounts → trainer → wearables → looks
-  and social, with database storage after that
+- Tracks, in order: the Android release (v1.4.2) → community features (v1.4.3) → programmes →
+  a Google Play build with the progression engine → cardio → search → accounts → trainer →
+  wearables → looks and social, with database storage after that
 
 ---
 
@@ -153,11 +153,11 @@ server.
 
 The animations come back as WebP, and the Android update check reads GitHub.
 
-## v1.4.2: openGym in the App Store  (2026-10-18)
+## v1.4.2: Android release and native iOS shell  (2026-10-23)
 
-- The iPhone app in the App Store, with an Apple Watch app, widgets, a Live Activity and Apple
-  Health (#90, #125 on iOS)
-- Animation quality to pick: built in 180 px, or 240 to 1080 px downloaded from the store
+- A native iOS shell built from source, with an Apple Watch app, widgets, a Live Activity and
+  Apple Health (#90, #125 on iOS); neither store release is live yet
+- Animation quality to pick: built in 180 px, or 240 to 1080 px downloaded in the native build
 - Three APK sizes on GitHub: Standard, Plus and HD
 - Your bars, rest between warm-ups and between sides, backups for an exercise, the boot screen,
   five reported security holes closed

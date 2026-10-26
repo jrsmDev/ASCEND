@@ -167,7 +167,7 @@ describe('the weigh-in from the watch', () => {
   })
 })
 
-describe('workouts deleted in openGym, for the watch\'s own copies in Apple Health', () => {
+describe('workouts deleted in ASCEND, for the watch\'s own copies in Apple Health', () => {
   it('names the deleted workouts newest first, leaves add-backs out, and caps the list', async () => {
     const { healthGoneFor } = await import('./watch-sync.js')
     const S = { deleted: { workouts: { a: 100, b: 300, c: -5, d: 200 }, bodyweight: { '2026-10-01': 50 } } }

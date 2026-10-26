@@ -2,14 +2,11 @@
 
 ## v1.4.2 (2026-10-23)
 
-openGym comes to the App Store, with an Apple Watch app in tow. Plus everything you asked for
-since v1.4.1, five reported security holes closed and a fresh look at the animations.
+A large Android release with five reported security holes closed, a fresh look at the animations,
+and the usual flow fixes. There is no App Store or Google Play build: the signed Android APK is on
+the website and the GitHub release, and the native iOS shell can be built from source.
 
-**openGym on the iPhone.** The App Store app is the same openGym: use it on the phone alone, or
-connect it to your own server. Your data stays where it is (no account with us, nothing collected).
-Get it on the App Store: https://apps.apple.com/app/id6822275400
-
-- **Apple Watch.** Start a workout on the wrist, or on the phone and the watch app opens with it,
+- **Apple Watch (native iOS shell).** Start a workout on the wrist, or on the phone and the watch app opens with it,
   then tick off sets with a big Done button and the Digital Crown for reps and weight. Rest is a
   full-screen countdown with +15 s and Skip, holds count down, sides say Left or Right, supersets
   go in turns. Heart rate per set, a summary at the end, a Smart Stack widget and complications
@@ -23,7 +20,7 @@ Get it on the App Store: https://apps.apple.com/app/id6822275400
   has for Health Connect, offered once at the start. Delete a workout in openGym (on any of your
   devices) and it leaves Apple Health too.
 - **Sharper animations, your choice.** Settings → Workout → Animation quality: Still only, built in
-  (180 px), or 240, 360, 480, 720 and 1080 px, downloaded from the App Store when you pick them.
+  (180 px), or 240, 360, 480, 720 and 1080 px, downloaded in the native build when you pick them.
   Auto takes 360 on a phone and 720 on an iPad, over Wi-Fi. Female and male figures download
   separately, so you only get the one you use.
 - **No more boxes.** The animations in the app showed faint rectangles around the moving parts.
@@ -40,8 +37,8 @@ you know stays and updates itself, now in three sizes: **Standard** (`openGym-1.
 animations built in at 180 px, the small one), **Plus** (`openGym-Plus-1.4.2.apk`, 240 px) and
 **HD** (`openGym-HD-1.4.2.apk`, 360 px, sharp and hungry). Each one updates to its own kind, so
 nobody gets a surprise download twice the size. Phones on v1.4.1 update to Standard; want Plus or
-HD? Install it on top, your data stays (same goes for going back). A Google Play version is ready for the store too: it updates through Play and gets
-the sharper animations as Play downloads, like the iPhone, and an APK phone can move to it later
+HD? Install it on top, your data stays (same goes for going back). A Google Play build is prepared
+but not live; if it ships later, it would update through Play and an APK phone could move to it
 without losing anything.
 
 **Your account, your call.**

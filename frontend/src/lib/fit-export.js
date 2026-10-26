@@ -11,10 +11,10 @@
 // between them), one lap, the session and the activity. A workout of nothing but cardio becomes
 // a run, a ride, a row and so on, with a lap per cardio set instead of strength sets.
 //
-// openGym keeps a tick time per set (`at`, since v1.3.x), not a start and an end, so when a set
+// ASCEND keeps a tick time per set (`at`, since v1.3.x), not a start and an end, so when a set
 // started is estimated from how long it lasts: its minutes or seconds when it has them, a few
 // seconds a rep when it does not. Workouts from before the tick was kept spread their sets over
-// the session. No heart rate, no calories: openGym never had them.
+// the session. No heart rate, no calories: ASCEND never had them.
 import { exOr } from './exercises.js'
 import { modeOf, workoutAt } from './history.js'
 import { isSideSet, dropsOf } from './workout-model.js'
@@ -336,7 +336,7 @@ export function workoutFitMessages(w, { unit = 'kg', version = '', exOf = exOr }
   msgs.push({ global: MSG.event, fields: [[253, 'uint32', T0], [0, 'enum', 0], [1, 'enum', 0]] })   // timer start
   msgs.push({ global: MSG.deviceInfo, fields: [
     [253, 'uint32', T0], [0, 'uint8', 0], [2, 'uint16', MANUFACTURER_DEVELOPMENT], [3, 'uint32z', serial],
-    [4, 'uint16', 0], [5, 'uint16', swVersion], [27, 'string', 'openGym', 16],
+    [4, 'uint16', 0], [5, 'uint16', swVersion], [27, 'string', 'ASCEND', 16],
   ] })
 
   const laps = []

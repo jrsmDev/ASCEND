@@ -94,16 +94,16 @@ describe('import', () => {
     expect(read.state.customEx[1].media.mime).toBe('image/jpeg')
   })
 
-  it('refuses what is not an openGym backup, zipped or not', async () => {
+  it('refuses what is not an ASCEND backup, zipped or not', async () => {
     await expect(readBackupFile(new File(['{"hello":1}'], 'x.json'))).rejects.toThrow()
     const zip = await zipStore([{ name: 'something.txt', blob: new Blob(['x']) }])
     await expect(readBackupFile(new File([zip], 'x.zip'))).rejects.toThrow()
   })
 
-  // German QA: 'Import fehlgeschlagen: not-zip', '... not an openGym backup', 'Unexpected token ...'.
+  // German QA: 'Import fehlgeschlagen: not-zip', '... not an ASCEND backup', 'Unexpected token ...'.
   it('says why an import failed in words, never the thrown developer text', async () => {
     const why = async (content, name) => { try { await readBackupFile(new File([content], name)) } catch (e) { return backupImportError(e) } }
-    const notOurs = 'That file isn’t an openGym backup.'
+    const notOurs = 'That file isn’t an ASCEND backup.'
     expect(await why('[1,2]', 'x.json')).toBe(notOurs)
     expect(await why('hello there', 'x.txt')).toBe(notOurs)
     expect(await why(new Uint8Array([0x50, 0x4b, 0x03, 0x04, 1, 2, 3, 4]), 'fake.zip')).toBe(notOurs)

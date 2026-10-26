@@ -27,16 +27,16 @@ describe('pairRedeem when the request never gets an answer', () => {
     expect(probe[1]).toMatchObject({ mode: 'no-cors', cache: 'no-store' })
   })
 
-  it('openGym behind a proxy that refuses the app: its health answer read, still the CORS message', async () => {
+  it('ASCEND behind a proxy that refuses the app: its health answer read, still the CORS message', async () => {
     const health = () => Promise.resolve(new Response(JSON.stringify({ ok: true, users: 2 }), { status: 200, headers: { 'content-type': 'application/json' } }))
     vi.stubGlobal('fetch', vi.fn((url, init) => (url.endsWith('/api/pair/redeem') ? failed() : init && init.mode === 'no-cors' ? opaque() : health())))
     const e = await pairRedeem('https://gym.example.com', 'ABCD2345').catch(x => x)
     expect(e.code).toBe('cors')
   })
 
-  // Something in front of openGym answered in its place: an SSO login (forward-auth), a proxy
+  // Something in front of ASCEND answered in its place: an SSO login (forward-auth), a proxy
   // rule, a redirect to a sign-in page. The address is right, the proxy needs to let /api/ through.
-  const PROXY_MSG = 'That address answers, but a login page or proxy rule replied instead of openGym. Let /api/ through to openGym unchanged. See “Phone app and CORS” in docs/SELF_HOSTING.md.'
+  const PROXY_MSG = 'That address answers, but a login page or proxy rule replied instead of ASCEND. Let /api/ through to ASCEND unchanged. See “Phone app and CORS” in docs/SELF_HOSTING.md.'
   it.each([
     ['a redirect to a login page', () => new Response(null, { status: 302, headers: { location: 'https://auth.example.com/login' } })],
     ['a 401', () => new Response('', { status: 401, headers: { 'www-authenticate': 'Basic realm="x"' } })],
@@ -44,23 +44,23 @@ describe('pairRedeem when the request never gets an answer', () => {
     ['a login page (HTML, 200)', () => new Response('<!doctype html><title>Sign in</title>', { status: 200, headers: { 'content-type': 'text/html' } })],
     ['an HTML page with no content type', () => new Response('  <html><body>Authelia</body></html>', { status: 200 })],
     ['an HTML 404 page', () => new Response('<h1>not found</h1>', { status: 404, headers: { 'content-type': 'text/html' } })],
-  ])('a server that answers with %s: says something in front of openGym answered', async (_, page) => {
+  ])('a server that answers with %s: says something in front of ASCEND answered', async (_, page) => {
     vi.stubGlobal('fetch', vi.fn((url, init) => (url.endsWith('/api/pair/redeem') ? failed() : init && init.mode === 'no-cors' ? opaque() : Promise.resolve(page()))))
     const e = await pairRedeem('https://gym.example.com', 'ABCD2345').catch(x => x)
     expect(e.code).toBe('proxy-answered')
     expect(e.message).toBe(PROXY_MSG)
   })
 
-  // Another app, a proxy's own "404 page not found": it answers, but it is not openGym at all.
+  // Another app, a proxy's own "404 page not found": it answers, but it is not ASCEND at all.
   it.each([
     ['another app\'s JSON', () => new Response(JSON.stringify({ status: 'UP' }), { status: 200, headers: { 'content-type': 'application/json' } })],
     ['a plain-text 404 from a proxy with no route', () => new Response('404 page not found\n', { status: 404, headers: { 'content-type': 'text/plain' } })],
-    ['JSON that is not openGym\'s health', () => new Response(JSON.stringify({ ok: false }), { status: 200, headers: { 'content-type': 'application/json' } })],
-  ])('a server that answers with %s: says it is not an openGym server', async (_, page) => {
+    ['JSON that is not ASCEND\'s health', () => new Response(JSON.stringify({ ok: false }), { status: 200, headers: { 'content-type': 'application/json' } })],
+  ])('a server that answers with %s: says it is not an ASCEND server', async (_, page) => {
     vi.stubGlobal('fetch', vi.fn((url, init) => (url.endsWith('/api/pair/redeem') ? failed() : init && init.mode === 'no-cors' ? opaque() : Promise.resolve(page()))))
     const e = await pairRedeem('https://gym.example.com', 'ABCD2345').catch(x => x)
     expect(e.code).toBe('not-opengym')
-    expect(e.message).toBe('That address answers, but it isn’t an openGym server. Check the URL.')
+    expect(e.message).toBe('That address answers, but it isn’t an ASCEND server. Check the URL.')
   })
 
   it('in a browser an http:// address is not the phone\'s mixed-content case: still probed', async () => {

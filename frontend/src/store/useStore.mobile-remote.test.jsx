@@ -48,7 +48,7 @@ const USER = { id: 'u1', name: 'andi', admin: true }
 const clone = v => JSON.parse(JSON.stringify(v))
 const workout = (id, d) => ({ id, d, start: 1, entries: [] })
 const routine = (id, reps) => ({ id, name: id, ex: [{ id: 'bench', sets: 2, reps }] })
-const INDEX_HTML = '<!doctype html><html><head><title>openGym</title></head><body><div id="root"></div></body></html>'
+const INDEX_HTML = '<!doctype html><html><head><title>ASCEND</title></head><body><div id="root"></div></body></html>'
 const res = (status, body, type = 'application/json') => ({
   ok: status >= 200 && status < 300, status,
   headers: { get: k => (k.toLowerCase() === 'content-type' ? type : null) },

@@ -16,6 +16,9 @@ import webpush from 'web-push';
 import * as coachConfig from './coach/config.js';
 import * as coachJobs from './coach/jobs.js';
 import { coachRoutes } from './coach/routes.js';
+import { adminRoutes } from './routes/admin.js';
+import { configRoutes } from './routes/config.js';
+import { pushRoutes } from './routes/push.js';
 import { startCadence } from './coach/cadence.js';
 import { startWarmup } from './coach/warmup.js';
 import { dayReminderPush, nudgePush, restTimerPush, testPush } from './push-messages.js';
@@ -41,7 +44,7 @@ const PORT = +(process.env.PORT || 3000);
 const DATA = process.env.DATA_DIR || '/data';
 const RP_ID = process.env.RP_ID || 'localhost';
 const ORIGIN = process.env.ORIGIN || 'http://localhost:8080';
-const RP_NAME = process.env.RP_NAME || 'openGym';
+const RP_NAME = process.env.RP_NAME || 'ASCEND';
 // Admin dashboard (issue): admins are matched by uid (or the admin flag FIRST_USER_ADMIN sets);
 // INVITE_ONLY gates new signups behind a code the admin generates. Off by default, so a fresh
 // self-hosted instance stays open.
@@ -2073,60 +2076,11 @@ function dataWritable() {
 }
 
 const routes = {
-  // 503 rather than a flag in a 200: the container healthcheck is `wget --spider`, which reads
-  // the status and nothing else, and an instance that cannot write its data directory is exactly
-  // what "unhealthy" is for. The 200 keeps the shape it had, plus the flag it is now asserting.
-  'GET /api/health': async (req, res) => {
-    if (!dataWritable()) return json(res, 503, { ok: false, writable: false });
-    json(res, 200, { ok: true, users: db.users.length, writable: true });
-  },
-
-  // Public config the login screen needs before anyone is signed in. `coach` is absent unless
-  // the instance has both switched the Coach on and successfully connected a provider — the
-  // single flag every piece of Coach UI hangs off, so an unconfigured instance is byte-for-byte
-  // the app it was before the feature existed.
-  'GET /api/config': async (req, res) => {
-    // The Coach block names the provider this instance is wired to — the same fact
-    // /api/coach/disclosure refuses to hand out without a session, and for the same reason: on an
-    // invite-only instance, which model this box talks to is nobody's business who has not been
-    // let in. The two flags above it are what the login screen and the pre-login boot read
-    // (invite code field, "continue without account"), so those stay public.
-    //
-    // Every Coach consumer on the client side already requires a signed-in user before it looks
-    // at this block (lib/coach.js coachAvailable), so nothing that could render loses anything.
-    //
-    // A signed-in caller always gets the key, even on an instance with no Coach, where it is
-    // null. The client caches this answer for the page load and has to know whether the copy it
-    // holds was made for a session: without the key it cannot tell "no Coach here" from "you
-    // were not signed in when you asked", and would re-ask on every sign-in on every instance
-    // that has no Coach. The key's absence is that answer.
-    json(res, 200, {
-      invite_only: INVITE_ONLY, allow_guest: ALLOW_GUEST,
-      // Only when on, so an instance without passwords answers exactly as it did before (#118).
-      ...(PASSWORD_LOGIN ? { password_login: true } : {}),
-      // Public: the sign-in screen is the first thing that reads it.
-      ...(DEFAULT_LANG ? { default_lang: DEFAULT_LANG } : {}),
-      // Public like the two flags above: the caps are not a secret, and the absence of the
-      // block is how the app knows this server does not take photos and videos at all.
-      ...(MEDIA_ON ? { media: mediaConfig(MEDIA_LIMITS) } : {}),
-      ...(readSession(req) ? { coach: coachConfig.publicConfig() } : {})
-    });
-  },
-
-  // A paired phone's token was minted once, at pairing, and nothing ever renewed it: after
-  // SESSION_DAYS the server refused a phone that had been in use every day. The phone asks this
-  // on every start, so once its token is past half its life the answer carries a new one
-  // (`token`), which the phone saves in place of the old. makeSession() writes the account's
-  // current session version into it, so "sign out everywhere" ends a renewed token exactly as it
-  // ended the old one — and a revoked token never gets this far. A browser's cookie is left
-  // alone: signing in renews it, as before.
-  'GET /api/me': async (req, res) => {
-    const s = sessionOf(req);
-    if (!s) return json(res, 401, { error: 'not signed in' });
-    const { user } = s;
-    const renew = s.bearer && s.kind !== 'c' && s.exp - Date.now() < SESSION_DAYS * 86400000 / 2;
-    json(res, 200, { user: publicUser(user), ...(renew ? { token: makeSession(user) } : {}) });
-  },
+  ...configRoutes({
+    json, readSession, sessionOf, makeSession, publicUser, dataWritable,
+    db, INVITE_ONLY, ALLOW_GUEST, PASSWORD_LOGIN, DEFAULT_LANG,
+    MEDIA_ON, MEDIA_LIMITS, mediaConfig, coachConfig, SESSION_DAYS,
+  }),
 
   'POST /api/register/options': async (req, res) => {
     const body = await readBody(req);
@@ -2522,110 +2476,14 @@ const routes = {
     json(res, 200, { ok: true, ts: body.state._ts || null, rev: curRev + 1, wid: body.state._wid });
   },
 
-  'GET /api/push/public-key': async (req, res) => json(res, 200, { key: vapid.publicKey }),
-
-  'POST /api/push/subscribe': async (req, res) => {
-    const user = readSession(req);
-    if (!user) return json(res, 401, { error: 'not signed in' });
-    const body = await readBody(req);
-    const sub = body.subscription;
-    if (!sub?.endpoint || !sub?.keys?.p256dh || !sub?.keys?.auth) return json(res, 400, { error: 'invalid subscription' });
-    const bad = pushEndpointError(sub.endpoint);
-    if (bad) return json(res, 400, { error: bad });
-    // Only the two keys the push protocol needs are kept: `sub` is caller-supplied and would
-    // otherwise put arbitrary fields into db.json, which every admin route reads back out.
-    const keys = { p256dh: String(sub.keys.p256dh), auth: String(sub.keys.auth) };
-    const deviceId = deviceIdOf(body.deviceId);
-    // An upsert: the client re-sends its subscription on every boot (lib/push.js) so a row this
-    // instance lost — pruned after a dead send, a rebuilt db.json — comes back without anyone
-    // touching Settings. The same endpoint sent again keeps its original `created`.
-    //
-    // A row filed under another account moves only for a caller that sends its keys. The endpoint
-    // alone is a URL, and whoever learned it could otherwise re-file it as theirs: the owner's
-    // device stops getting their alerts, and the caller's are sent to it instead, encrypted to
-    // keys of the caller's choosing. The keys are what the browser holds (the auth secret never
-    // leaves it and this server), and the legitimate move carries them: a shared browser signed
-    // into a second account re-registers the same subscription on boot, and the row should
-    // follow the person now using it. Refusing that, or keeping both rows, would leave the first
-    // account's reminders arriving on a device somebody else is using.
-    const keyDigest = k => crypto.createHash('sha256').update(`${k?.p256dh}\n${k?.auth}`).digest();
-    const sameKeys = k => crypto.timingSafeEqual(keyDigest(k), keyDigest(keys));
-    if (db.subs.some(s => s.endpoint === sub.endpoint && s.userId !== user.id && !sameKeys(s.keys))) {
-      return json(res, 409, { error: 'this subscription belongs to another account' });
-    }
-    const prev = db.subs.find(s => s.endpoint === sub.endpoint);
-    // No usable id in the request (none, or not a short token) leaves the id the row already
-    // has: the request is a re-send, not a request to forget which device the row is.
-    const storedDevice = deviceId || prev?.deviceId;
-    db.subs = db.subs.filter(s => s.endpoint !== sub.endpoint);
-    // A browser holds one subscription per device, so this cap is far above real use. Without
-    // it a single account could pile up endpoints without limit — every one of them a target
-    // sendPush() would then contact, and a whole rewrite of db.json per addition.
-    const mine = db.subs.filter(s => s.userId === user.id);
-    if (mine.length >= MAX_SUBS_PER_USER) {
-      const drop = new Set(mine.slice(0, mine.length - MAX_SUBS_PER_USER + 1).map(s => s.endpoint));
-      db.subs = db.subs.filter(s => !drop.has(s.endpoint));
-    }
-    db.subs.push({ userId: user.id, endpoint: sub.endpoint, keys, ...(storedDevice ? { deviceId: storedDevice } : {}), created: prev?.created || new Date().toISOString() });
-    saveDb();
-    json(res, 200, { ok: true });
-  },
-
-  // Whether this instance still holds the caller's subscription for `endpoint`. The browser's
-  // side (PushManager.getSubscription) says nothing about ours — a row pruned after a dead send
-  // leaves the browser subscribed to nowhere — so Settings asks here before it shows "on".
-  // A stored row also says which device it is filed under, `null` for none: a row from before
-  // device ids, or one the worker re-sent without its id, sends that device's rest-timer alert
-  // to every device of the account (sendPush), and the client re-sends its subscription with its
-  // id when this is not its own.
-  'GET /api/push/status': async (req, res) => {
-    const user = readSession(req);
-    if (!user) return json(res, 401, { error: 'not signed in' });
-    const endpoint = new URL(req.url, 'http://x').searchParams.get('endpoint') || '';
-    const row = db.subs.find(s => s.userId === user.id && s.endpoint === endpoint);
-    json(res, 200, row ? { subscribed: true, deviceId: row.deviceId || null } : { subscribed: false });
-  },
-
-  'POST /api/push/unsubscribe': async (req, res) => {
-    const user = readSession(req);
-    if (!user) return json(res, 401, { error: 'not signed in' });
-    const body = await readBody(req);
-    db.subs = db.subs.filter(s => !(s.userId === user.id && s.endpoint === body.endpoint));
-    saveDb();
-    json(res, 200, { ok: true });
-  },
-
-  'POST /api/push/test': async (req, res) => {
-    const user = readSession(req);
-    if (!user) return json(res, 401, { error: 'not signed in' });
-    if (pushThrottled(res, PUSH_TESTS, user)) return;
-    await sendPush(user.id, testPush(readStateCached(user.id)?.lang));
-    json(res, 200, { ok: true });
-  },
-
-  'POST /api/push/rest-timer': async (req, res) => {
-    const user = readSession(req);
-    if (!user) return json(res, 401, { error: 'not signed in' });
-    if (pushThrottled(res, REST_TIMER_SETS, user)) return;
-    const body = await readBody(req);
-    // Validated before it is clamped: the clamp used to run first, which turned a missing or
-    // unusable value into a 1-second push and made the 400 below unreachable. `Number()` only
-    // on a number or a string — on an object it can throw.
-    const raw = body.seconds;
-    const n = typeof raw === 'number' || typeof raw === 'string' ? Number(raw) : NaN;
-    if (!(n >= 1)) return json(res, 400, { error: 'seconds required' });
-    const sec = Math.min(3600, Math.round(n));
-    scheduleRestTimer(user.id, deviceIdOf(body.deviceId), sec, readStateCached(user.id)?.lang);
-    json(res, 200, { ok: true });
-  },
-
-  'POST /api/push/rest-timer/cancel': async (req, res) => {
-    const user = readSession(req);
-    if (!user) return json(res, 401, { error: 'not signed in' });
-    const body = await readBody(req);
-    cancelRestTimer(user.id, deviceIdOf(body.deviceId));
-    json(res, 200, { ok: true });
-  },
+  ...pushRoutes({
+    json, readBody, readSession,
+    db, saveDb, vapid, sendPush,
+    scheduleRestTimer, cancelRestTimer, deviceIdOf,
+    pushEndpointError, MAX_SUBS_PER_USER,
+    pushThrottled, PUSH_TESTS, REST_TIMER_SETS,
+    testPush, readStateCached,
+  }),
 
   // Live-workout heartbeat: client pings while a workout is on screen; { active:false } drops it,
   // except with reason `hidden`, which marks it away (see PRESENCE_HIDDEN_GRACE). `navigated`,
@@ -2652,196 +2510,15 @@ const routes = {
   },
 
   /* ---------- admin dashboard ---------- */
-  // One row per user, cheap enough for a personal instance (reads each state file once).
-  'GET /api/admin/users': async (req, res) => {
-    if (!requireAdmin(req, res)) return;
-    const users = db.users.map(u => {
-      const S = readState(u.id) || {};
-      const workouts = records(S.workouts);
-      const last = workouts[workouts.length - 1];
-      return {
-        id: u.id, name: u.name, created: u.created || null,
-        disabled: !!u.disabled, admin: isAdmin(u), owner: isOwner(u), invitedBy: u.invitedBy || null,
-        workouts: workouts.length,
-        lastWorkout: last ? last.d : null,
-        lastSync: lastSyncOf(u, S),
-        hasPush: db.subs.some(s => s.userId === u.id),
-        live: livePresence(u.id),
-        // The sign-in e-mail is an admin's to see (to hand out a reset code, to tell two
-        // profiles apart), and only while the instance takes passwords at all.
-        ...(PASSWORD_LOGIN ? { password: hasPassword(u), email: u.email || null } : {})
-      };
-    });
-    json(res, 200, { users, invite_only: INVITE_ONLY, ...(PASSWORD_LOGIN ? { password_login: true } : {}), now: Date.now() });
-  },
-
-  // Drill-down: full workout history + body-weight log for one user.
-  'GET /api/admin/user': async (req, res) => {
-    if (!requireAdmin(req, res)) return;
-    const id = new URL(req.url, 'http://x').searchParams.get('id');
-    const u = db.users.find(x => x.id === id);
-    if (!u) return json(res, 404, { error: 'no such user' });
-    const S = readState(u.id) || {};
-    json(res, 200, {
-      user: {
-        id: u.id, name: u.name, created: u.created || null, disabled: !!u.disabled, admin: isAdmin(u), owner: isOwner(u), invitedBy: u.invitedBy || null,
-        // Only on an instance with password sign-in: whether they have one, and until when an
-        // unused reset code is good.
-        ...(PASSWORD_LOGIN ? { password: hasPassword(u), email: u.email || null, resetUntil: u.pwReset?.exp > Date.now() ? u.pwReset.exp : null } : {})
-      },
-      unit: S.unit || 'kg',
-      lastSync: lastSyncOf(u, S),
-      routines: records(S.routines).map(r => ({ id: r.id, name: r.name, emoji: r.emoji, count: records(r.ex).length })),
-      bodyweight: records(S.bodyweight),
-      // records() already copied, so this reverse is ours: newest first for display. A workout's
-      // photos and videos are the owner's own: the admin view gets no refs to them.
-      workouts: records(S.workouts).reverse().map(({ media, ...w }) => w)
-    });
-  },
-
-  'POST /api/admin/user/disable': async (req, res) => {
-    const admin = requireAdmin(req, res); if (!admin) return;
-    const body = await readBody(req);
-    const u = db.users.find(x => x.id === body.id);
-    if (!u) return json(res, 404, { error: 'no such user' });
-    if (isAdmin(u)) return json(res, 400, { error: 'cannot disable an admin' });
-    u.disabled = !!body.disabled;
-    if (u.disabled) presence.delete(u.id);   // drop them off "training now" at once
-    // A device link made before the lock would otherwise still be waiting when it is lifted.
-    if (u.disabled) dropDeviceLinks(db, u.id);
-    saveDb();
-    audit(req, u.disabled ? 'admin.user.disable' : 'admin.user.enable', { user: admin, target: u });
-    json(res, 200, { ok: true, id: u.id, disabled: u.disabled });
-  },
-
-  // Disable locks an account out; this removes it. The one destructive action in the app, so the
-  // client asks twice and this end refuses the two cases that cannot be undone from the UI
-  // afterwards: an admin deleting themselves, and the last admin standing (issue #107).
-  // The invite code that let them in stays burned — it was used, and freeing it would quietly
-  // widen an invite-only instance. `GET /api/admin/user` is the export: the dashboard offers it
-  // before the confirm, so the training history can be kept if anyone wants it.
-  'POST /api/admin/user/delete': async (req, res) => {
-    const admin = requireAdmin(req, res); if (!admin) return;
-    const body = await readBody(req);
-    const u = db.users.find(x => x.id === body.id);
-    if (!u) return json(res, 404, { error: 'no such user' });
-    if (u.id === admin.id) return json(res, 400, { error: 'you cannot delete your own account' });
-    if (isAdmin(u) && db.users.filter(isAdmin).length <= 1) return json(res, 400, { error: 'cannot delete the last admin' });
-    if (isOwner(u)) return json(res, 400, { error: 'the owner cannot be deleted; hand the role to another admin first' });
-    if (isAdmin(u) && !isOwner(admin)) { audit(req, 'admin.denied', { ok: false, user: admin, target: u }); return json(res, 403, { error: 'only the owner can delete an admin' }); }
-    const name = u.name;
-    removeAccount(u);
-    // Logged with the name, because the id is about to mean nothing to anyone reading this back.
-    audit(req, 'admin.user.delete', { user: admin, msg: name });
-    json(res, 200, { ok: true, id: u.id });
-  },
-
-  // Appoint or remove an admin. Owner only, never on themselves, and not for an admin named in
-  // ADMIN_UIDS: that one comes back on the next restart whatever db.json says, so the switch
-  // would lie. A disabled account is enabled first, so nobody is promoted while locked out.
-  'POST /api/admin/user/role': async (req, res) => {
-    const owner = requireOwner(req, res); if (!owner) return;
-    const body = await readBody(req);
-    const u = db.users.find(x => x.id === body.id);
-    if (!u) return json(res, 404, { error: 'no such user' });
-    if (u.id === owner.id) return json(res, 400, { error: 'the owner stays an admin' });
-    if (typeof body.admin !== 'boolean') return json(res, 400, { error: 'admin must be true or false' });
-    if (ADMIN_UIDS.includes(u.id)) return json(res, 400, { error: 'this admin is set in ADMIN_UIDS on the server' });
-    if (body.admin && u.disabled) return json(res, 400, { error: 'enable the account first' });
-    if (body.admin) u.admin = true; else { delete u.admin; delete u.owner; }
-    saveDb();
-    audit(req, body.admin ? 'admin.role.grant' : 'admin.role.revoke', { user: owner, target: u });
-    json(res, 200, { ok: true, id: u.id, admin: isAdmin(u) });
-  },
-
-  // Hand the owner role to another admin. The old owner stays an admin.
-  'POST /api/admin/owner': async (req, res) => {
-    const owner = requireOwner(req, res); if (!owner) return;
-    const body = await readBody(req);
-    const u = db.users.find(x => x.id === body.id);
-    if (!u) return json(res, 404, { error: 'no such user' });
-    if (u.id === owner.id) return json(res, 400, { error: 'you already are the owner' });
-    if (!isAdmin(u) || u.disabled) return json(res, 400, { error: 'make them an admin first' });
-    for (const x of db.users) delete x.owner;
-    u.owner = true;
-    saveDb();
-    audit(req, 'admin.owner.transfer', { user: owner, target: u });
-    json(res, 200, { ok: true, id: u.id });
-  },
-
-  'GET /api/admin/invites': async (req, res) => {
-    if (!requireAdmin(req, res)) return;
-    // resolve usedBy uid → name for display
-    const invites = db.invites.map(i => ({
-      ...i, usedByName: i.usedBy ? (db.users.find(u => u.id === i.usedBy) || {}).name || null : null
-    }));
-    json(res, 200, { invites, invite_only: INVITE_ONLY });
-  },
-
-  'POST /api/admin/invites/new': async (req, res) => {
-    const admin = requireAdmin(req, res); if (!admin) return;
-    const body = await readBody(req);
-    let code;
-    // 16 hex chars = 64 bits, up from 8 chars / 32 bits. Passkey signup has no rate limiting by
-    // design (that's the reverse proxy's job) and /api/register/options tells a caller whether a
-    // code is good, so the code itself has to be the thing that isn't worth guessing. Codes already
-    // in db.json keep working — validation is an exact string compare, never a length or format check.
-    do { code = crypto.randomBytes(8).toString('hex').toUpperCase(); } while (db.invites.some(i => i.code === code));
-    const invite = { code, note: text(body.note).slice(0, 60), createdBy: admin.id, created: new Date().toISOString() };
-    db.invites.push(invite);
-    saveDb();
-    audit(req, 'admin.invite.create', { user: admin, msg: code });
-    json(res, 200, { invite });
-  },
-
-  'POST /api/admin/invites/revoke': async (req, res) => {
-    const admin = requireAdmin(req, res); if (!admin) return;
-    const body = await readBody(req);
-    const inv = db.invites.find(i => i.code === text(body.code).toUpperCase());
-    if (!inv) return json(res, 404, { error: 'no such code' });
-    if (inv.usedBy) return json(res, 400, { error: 'already used, cannot revoke' });
-    db.invites = db.invites.filter(i => i.code !== inv.code);
-    saveDb();
-    audit(req, 'admin.invite.revoke', { user: admin, msg: inv.code });
-    json(res, 200, { ok: true });
-  },
-
-  /* ---------- activity log ---------- */
-  // Newest first, paged by id. Not by offset: the log grows at the front of this view, so an
-  // offset cursor would repeat a row whenever an event lands between two pages; and not by
-  // timestamp, because two events can share a millisecond. auditKeep() runs on read as well as
-  // on the hourly compaction, so nothing past its retention is ever served.
-  'GET /api/admin/audit': async (req, res) => {
-    if (!requireAdmin(req, res)) return;
-    const q = new URL(req.url, 'http://x').searchParams;
-    const limit = Math.max(1, Math.min(200, +q.get('limit') || 100));
-    const before = +q.get('before') || Infinity;
-    const cat = q.get('cat') || '';
-    let rows = auditKeep(auditLines()).reverse();
-    if (cat === 'fail') rows = rows.filter(r => !r.ok);
-    else if (cat) rows = rows.filter(r => String(r.ev).startsWith(cat + '.'));
-    const page = rows.filter(r => r.id < before).slice(0, limit);
-    json(res, 200, {
-      events: page,
-      total: rows.length,
-      nextBefore: page.length === limit ? page[page.length - 1].id : null,
-      enabled: AUDIT_ON, ip_mode: AUDIT_IP,
-      retention: { max: AUDIT_MAX, days: AUDIT_DAYS },
-      now: Date.now()
-    });
-  },
-
-  // Deleting the log is itself logged, and auditSeq is not reset — so a clear always leaves a
-  // visible gap in the ids and can't be used to quietly erase a trace. There is no export route:
-  // ./data/audit.log already is the export, in a format jq reads directly.
-  // Owner only: an admin who could clear it could erase the trace of what they did.
-  'POST /api/admin/audit/clear': async (req, res) => {
-    const admin = requireOwner(req, res); if (!admin) return;
-    try { fs.unlinkSync(auditFile); } catch { /* nothing logged yet */ }
-    auditCount = 0;
-    audit(req, 'admin.audit.clear', { user: admin });
-    json(res, 200, { ok: true });
-  },
+  ...adminRoutes({
+    json, readBody, requireAdmin, requireOwner,
+    isAdmin, isOwner, saveDb, audit, readState, records,
+    lastSyncOf, livePresence, hasPassword, removeAccount, text,
+    dropDeviceLinks, db, presence, PASSWORD_LOGIN, INVITE_ONLY,
+    ADMIN_UIDS, auditLines, auditKeep,
+    AUDIT_ON, AUDIT_IP, AUDIT_MAX, AUDIT_DAYS,
+    auditFile, resetAuditCount: () => { auditCount = 0; },
+  }),
 
   /* ---------- AI Coach ---------- */
   // Routes live in coach/routes.js and are handed the helpers above rather than importing

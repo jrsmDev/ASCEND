@@ -16,13 +16,13 @@ const COPY = {
   notifications: () => ({
     icon: 'bell',
     title: t('Never miss the end of a rest'),
-    body: t('openGym can tap you on the shoulder when a rest is over, even with the phone locked in your pocket.'),
+    body: t('ASCEND can tap you on the shoulder when a rest is over, even with the phone locked in your pocket.'),
     lines: [t('Rest timer, right on the lock screen'), t('Training reminders, only if you switch them on')],
   }),
   appleHealth: () => ({
     icon: 'heart',
     title: t('Your workouts in Apple Health'),
-    body: t('openGym can save every workout and weigh-in to Apple Health, and your Apple Watch can show your heart rate while you lift.'),
+    body: t('ASCEND can save every workout and weigh-in to Apple Health, and your Apple Watch can show your heart rate while you lift.'),
     lines: [t('Workouts and weigh-ins saved to Apple Health'), t('Heart rate per set on your Apple Watch'), t('Switch it off anytime in Settings')],
     foot: t('You can change it anytime in Settings.'),
   }),
@@ -47,12 +47,12 @@ export default function PermissionSteps() {
   }
   const c = (COPY[step.id] || (() => ({ icon: 'info', title: step.id, body: '', lines: [] })))()
   return <div className="narrow" style={{ display: 'flex', flexDirection: 'column', justifyContent: 'center', minHeight: '78vh', textAlign: 'center' }}>
-    <div style={{ fontSize: 54, display: 'flex', justifyContent: 'center', color: 'var(--acc)' }}><Icon name={c.icon} /></div>
+    <div style={{ fontSize: 54, display: 'flex', justifyContent: 'center', color: 'var(--acc-text)' }}><Icon name={c.icon} /></div>
     <div className="dim small" style={{ marginTop: 12, textTransform: 'uppercase', letterSpacing: '.06em' }}>{t('One quick thing')}</div>
     <h1 style={{ fontSize: 28, fontWeight: 700, letterSpacing: '-.024em', margin: '6px 0 10px' }}>{c.title}</h1>
     <div className="muted" style={{ lineHeight: 1.5, marginBottom: 18 }}>{c.body}</div>
     <div style={{ display: 'grid', gap: 8, marginBottom: 28, textAlign: 'start' }}>
-      {c.lines.map(l => <div key={l} className="row" style={{ gap: 10 }}><span style={{ color: 'var(--green)' }}><Icon name="check" /></span><span className="small">{l}</span></div>)}
+      {c.lines.map(l => <div key={l} className="row" style={{ gap: 10 }}><span style={{ color: 'var(--chart-green)' }}><Icon name="check" /></span><span className="small">{l}</span></div>)}
     </div>
     <Button variant="primary" disabled={busy} onClick={next}>{t('Continue')}</Button>
     <div className="dim small" style={{ marginTop: 18, lineHeight: 1.5 }}>{c.foot || t('You can change it anytime in your phone’s settings.')}</div>

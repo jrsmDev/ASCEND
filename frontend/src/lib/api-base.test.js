@@ -1,5 +1,5 @@
 // @vitest-environment happy-dom
-// Issue #238: openGym behind a reverse proxy that serves it under a subpath. The assets were
+// Issue #238: ASCEND behind a reverse proxy that serves it under a subpath. The assets were
 // already relative; the API call was not, so it went to the proxy's own root where nothing
 // answers it. The base is read from where the app is being served.
 import { describe, it, expect, vi, afterEach } from 'vitest'
@@ -83,7 +83,7 @@ describe('the cache lifetime nginx gives an image', () => {
   })
 })
 
-// The exercise media are licensed for openGym only: Cross-Origin-Resource-Policy keeps another
+// The exercise media are licensed for ASCEND only: Cross-Origin-Resource-Policy keeps another
 // site from embedding them, on every answer under /exercise-media/, at the site root and under a
 // BASE_PATH alike. An add_header in a block replaces the inherited ones, so the nested block
 // that sets the media's caching has to say it again.

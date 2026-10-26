@@ -7,7 +7,11 @@
   "license": "AGPL-3.0-or-later",
   "scripts": {
     "start": "node server.js",
-    "test": "node --test test/*.test.js"
+    "test": "node --test test/*.test.js",
+    "lint": "eslint *.js coach/",
+    "lint:fix": "eslint *.js coach/ --fix",
+    "format": "prettier --write \"*.js\" \"coach/**/*.js\" \"test/**/*.js\"",
+    "format:check": "prettier --check \"*.js\" \"coach/**/*.js\" \"test/**/*.js\""
   },
   "dependencies": {
     "@simplewebauthn/server": "^13.1.1",
@@ -16,5 +20,10 @@
   },
   "optionalDependencies": {
     "@anthropic-ai/claude-agent-sdk": "^0.3.223"
+  },
+  "devDependencies": {
+    "@eslint/js": "^10.0.1",
+    "eslint": "^10.13.0",
+    "prettier": "^3.9.10"
   }
 }

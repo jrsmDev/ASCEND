@@ -1,8 +1,10 @@
-# openGym
+# ASCEND
 
-> Free, open-source gym & body-weight tracker (AGPL-3.0). Runs as a standalone
-> Android app (sideloaded APK) or self-hosted with Docker (passkey profiles,
-> multi-device sync, PWA). No account required, no cloud, no telemetry.
+> Free, open-source gym & body-weight tracker (AGPL-3.0). Evolve beyond your limits.
+> Runs as a standalone Android app (sideloaded APK), on iPhone through the self-hosted
+> web app (PWA), or self-hosted with Docker (passkey profiles, multi-device sync, PWA).
+> No account required, no cloud, no telemetry. The production site is opengym.ch; the
+> app is ASCEND.
 
 ## Docs
 - [Complete reference](https://opengym.ch/docs.html): every feature, self-hosting, every .env setting, AI Coach, imports (FitNotes/Strong/Hevy/Apple Health), backups, MCP server, troubleshooting
@@ -12,7 +14,7 @@
 
 ## Try & get it
 - [Live demo](https://opengym.ch/demo/): the real app with example data, in the browser
-- [Android APK](https://github.com/DuarteSantos8/openGym/releases/latest): signed, sideloadable, in three sizes (Standard with 180 px animations, Plus with 240 px, HD with 360 px); each has its SHA-256 beside it on the GitHub release
+- [Android APK](https://opengym.ch/#download): the signed Standard build (180 px animations) direct from the site; Plus (240 px) and HD (360 px) sit on the GitHub release, each with its SHA-256 beside it
 - [About](https://opengym.ch/about.html): the story and every release
 
 ## How it is built

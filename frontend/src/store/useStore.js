@@ -3,7 +3,7 @@ import { api, setRemoteAuth } from '../lib/api.js'
 import { localTZ } from '../lib/format.js'
 import { t } from '../lib/i18n.js'
 import { registerCustom, healCustomEx } from '../lib/exercises.js'
-import { DEMO, DEMO_SEEDED } from '../lib/demo.js'
+import { DEMO, DEMO_SEEDED, GUEST_DEMO_KEY } from '../lib/demo.js'
 import { rememberDefaultLang } from '../lib/default-lang.js'
 import { guestAllowed } from '../lib/guest.js'
 import { MOBILE, initReminderSync, nativeLoad, nativeSave, onAppActive, readJsonFile, syncReminder, writeAutoBackup, writeJsonFile } from '../lib/mobile.js'
@@ -320,6 +320,7 @@ export const useStore = create((set, get) => {
   let configFetch = null   // the /api/config in flight, so two callers make one request
   let pushPending = false  // a change made before boot's pull — pushed once boot is through
   let forceNext = false    // the next push replaces the server copy outright (reset)
+  let seedingGuestDemo = null  // the showcase profile's dynamic import/seed, so two triggers make one
   // A backup import's replace: pushed against the revision the import's check read (importRead),
   // so a change another device synced while the confirm was open is merged in, not wiped.
   let replaceRev = null
@@ -366,6 +367,22 @@ export const useStore = create((set, get) => {
   const releaseAdopt = () => { setHold(false); writeAdopt(null) }
   const readStoredSync = () => { try { return JSON.parse(localStorage.getItem(SYNC_KEY)) || null } catch { return null } }
   const storedOwed = () => { try { return localStorage.getItem(DIRTY_KEY) === '1' } catch { return false } }
+  // The showcase profile's state: '1' seeded, 'off' the visitor reset it. Absent is a new guest.
+  const guestDemoMark = () => { try { return localStorage.getItem(GUEST_DEMO_KEY) } catch { return null } }
+  const setGuestDemoMark = v => { try { localStorage.setItem(GUEST_DEMO_KEY, v) } catch { /* the marker is a convenience, not the data */ } }
+  const clearGuestDemoMark = () => { try { localStorage.removeItem(GUEST_DEMO_KEY) } catch { /* see above */ } }
+  // Takes the example profile back out of a copy when its reader signs in: the showcase is a
+  // guest-only thing, and fake workouts must never migrate into a real account. Personal
+  // preferences (theme, language, unit, weigh-in choice) stay — those were really chosen.
+  const withoutGuestDemo = S => {
+    const next = clone(S)
+    next.routines = []; next.week = {}; next.dayPlan = {}
+    next.workouts = []; next.bodyweight = []; next.measurements = []
+    next.exWeights = {}; next.targetW = DEF.targetW; next.effort = DEF.effort
+    next.queue = null; next.rotation = null; next.scheduleMode = null
+    next.active = null
+    return next
+  }
 
   /* Where the copy in memory stands with the server: the revision it descends from (`base`, as
      { rev, ts }) and whether it owes the server a change (`owed`). Both belong to the copy, per
@@ -425,7 +442,7 @@ export const useStore = create((set, get) => {
        'local'   no server: a phone in local mode, a guest, nobody signed in
        'auth'    the server refuses this device (a 401), or the phone has lost its pairing
        'offline' the server could not be reached at all (no network, DNS, a timeout)
-       'error'   it answered with a failure: 5xx, 403, 413, a page that is not openGym's
+       'error'   it answered with a failure: 5xx, 403, 413, a page that is not ASCEND's
        'held'    signed in, but the question about this device's own entries is still open
        'pending' reachable, and a change is still waiting to reach it
        'ok'      this device holds what the server holds
@@ -629,6 +646,12 @@ export const useStore = create((set, get) => {
   // Boot's last step: from here on changes push, and one made during boot goes now.
   const finishBoot = (extra = {}) => {
     set({ ready: true, ...extra })
+    // A guest who has the showcase marked on this device but whose copy is empty (an older
+    // build, a partial localStorage clear) gets the example profile back rather than an empty
+    // shell. A guest who deliberately reset it has the marker 'off' and is left alone.
+    if (!DEMO && !MOBILE && get().isGuest() && guestDemoMark() === '1' && !hasData(get().S)) {
+      void get().seedGuestDemo({ force: true })
+    }
     if (pushPending && get().user) {
       clearTimeout(pushTm)
       pushTm = setTimeout(() => get().pushState(), 1500)
@@ -1311,6 +1334,8 @@ export const useStore = create((set, get) => {
   return {
     S: S0,
     user: user0,
+    // Guest mode only: the showcase profile is in this copy (Home says "Demo" beside the date).
+    guestDemo: guestDemoMark() === '1',
     ready: false,
     // The connection as the screens show it — see statusOf above for every field.
     sync: sync0,
@@ -1403,6 +1428,9 @@ export const useStore = create((set, get) => {
     // reset loses exactly those, and keeps whatever else it holds, whatever its dates say.
     // Resolves once the server's names are in (or could not be had).
     resetEverything() {
+      // A guest who asked for a clean slate is not handed the showcase profile again on the
+      // next boot. Signing in later removes the marker, so the next guest visit can seed.
+      if (!get().user && get().guestDemo) { setGuestDemoMark('off'); set({ guestDemo: false }) }
       const cur = get().S
       const S = restartedState(cur)
       S.resetAt = Math.max(Date.now(), highestStamp(cur) + 1)
@@ -1515,17 +1543,21 @@ export const useStore = create((set, get) => {
     },
 
     isGuest: () => localStorage.getItem('gym_guest') === '1',
-    // Choosing to go on without a server ends whatever was said about the last one.
+    // Choosing to go on without a server ends whatever was said about the last one. The first
+    // time a browser guest arrives, the showcase profile is seeded so the app opens with a
+    // populated plan, history and stats. It stays local; a signed-in account never gets it.
     setGuest(v) {
       if (v) localStorage.setItem('gym_guest', '1'); else localStorage.removeItem('gym_guest')
       set({})
-      if (v) setSync({ auth: false, offline: false, lastError: null })
+      if (v) {
+        setSync({ auth: false, offline: false, lastError: null })
+        if (!MOBILE && !DEMO) void get().seedGuestDemo()
+      }
     },
 
     // Public config from /api/config (invite_only, allow_guest). null until the first successful
     // fetch — the login screen and boot both read it, so it is fetched once and cached here
     // rather than by each screen that happens to need it.
-    config: null,
     async loadConfig() {
       if (get().config) return get().config
       return get().refreshConfig()
@@ -1548,6 +1580,14 @@ export const useStore = create((set, get) => {
     // decides what becomes of this copy; until it has, nothing is pulled or pushed (ADOPT_KEY).
     setUser(u, { adopt } = {}) {
       if (u) {
+        // A guest who was exploring the showcase profile and then signed in or created an
+        // account starts that account clean: no fabricated history is pushed into it. The
+        // marker is cleared first so this happens exactly once per showcase.
+        if (guestDemoMark() === '1') {
+          clearGuestDemoMark()
+          if (get().guestDemo) set({ guestDemo: false })
+          persist(withoutGuestDemo(get().S), false)
+        }
         // The local copy belongs to whoever last signed in here. When a session expires or is
         // revoked elsewhere, boot() only drops the user and the data stays; a different profile
         // signing in next must not inherit it (pullState would push it into that account, and
@@ -1887,6 +1927,39 @@ export const useStore = create((set, get) => {
         get().setGuest(true)
         set({ ready: true })
       }
+    },
+
+    // Demo build only: drop the seeded example profile back in (Settings → "Reset demo data").
+    // Dynamic import so the generator never ships in a self-hosted bundle.
+    // Guest mode only (a normal web build with no account): put the showcase profile in this
+    // browser. It is the same deterministic 12-week example the demo build uses, with the
+    // guest's own look, language, unit and weigh-in choice kept. A copy that already holds data,
+    // or a guest who reset it, is left alone unless Settings asks for it explicitly (`force`).
+    async seedGuestDemo({ force = false } = {}) {
+      if (MOBILE || DEMO || !get().isGuest()) return false
+      if (!force && (hasData(get().S) || guestDemoMark() === 'off')) return false
+      if (seedingGuestDemo) return seedingGuestDemo
+      seedingGuestDemo = (async () => {
+        const { buildDemoState } = await import('../lib/demoSeed.js')
+        const cur = get().S
+        let S = Object.assign(clone(cur), buildDemoState())
+        // The generator works in kg; a guest reading lb gets the same body converted rather
+        // than 78 kg labelled 78 lb.
+        S.unit = 'kg'
+        if (cur.unit === 'lb') S = convertStateUnit(S, 'lb')
+        S.unitSet = cur.unitSet
+        S.theme = cur.theme
+        S.accent = cur.accent
+        S.customAccent = cur.customAccent
+        S.weighIn = cur.weighIn
+        S.showWeightCard = cur.showWeightCard
+        S.checkIn = cur.checkIn
+        setGuestDemoMark('1')
+        set({ guestDemo: true })
+        persist(S, false)
+        return true
+      })().finally(() => { seedingGuestDemo = null })
+      return seedingGuestDemo
     },
 
     // Demo build only: drop the seeded example profile back in (Settings → "Reset demo data").

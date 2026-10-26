@@ -76,7 +76,7 @@ export function onHealthChange(cb) { listeners.add(cb); return () => listeners.d
 const told = h => { listeners.forEach(cb => { try { cb(h) } catch { /* a closed screen */ } }) }
 
 /**
- * Writes what changed since the last sync and removes what was deleted from openGym. A no-op
+ * Writes what changed since the last sync and removes what was deleted from ASCEND. A no-op
  * while it is off. Resolves with the file's content afterwards; `error` is 'permission' when
  * Health Connect refused (the user took the permission back), 'unavailable' when it is gone.
  */
@@ -162,7 +162,7 @@ export async function enableHealth(S) {
 }
 
 /**
- * Turning it off stops the writing. With `removeWritten`, what openGym wrote is taken out of
+ * Turning it off stops the writing. With `removeWritten`, what ASCEND wrote is taken out of
  * Health Connect too; without it, it stays there as the user's own data. Rejects when the
  * removal fails, and then stays on, so nothing is left behind that the phone forgot it wrote.
  */

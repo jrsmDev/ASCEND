@@ -8,6 +8,13 @@ data/
 
 # Local config
 .env
+.env.*
+!.env.example
+
+# Playwright output
+playwright-report/
+test-results/
+blob-report/
 
 # Build output / deps
 frontend/dist/

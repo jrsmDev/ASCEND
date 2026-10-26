@@ -113,7 +113,7 @@ describe('planSync', () => {
     expect(plan.weights.map(w => w.kg)).toEqual([79.5])
     expect(plan.sessions).toEqual([])
   })
-  it('removes what was deleted from openGym, and only what this phone wrote', () => {
+  it('removes what was deleted from ASCEND, and only what this phone wrote', () => {
     const { written } = planSync(records(), {})
     const plan = planSync({ sessions: [], weights: [] }, written)
     expect(plan.remove).toEqual({ sessions: ['opengym-w-w1'], weights: ['opengym-bw-2026-09-17'] })

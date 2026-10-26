@@ -320,15 +320,15 @@ npx @capacitor/assets generate --iconBackgroundColor '#0c0e12' --splashBackgroun
 
 ## Distribution
 
-The signed APK stays the way to get openGym on Android without a store, and it updates itself.
-The [App Store app](https://apps.apple.com/app/id6822275400) and the
-Google Play build come from the same code; how they are built and uploaded is in
-[APP_STORES.md](APP_STORES.md).
+The signed APK stays the way to get ASCEND on Android without a store, and it updates itself.
+The native iOS shell and a future Google Play build come from the same code; neither store release
+is live yet. How they would be built and uploaded is in [APP_STORES.md](APP_STORES.md).
 
 ### Android: sideload the APK
 
 Every release has three signed APKs on [the GitHub release](https://github.com/DuarteSantos8/openGym/releases),
-each with its `.sha256` beside it, and [opengym.ch](https://opengym.ch) links to all three:
+each with its `.sha256` beside it. [opengym.ch](https://opengym.ch/#download) links to the Standard
+build; all three live on GitHub:
 
 - **`openGym-X.Y.Z.apk` (Standard):** the exercise animations built in at 180 px, about 315 MB.
 - **`openGym-Plus-X.Y.Z.apk` (Plus):** the same app with 240 px animations, about 424 MB.
@@ -366,11 +366,11 @@ apksigner sign --ks my.keystore --ks-key-alias opengym --out openGym.apk aligned
 
 ### iPhone — what's actually possible
 
-> The App Store and Google Play builds, and how a release gets there: [APP_STORES.md](APP_STORES.md).
+> Store publishing is documented for later; there is no App Store or Google Play release yet:
+> [APP_STORES.md](APP_STORES.md).
 
-The [App Store app](https://apps.apple.com/app/id6822275400) is the easy way. Apple does not allow installing
-apps outside the App Store, so there is no `.ipa` download that would simply install. Without the
-store, your free options:
+There is no App Store build yet. Apple does not allow installing apps outside the App Store, so
+there is no `.ipa` download that would simply install. Without a published app, your free options:
 
 - **Self-host + PWA** (recommended): open your instance in Safari → Share → *Add to Home
   Screen*. Full-screen app, no expiry, plus sync and passkeys.
@@ -387,8 +387,8 @@ free tier. To switch it on, register a Mac as a project runner (shell executor; 
 and Node installed; give it a tag such as `macos`) and set the CI/CD variable `IOS_RUNNER_TAG`
 to that tag — the job then appears in every `main` and tag pipeline. Until that variable exists
 the job is not part of any pipeline, and it has not run yet, so expect a first round of fixes.
-The signed App Store and TestFlight builds don't come from this job: GitHub's `iOS` workflow
-archives them unsigned and the release machine finishes, signs and uploads them
+The signed App Store and TestFlight builds, once published, don't come from this job: GitHub's
+`iOS` workflow archives them unsigned and the release machine finishes, signs and uploads them
 ([APP_STORES.md](APP_STORES.md)).
 
 ### Release notes for maintainers
