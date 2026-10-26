@@ -14,4 +14,4 @@ export const DEMO_SEEDED = 'gym_demo_seeded_v1'
 // Guest mode (a normal build, no account): whether the showcase profile was seeded, or the
 // visitor asked for it to stay away. The demo build has its own key above.
 export const GUEST_DEMO_KEY = 'gym_guest_demo_v1'
-export const REPO = 'https://github.com/jrsmDev/ASCEND'
+export const REPO = 'https://ascend-jet-xi.vercel.app/'
