@@ -154,6 +154,9 @@ if (!reduceMotion) {
   const horizontalTrack = document.querySelector('.horizontal-track')
   
   if (horizontalScroll && horizontalTrack) {
+    horizontalScroll.style.height = '400vh'
+    const panels = horizontalTrack.querySelectorAll('.horizontal-panel')
+    horizontalTrack.style.width = panels.length * 100 + 'vw'
     window.addEventListener('scroll', () => {
       const rect = horizontalScroll.getBoundingClientRect()
       const scrollProgress = Math.max(0, Math.min(1, -rect.top / (rect.height - window.innerHeight)))
