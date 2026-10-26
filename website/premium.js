@@ -160,13 +160,21 @@ if (!reduceMotion) {
     if (phone && scrolled < window.innerHeight) {
       phone.style.transform = `rotate(-2.6deg) perspective(1200px) rotateY(${-5 + scrolled * 0.015}deg) rotateX(${scrolled * 0.008}deg) translateY(${scrolled * 0.4}px) scale(${1 - scrolled * 0.0003})`
     }
-    orbits.forEach((orbit, i) => {
-      orbit.style.transform = `scale(${0.78 + i * 0.27}) rotate(${scrolled * 0.12 * (i + 1)}deg)`
-    })
-    if (glow && scrolled < window.innerHeight) {
-      glow.style.transform = `scale(${1 + scrolled * 0.0005}) translateY(${scrolled * 0.2}px)`
+  orbits.forEach((orbit, i) => {
+    orbit.style.transform = `scale(${0.78 + i * 0.27}) rotate(${scrolled * 0.12 * (i + 1)}deg)`
+  })
+  if (glow && scrolled < window.innerHeight) {
+    glow.style.transform = `scale(${1 + scrolled * 0.0005}) translateY(${scrolled * 0.2}px)`
+  }
+  
+  // Float cards parallax
+  const floats = document.querySelectorAll('.visual-float')
+  floats.forEach((floatEl, i) => {
+    if (scrolled < window.innerHeight) {
+      floatEl.style.transform = `rotate(${i === 0 ? -4 : 3}deg) translateY(${scrolled * (0.25 + i * 0.1)}px) translateX(${scrolled * (i === 0 ? -0.05 : 0.05)}px)`
     }
-  }, { passive: true })
+  })
+}, { passive: true })
 }
 
 // Reveal animations on scroll
