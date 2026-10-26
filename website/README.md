@@ -59,11 +59,11 @@ Added at deploy time:
 
 - `demo/` — the browser-only demo build of the app, embedded in the `#demo` section and
   reachable on its own at `/demo/`. Built from `../frontend` with `VITE_DEMO=1`, with the
-  180 px exercise media from `../catalogue/media` staged into `demo/exercise-media/` by
-  `../scripts/catalogue/stage-media.mjs` (see the `pages` job in `../.gitlab-ci.yml`).
-  Never put larger media here (see `../catalogue/media/NOTICE.md`). It has to live on
-  this host: the site frames it, and `X-Frame-Options: SAMEORIGIN` would block it from
-  anywhere else. During local development, `site.js` frames the Vite app on
+  180 px exercise media from `../catalogue/media` staged alongside the app in local and
+  GitHub Pages builds. The Vercel build instead uses the public jsDelivr CDN to keep about
+  190 MB of media out of the deployment. Never put larger media here (see
+  `../catalogue/media/NOTICE.md`). The site frames the demo on the same host; during local
+  development, `site.js` frames the Vite app on
   `http://localhost:5173` instead.
 
 Every page has the same top bar. Docs, About and API also have a contents drawer (`.side`),

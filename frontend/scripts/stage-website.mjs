@@ -104,9 +104,11 @@ if (website) {
 
 // 3. Stage the 180px exercise media used by both the site demo and standalone app.
 const stageMediaScript = path.join(ROOT, 'scripts/catalogue/stage-media.mjs')
-if (fs.existsSync(stageMediaScript)) {
+if (fs.existsSync(stageMediaScript) && !vercelBuild) {
   const { execFileSync } = await import('node:child_process')
   execFileSync(process.execPath, [stageMediaScript, out], { stdio: 'inherit' })
+} else if (vercelBuild) {
+  console.log('[stage-website] Exercise media will be served from the configured CDN.')
 }
 
 if (vercelBuild) {

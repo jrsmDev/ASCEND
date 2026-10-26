@@ -43,7 +43,6 @@
     }
   ],
   "rewrites": [
-    { "source": "/demo/exercise-media/(.*)", "destination": "/exercise-media/$1" },
     { "source": "/demo/", "destination": "/demo/index.html" },
     { "source": "/site", "destination": "/index.html" },
     { "source": "/site/", "destination": "/index.html" },

@@ -47,7 +47,8 @@ if you want to try it before installing anything.
 Import this GitHub repository into Vercel and keep the **Root Directory** at the
 repository root. The checked-in `vercel.json` builds one static deployment with
 the ASCEND website at `/` and the live demo app at `/demo/` (also at `/app`).
-No second Vercel project or app-specific environment variables are needed.
+No second Vercel project or dashboard environment variables are needed. The demo loads its
+exercise media from jsDelivr, rather than adding about 190 MB of media to the Vercel deployment.
 
 The Android APK is intentionally not included in the Vercel static deployment.
 The website's download button redirects to the public `apk-v1.0.0` GitHub

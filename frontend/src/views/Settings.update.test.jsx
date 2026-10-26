@@ -3,6 +3,7 @@ import React, { act } from 'react'
 import { createRoot } from 'react-dom/client'
 import { afterEach, beforeEach, describe, expect, it, vi } from 'vitest'
 import Settings from './Settings.jsx'
+import { SITE_DOWNLOAD } from '../lib/site-url.js'
 
 globalThis.IS_REACT_ACT_ENVIRONMENT = true
 
@@ -99,6 +100,11 @@ describe('Settings — in-app update check', () => {
     expect(updateRow()).toBeUndefined()
     expect(checkRow()).toBeUndefined()
     expect(webRow()).toBeTruthy()
+    const open = vi.spyOn(window, 'open').mockImplementation(() => null)
+    act(() => { webRow().click() })
+    expect(open).toHaveBeenCalledWith(SITE_DOWNLOAD, '_blank', 'noopener')
+    expect(SITE_DOWNLOAD).toMatch(/\/#download$/)
+    expect(SITE_DOWNLOAD).not.toContain('github.com')
   })
 
   it('mobile build on iOS: no check, no row, no section', async () => {
