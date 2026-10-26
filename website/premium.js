@@ -89,3 +89,81 @@ if (download && checksum && version && help) {
 
 const copyrightYear = document.getElementById('copyright-year')
 if (copyrightYear) copyrightYear.textContent = String(new Date().getFullYear())
+
+const story = document.querySelector('.screen-story')
+const storySteps = [...document.querySelectorAll('[data-screen-step]')]
+const storyScreens = [...document.querySelectorAll('[data-screen-visual]')]
+const storyCaption = document.getElementById('story-caption')
+const storyCount = document.getElementById('story-count')
+if (story && storySteps.length && storyScreens.length && storyCaption && storyCount) {
+  let activeStep = -1
+  const setActiveStep = index => {
+    if (index === activeStep || index < 0 || index >= storySteps.length) return
+    activeStep = index
+    const step = storySteps[index]
+    const screenName = step.dataset.screenStep
+    storySteps.forEach((item, itemIndex) => item.classList.toggle('is-active', itemIndex === index))
+    storyScreens.forEach(screen => screen.classList.toggle('is-active', screen.dataset.screenVisual === screenName))
+    storyCaption.textContent = step.dataset.title || step.querySelector('h3')?.textContent || ''
+    storyCount.innerHTML = `${String(index + 1).padStart(2, '0')} <i>/ ${String(storySteps.length).padStart(2, '0')}</i>`
+  }
+  const updateStory = () => {
+    const storyBounds = story.getBoundingClientRect()
+    if (storyBounds.bottom <= 0 || storyBounds.top >= window.innerHeight) return
+    const center = window.innerHeight * 0.5
+    let nearestIndex = 0
+    let nearestDistance = Infinity
+    storySteps.forEach((step, index) => {
+      const bounds = step.getBoundingClientRect()
+      const distance = center < bounds.top
+        ? bounds.top - center
+        : center > bounds.bottom ? center - bounds.bottom : 0
+      if (distance < nearestDistance) {
+        nearestIndex = index
+        nearestDistance = distance
+      }
+    })
+    setActiveStep(nearestIndex)
+  }
+  setActiveStep(0)
+  window.addEventListener('scroll', updateStory, { passive: true })
+  window.addEventListener('resize', updateStory)
+  updateStory()
+}
+
+const readingProgress = document.querySelector('.reading-progress')
+if (readingProgress) {
+  let progressFrame = 0
+  const updateProgress = () => {
+    progressFrame = 0
+    const distance = document.documentElement.scrollHeight - window.innerHeight
+    const progress = distance > 0 ? Math.min(1, Math.max(0, window.scrollY / distance)) : 0
+    readingProgress.style.transform = `scaleX(${progress})`
+  }
+  const scheduleProgress = () => {
+    if (!progressFrame) progressFrame = window.requestAnimationFrame(updateProgress)
+  }
+  window.addEventListener('scroll', scheduleProgress, { passive: true })
+  window.addEventListener('resize', scheduleProgress)
+  updateProgress()
+}
+
+const reduceMotion = window.matchMedia('(prefers-reduced-motion: reduce)').matches
+if (!reduceMotion && 'IntersectionObserver' in window) {
+  const revealTargets = document.querySelectorAll(
+    '.section-heading, .experience-card, .privacy-note, .screens-head, .screen-story-visual, .screens-footnote, .demo-head, .demo-window, .download-content, .download-art, .founder-mark, .founder-copy'
+  )
+  const revealObserver = new IntersectionObserver(entries => {
+    for (const entry of entries) {
+      if (!entry.isIntersecting) continue
+      entry.target.classList.add('is-visible')
+      revealObserver.unobserve(entry.target)
+    }
+  }, { threshold: 0.12, rootMargin: '0px 0px -5% 0px' })
+
+  revealTargets.forEach((target, index) => {
+    target.classList.add('scroll-reveal')
+    target.style.setProperty('--reveal-delay', `${(index % 4) * 70}ms`)
+    revealObserver.observe(target)
+  })
+}

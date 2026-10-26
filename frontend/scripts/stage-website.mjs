@@ -37,9 +37,12 @@ const publicWebsiteFiles = new Set([
   'premium.js'
 ])
 const publicWebsiteImages = new Set([
+  'founder-joseph.jpg',
   'home-600.webp',
+  'library-600.webp',
   'plan-600.webp',
-  'stats-600.webp'
+  'stats-600.webp',
+  'workout-600.webp'
 ])
 
 const copyWebsiteFile = (src, dest) => {

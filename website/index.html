@@ -5,7 +5,7 @@
   <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
   <title>ASCEND — NEVER SETTLE, ALWAYS ASCEND.</title>
   <meta name="description" content="ASCEND is a considered training companion for building consistency, recording every session, and seeing your progress over time.">
-  <meta name="theme-color" content="#f3f3ed">
+  <meta name="theme-color" content="#090a09">
   <meta name="robots" content="index,follow,max-image-preview:large">
   <meta property="og:type" content="website">
   <meta property="og:site_name" content="ASCEND">
@@ -20,7 +20,7 @@
   <link rel="icon" type="image/png" sizes="192x192" href="/icon-192.png">
   <link rel="apple-touch-icon" href="/icon-180.png">
   <link rel="preload" as="image" type="image/webp" href="/img/home-600.webp?v=5">
-  <link rel="stylesheet" href="/premium.css?v=1">
+  <link rel="stylesheet" href="/premium.css?v=2">
   <script type="application/ld+json">
     {
       "@context": "https://schema.org",
@@ -39,10 +39,11 @@
       }
     }
   </script>
-  <script src="/premium.js?v=1" defer></script>
+  <script src="/premium.js?v=2" defer></script>
 </head>
 <body>
   <a class="skip-link" href="#main">Skip to content</a>
+  <div class="reading-progress" aria-hidden="true"></div>
   <header class="site-header">
     <nav class="nav-shell" aria-label="Main navigation">
       <a class="brand" href="/" aria-label="ASCEND home">
@@ -54,7 +55,8 @@
       </button>
       <div class="nav-links" id="site-menu">
         <a href="#experience">Experience</a>
-        <a href="#demo">Explore</a>
+        <a href="#screens">Screens</a>
+        <a href="#demo">Demo</a>
         <a href="#founder">Founder</a>
         <a class="nav-cta" href="#download">Get ASCEND <span aria-hidden="true">↗</span></a>
       </div>
@@ -65,14 +67,14 @@
     <section class="hero" aria-labelledby="hero-title">
       <div class="hero-grid" aria-hidden="true"></div>
       <div class="hero-copy">
-        <p class="eyebrow"><span class="eyebrow-dot"></span> A more intentional way to train</p>
-        <h1 id="hero-title">NEVER SETTLE,<br><span>ALWAYS ASCEND.</span></h1>
-        <p class="hero-lead">Make every session count. Build a rhythm that lasts, stay close to your progress, and keep reaching for what’s next.</p>
+        <p class="eyebrow"><span class="eyebrow-dot"></span> NEVER SETTLE, ALWAYS ASCEND.</p>
+        <h1 id="hero-title">Know the day<br><em>before you</em><br>walk in.</h1>
+        <p class="hero-lead">Your week, today’s session, and your progress—together in one calm training space. See what’s ahead, then get to work.</p>
         <div class="hero-actions">
-          <a class="button button-primary" href="#download">Get the app <span aria-hidden="true">↗</span></a>
-          <a class="button button-quiet" href="#demo">Explore the experience <span aria-hidden="true">↓</span></a>
+          <a class="button button-primary" href="#download">Download the Android app <span aria-hidden="true">↗</span></a>
+          <a class="button button-quiet" href="#demo">Try the live demo <span aria-hidden="true">↓</span></a>
         </div>
-        <p class="hero-note">Designed for the work you put in—and the progress you earn.</p>
+        <p class="hero-note">A clearer view of the work you put in—and the progress you earn.</p>
       </div>
       <div class="hero-visual" aria-label="Preview of the ASCEND training app">
         <div class="visual-orbit visual-orbit-one"></div>
@@ -82,40 +84,145 @@
           <div class="phone-island"></div>
           <img src="/img/home-600.webp?v=5" alt="ASCEND home screen with a weekly training overview" width="600" height="1298" fetchpriority="high">
         </div>
+        <div class="visual-float visual-float-week" aria-hidden="true"><span>THIS WEEK</span><b>Your plan,<br>in view.</b></div>
+        <div class="visual-float visual-float-progress" aria-hidden="true"><span>YOUR PROGRESS</span><b>Every session<br>adds up.</b></div>
         <div class="visual-caption"><span class="caption-dot"></span> Your training, in focus</div>
       </div>
       <a class="scroll-cue" href="#experience"><span></span> Scroll to discover</a>
     </section>
 
+    <div class="feature-strip" role="group" aria-label="Training features">
+      <div class="feature-track">
+        <div class="feature-set">
+          <span>PLAN WITH PURPOSE</span><i aria-hidden="true">✳</i>
+          <span>FOCUSED SESSIONS</span><i aria-hidden="true">✳</i>
+          <span>PROGRESS THAT ADDS UP</span><i aria-hidden="true">✳</i>
+          <span>MADE FOR YOUR ROUTINE</span><i aria-hidden="true">✳</i>
+        </div>
+        <div class="feature-set" aria-hidden="true">
+          <span>PLAN WITH PURPOSE</span><i>✳</i>
+          <span>FOCUSED SESSIONS</span><i>✳</i>
+          <span>PROGRESS THAT ADDS UP</span><i>✳</i>
+          <span>MADE FOR YOUR ROUTINE</span><i>✳</i>
+        </div>
+      </div>
+    </div>
+
     <section class="experience section-pad" id="experience" aria-labelledby="experience-title">
       <div class="section-heading">
-        <p class="eyebrow">The ASCEND experience</p>
-        <h2 id="experience-title">A clearer way to<br><span>move forward.</span></h2>
-        <p>Bring your plan, your sessions, and your progress together in one focused training space.</p>
+        <p class="eyebrow">The ASCEND approach</p>
+        <h2 id="experience-title">Built on the gym floor.<br><span>Made for your next step.</span></h2>
+        <p>From your first warm-up to the last rep, ASCEND brings the tools of a complete training routine into one focused space.</p>
       </div>
       <div class="experience-grid">
         <article class="experience-card card-plan">
           <span class="card-index">01 / PLAN</span>
           <div class="card-symbol symbol-plan" aria-hidden="true"><span></span><span></span><span></span></div>
-          <h3>Train with intention.</h3>
-          <p>Build a routine around your goals and give each week a sense of direction.</p>
-          <img src="/img/plan-600.webp?v=5" alt="ASCEND weekly training plan" width="600" height="1298" loading="lazy">
+          <h3>A week with a rhythm.</h3>
+          <p>Shape a training plan around your routine and keep the next session in sight.</p>
         </article>
         <article class="experience-card card-session">
           <span class="card-index">02 / SESSION</span>
           <div class="card-symbol symbol-session" aria-hidden="true"><span></span><span></span><span></span></div>
           <h3>Stay in the moment.</h3>
-          <p>A calm, guided workout flow keeps your attention on the next set.</p>
-          <img src="/img/home-600.webp?v=5" alt="ASCEND home screen with today's training session" width="600" height="1298" loading="lazy">
+          <p>Guided workouts keep each exercise, set, and rep close while you train.</p>
         </article>
         <article class="experience-card card-progress">
           <span class="card-index">03 / PROGRESS</span>
           <div class="card-symbol symbol-progress" aria-hidden="true"><span></span><span></span><span></span><span></span></div>
-          <h3>See how far you’ve come.</h3>
-          <p>Turn the effort you put in into a clear picture of your progress over time.</p>
-          <img src="/img/stats-600.webp?v=5" alt="ASCEND training progress and statistics screen" width="600" height="1298" loading="lazy">
+          <h3>Progress you can see.</h3>
+          <p>Follow your training history and body-weight trend, from one session to the next.</p>
+        </article>
+        <article class="experience-card card-routine">
+          <span class="card-index">04 / ROUTINE</span>
+          <div class="card-symbol symbol-routine" aria-hidden="true"><span></span><span></span><span></span></div>
+          <h3>Built around you.</h3>
+          <p>Make room for the way you train and keep your routine moving at your pace.</p>
+        </article>
+        <article class="experience-card card-library">
+          <span class="card-index">05 / EXERCISE LIBRARY</span>
+          <div class="card-symbol symbol-library" aria-hidden="true"><span></span><span></span><span></span></div>
+          <h3>Find your next move.</h3>
+          <p>Explore a deep exercise library, with movement and muscle details to guide your choice.</p>
+        </article>
+        <article class="experience-card card-coach">
+          <span class="card-index">06 / OPTIONAL COACHING</span>
+          <div class="card-symbol symbol-coach" aria-hidden="true"><span></span><span></span><span></span></div>
+          <h3>Support, on your terms.</h3>
+          <p>Bring in the optional coach when you want another perspective on your training.</p>
+        </article>
+        <article class="experience-card card-body">
+          <span class="card-index">07 / BODY WEIGHT</span>
+          <div class="card-symbol symbol-body" aria-hidden="true"><span></span><span></span><span></span></div>
+          <h3>Keep your own measure.</h3>
+          <p>Set a body-weight goal and follow the trend as your weeks of work add up.</p>
+        </article>
+        <article class="experience-card card-history">
+          <span class="card-index">08 / YOUR HISTORY</span>
+          <div class="card-symbol symbol-history" aria-hidden="true"><span></span><span></span><span></span></div>
+          <h3>See the bigger picture.</h3>
+          <p>Look back across your training year and recognize the consistency behind progress.</p>
         </article>
       </div>
+      <div class="privacy-note">
+        <span class="privacy-mark" aria-hidden="true">✳</span>
+        <p><strong>Your training stays yours.</strong> ASCEND keeps workout data on your device, with no account required.</p>
+      </div>
+    </section>
+
+    <section class="screens-section section-pad" id="screens" aria-labelledby="screens-title">
+      <div class="screens-head">
+        <div>
+          <p class="eyebrow">Inside ASCEND</p>
+          <h2 id="screens-title">The work, <em>in focus.</em></h2>
+        </div>
+        <p>From planning the week to recording the work, take a closer look at the tools that keep your training connected.</p>
+      </div>
+      <div class="screen-story">
+        <div class="screen-story-visual" aria-label="ASCEND app screens" aria-live="polite">
+          <div class="story-orbit" aria-hidden="true"></div>
+          <div class="story-phone">
+            <img class="is-active" src="/img/home-600.webp?v=5" data-screen-visual="overview" alt="" width="600" height="1298" loading="lazy" decoding="async">
+            <img src="/img/workout-600.webp?v=5" data-screen-visual="session" alt="" width="600" height="1298" loading="lazy" decoding="async">
+            <img src="/img/plan-600.webp?v=5" data-screen-visual="plan" alt="" width="600" height="1298" loading="lazy" decoding="async">
+            <img src="/img/library-600.webp?v=5" data-screen-visual="library" alt="" width="600" height="1298" loading="lazy" decoding="async">
+            <img src="/img/stats-600.webp?v=5" data-screen-visual="progress" alt="" width="600" height="1298" loading="lazy" decoding="async">
+          </div>
+          <div class="story-caption">
+            <span class="caption-dot"></span>
+            <span id="story-caption">Your training, in focus</span>
+            <span class="story-count" id="story-count">01 <i>/ 05</i></span>
+          </div>
+        </div>
+        <div class="screen-story-steps">
+          <article class="screen-step is-active" data-screen-step="overview" data-title="Your training, in focus">
+            <span>01 / THE OVERVIEW</span>
+            <h3>Know the day <em>before</em> you walk in.</h3>
+            <p>Your week, your next session, and your progress—together in one clear view.</p>
+          </article>
+          <article class="screen-step" data-screen-step="session" data-title="Stay with the work">
+            <span>02 / THE SESSION</span>
+            <h3>Every set, <em>already in reach.</em></h3>
+            <p>Keep the details of your workout close, so you can give the set in front of you your attention.</p>
+          </article>
+          <article class="screen-step" data-screen-step="plan" data-title="A week that fits your life">
+            <span>03 / YOUR PLAN</span>
+            <h3>A week that fits <em>your week.</em></h3>
+            <p>Build a training rhythm that works with your routine and gives every session a place.</p>
+          </article>
+          <article class="screen-step" data-screen-step="library" data-title="Find your next movement">
+            <span>04 / THE EXERCISE LIBRARY</span>
+            <h3>Explore the movement. <em>Find your form.</em></h3>
+            <p>Browse exercises and explore the muscles involved before you build your next workout.</p>
+          </article>
+          <article class="screen-step" data-screen-step="progress" data-title="See the shape of your progress">
+            <span>05 / YOUR PROGRESS</span>
+            <h3>See the shape <em>of the work.</em></h3>
+            <p>Training history and progress trends make the consistency behind your results easier to see.</p>
+          </article>
+        </div>
+      </div>
+      <p class="screens-footnote">Five views into one training companion—made to help you plan, train, and reflect.</p>
     </section>
 
     <section class="demo-section section-pad" id="demo" aria-labelledby="demo-title">
@@ -158,7 +265,9 @@
     </section>
 
     <section class="founder-section section-pad" id="founder" aria-labelledby="founder-title">
-      <div class="founder-mark" aria-hidden="true">A<span>.</span></div>
+      <div class="founder-mark">
+        <img class="founder-portrait" src="/img/founder-joseph.jpg" alt="Portrait of ASCEND founder Joseph Rman Madrilejos" width="480" height="480" loading="lazy" decoding="async">
+      </div>
       <div class="founder-copy">
         <p class="eyebrow">A note from the founder</p>
         <h2 id="founder-title">Built with purpose.<br><span>Made to keep moving.</span></h2>
