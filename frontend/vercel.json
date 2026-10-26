@@ -5,6 +5,6 @@
   "framework": "vite",
   "env": {
     "VITE_DEMO": "1",
-    "VITE_ASCEND_SITE_URL": "https://ascend-jet-xi.vercel.app"
+    "VITE_ASCEND_SITE_URL": "https://opengym.ch"
   }
 }
