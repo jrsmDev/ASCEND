@@ -24,7 +24,7 @@ Local-only asset:
 - `ASCEND-1.4.2.apk` — the signed Standard Android build served in development by
   `run-local.mjs` and deployed beside the site. Git ignores APKs; the same bytes are attached to
   the `v1.4.2` GitHub release as `ASCEND.apk` (SHA-256
-  `f7bcd1b20034e148a8fde1ea5e5cae94b8631fba57e8a0ca6f7c34e3187605d8`).
+  `d2b0aa229aa19663ea86b3545c1dc2099ba37df31a016b461569926e41bd1c7d`).
   The checksum is served beside it as `ASCEND-1.4.2.apk.sha256`. The download link uses
   `download="ASCEND.apk"`, so the saved file keeps the brand name while the source file keeps
   its version. Plus and HD animation packs stay on the upstream openGym release.

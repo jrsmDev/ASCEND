@@ -5,6 +5,7 @@
   "type": "module",
   "main": "server.js",
   "license": "AGPL-3.0-or-later",
+  "author": "Joseph Rman Madrilejos",
   "scripts": {
     "start": "node server.js",
     "test": "node --test test/*.test.js",

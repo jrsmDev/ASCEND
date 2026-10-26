@@ -1,6 +1,8 @@
 {
   "name": "opengym",
   "private": true,
+  "author": "Joseph Rman Madrilejos",
+  "license": "AGPL-3.0-or-later",
   "scripts": {
     "test:e2e": "playwright test --config=playwright.config.js",
     "test:e2e:ui": "playwright test --config=playwright.config.js --ui",

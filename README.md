@@ -329,17 +329,20 @@ The original openGym project has a
 
 ## License
 
-**ASCEND's code** is licensed under the [GNU AGPL v3.0](LICENSE), inherited from openGym. You can
-self-host, use, modify and share it; if you run a modified version as a network service, you have
-to offer that version's source under the same license. Upstream attribution and media licensing
-are recorded in [NOTICE.md](NOTICE.md).
+**ASCEND's code** is copyright (C) 2026 Joseph Rman Madrilejos and licensed under the
+[GNU AGPL v3.0](LICENSE). It is based on openGym, copyright (C) 2026 Duarte Santos, also
+AGPL-3.0. You can self-host, use, modify and share it; if you run a modified version as a
+network service, you have to offer that version's source under the same license. The copyright
+notice is in [COPYRIGHT](COPYRIGHT); upstream attribution and media licensing are recorded in
+[NOTICE.md](NOTICE.md).
 
 > [!IMPORTANT]
 > **The exercise media is not covered by that license.** The stills and animations are
-> © Aliaksandr Makatserchyk, [Gym visual](https://gymvisual.com/), licensed for use in openGym only:
-> 180 px in this repository and on self-hosted servers, larger only inside the app packages. A
-> non-commercial fork may keep them unmodified with the notice; anything else needs your own licence
-> from gymvisual.com. The exercise text in `catalogue/` is openGym's and open to contributions.
+> © Aliaksandr Makatserchyk, [Gym visual](https://gymvisual.com/), licensed for use in openGym only;
+> ASCEND is a rebrand of the openGym application and uses them under that licence: 180 px in this
+> repository and on self-hosted servers, larger only inside the app packages. A non-commercial fork
+> may keep them unmodified with the notice; anything else needs your own licence from gymvisual.com.
+> The exercise text in `catalogue/` is openGym's and open to contributions.
 
 **Contributing:** read [CONTRIBUTING.md](CONTRIBUTING.md) before opening a pull request. The
 upstream openGym project asks contributors to sign its [Contributor License Agreement](CLA.md);

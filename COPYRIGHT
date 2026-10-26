@@ -1,0 +1,10 @@
+ASCEND
+Copyright (C) 2026 Joseph Rman Madrilejos
+
+ASCEND is a rebrand of openGym, Copyright (C) 2026 Duarte Santos.
+The ASCEND code is free software under the GNU Affero General Public License v3.0
+(see LICENSE). The upstream openGym code is also AGPL-3.0.
+
+The exercise stills and animations are licensed separately to openGym by Gym visual
+and are not covered by the AGPL. See NOTICE.md for the full third-party notices and
+the media terms.

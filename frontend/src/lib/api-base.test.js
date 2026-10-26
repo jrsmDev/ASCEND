@@ -83,7 +83,7 @@ describe('the cache lifetime nginx gives an image', () => {
   })
 })
 
-// The exercise media are licensed for ASCEND only: Cross-Origin-Resource-Policy keeps another
+// The exercise media are licensed to openGym by Gym visual: Cross-Origin-Resource-Policy keeps another
 // site from embedding them, on every answer under /exercise-media/, at the site root and under a
 // BASE_PATH alike. An add_header in a block replaces the inherited ones, so the nested block
 // that sets the media's caching has to say it again.

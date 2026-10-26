@@ -101,7 +101,8 @@ an exercise and something measured. See [DATA_IMPORTS.md](DATA_IMPORTS.md).
 ### Can I reuse the exercise images in my own project?
 
 No. They are © Aliaksandr Makatserchyk, Gym visual, licensed for use in openGym only and not covered
-by openGym's license. Anything outside openGym needs your own licence from
+by openGym's license. ASCEND is a rebrand of openGym and uses the media under that licence; the media
+licence itself stays with openGym. Anything outside openGym needs your own licence from
 [gymvisual.com](https://gymvisual.com/). Details in [NOTICE.md](../NOTICE.md). The exercise text in
 [catalogue/](../catalogue/README.md) is a different story: that's open source, and fixes are welcome.
 

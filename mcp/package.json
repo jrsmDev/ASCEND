@@ -5,6 +5,7 @@
   "type": "module",
   "description": "MCP (Model Context Protocol) bridge for ASCEND — lets an external LLM read your routines, workouts, body-weight log, estimated 1RMs and muscle balance from your self-hosted data. Read-only, stdio transport; no extra container.",
   "license": "AGPL-3.0-or-later",
+  "author": "Joseph Rman Madrilejos",
   "main": "src/index.js",
   "bin": {
     "opengym-mcp": "src/index.js"

@@ -1,16 +1,21 @@
 # Third-party notices
 
-openGym — Copyright (C) 2026 Duarte Santos.
-openGym's own code is licensed under the **GNU AGPL v3.0** (see [LICENSE](LICENSE)).
+ASCEND — Copyright (C) 2026 Joseph Rman Madrilejos.
+Based on openGym — Copyright (C) 2026 Duarte Santos.
+
+ASCEND's own code (the rebrand and the changes in this repository) is licensed under the
+**GNU AGPL v3.0** (see [LICENSE](LICENSE)). The upstream openGym code is also AGPL-3.0. Its
+attribution and the third-party notices below are kept intact.
 
 ## App store exception
 
-As an additional permission under section 7 of the AGPL v3.0, the copyright holder permits
-distribution of the openGym mobile application through app store platforms (such as the
-Apple App Store and Google Play) whose terms of service would otherwise be incompatible
-with the AGPL, provided the corresponding source code remains available under the AGPL at
-the project repository. This permission applies to the distribution channel only and does
-not otherwise limit the license.
+The upstream openGym project carries an additional permission under section 7 of the AGPL v3.0:
+its copyright holder permits distribution of the openGym mobile application through app store
+platforms (such as the Apple App Store and Google Play) whose terms of service would otherwise
+be incompatible with the AGPL, provided the corresponding source code remains available under
+the AGPL at the project repository. This permission applies to the upstream openGym
+distribution channel only and does not otherwise limit the license. ASCEND does not currently
+ship on any app store.
 
 ## Body diagram geometry
 
@@ -47,8 +52,10 @@ SOFTWARE.
 ## Exercise media (stills and animations)
 
 The exercise stills and animations in `catalogue/media/` (and inside the published container
-images and app packages) are licensed to openGym by Gym visual. **They are not covered by
-openGym's AGPL** and not by any licence of the exercise text below.
+images and app packages) are licensed to openGym by Gym visual. ASCEND is a rebrand of the
+openGym application and uses the media under that licence; the media licence stays with
+openGym and is not transferred by the rebrand. **The media are not covered by the AGPL** and
+not by any licence of the exercise text below.
 
 > © Aliaksandr Makatserchyk, Gym visual, gymvisual.com (reuse is governed by Gym visual's Terms & Conditions; obtain your own license there before reusing the media). NOTICE TO DEVELOPERS: The exercise animations included in this project are provided strictly for use within the openGym application. Third parties have no rights to reuse, extract, or integrate these media assets into independent apps, websites, or commercial products. To use these animations for your own software, you must obtain a license directly from gymvisual.com.
 
