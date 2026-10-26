@@ -1,4 +1,4 @@
 User-agent: *
 Allow: /
 
-Sitemap: https://ascend-jet-xi.vercel.app/sitemap.xml
+Sitemap: https://ascend-coral-pi.vercel.app/sitemap.xml

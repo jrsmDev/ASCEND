@@ -20,6 +20,27 @@ const candidatePaths = [
 ]
 
 const website = candidatePaths.find(p => fs.existsSync(p))
+const publicWebsiteFiles = new Set([
+  'index.html',
+  'about.html',
+  'privacy.html',
+  'latest-android.json',
+  'robots.txt',
+  'sitemap.xml',
+  'favicon.ico',
+  'icon-48.png',
+  'icon-96.png',
+  'icon-180.png',
+  'icon-192.png',
+  'icon-512.png',
+  'premium.css',
+  'premium.js'
+])
+const publicWebsiteImages = new Set([
+  'home-600.webp',
+  'plan-600.webp',
+  'stats-600.webp'
+])
 
 const copyWebsiteFile = (src, dest) => {
   const extension = path.extname(src).toLowerCase()
@@ -27,6 +48,7 @@ const copyWebsiteFile = (src, dest) => {
     if (path.basename(src) === 'sitemap.xml' && !productionOrigin) return false
     let contents = fs.readFileSync(src, 'utf8')
       .replaceAll('https://ascend-jet-xi.vercel.app', productionOrigin || '')
+      .replaceAll('https://ascend-coral-pi.vercel.app', productionOrigin || '')
     if (path.basename(src) === 'robots.txt' && !productionOrigin) {
       contents = contents.replace(/^Sitemap:.*(?:\r?\n|$)/gm, '')
     }
@@ -47,6 +69,14 @@ const copyDir = (from, to) => {
     } else if (entry.isFile() && !entry.name.endsWith('.apk') && !entry.name.endsWith('.apk.sha256')) {
       copyWebsiteFile(srcPath, dstPath)
     }
+  }
+}
+
+const copyWebsiteImages = (from, to) => {
+  fs.mkdirSync(to, { recursive: true })
+  for (const name of publicWebsiteImages) {
+    const src = path.join(from, name)
+    if (fs.existsSync(src)) fs.copyFileSync(src, path.join(to, name))
   }
 }
 
@@ -73,11 +103,12 @@ for (const name of ['manifest.json', 'icon.svg', 'icon-180.png', 'icon-512.png']
 // 2. Stage the marketing site at /site and, on Vercel, at the root URL.
 if (website) {
   for (const item of fs.readdirSync(website, { withFileTypes: true })) {
-    if (item.name.endsWith('.apk') || item.name.endsWith('.apk.sha256')) continue
+    if (item.isDirectory() && item.name !== 'img') continue
+    if (item.isFile() && !publicWebsiteFiles.has(item.name)) continue
     const src = path.join(website, item.name)
     if (item.isDirectory()) {
-      copyDir(src, path.join(siteOut, item.name))
-      copyDir(src, path.join(out, item.name))
+      copyWebsiteImages(src, path.join(siteOut, item.name))
+      copyWebsiteImages(src, path.join(out, item.name))
     } else if (item.isFile()) {
       copyWebsiteFile(src, path.join(siteOut, item.name))
       if (item.name === 'index.html') {

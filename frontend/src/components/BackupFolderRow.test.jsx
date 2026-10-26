@@ -29,13 +29,15 @@ afterEach(() => { act(() => root.unmount()); host.remove() })
 const mount = async () => { await act(async () => { root.render(<BackupFolderRow />) }) }
 const rows = () => [...host.querySelectorAll('.lrow')]
 const rowWith = text => rows().find(r => r.textContent.includes(text))
+const rowWithTitle = text => rows().find(r => r.querySelector('.lrow-t')?.textContent === text)
 const tap = async el => { await act(async () => { el.click() }) }
 
 describe('BackupFolderRow', () => {
   it('shows the default folder, and nothing to go back to', async () => {
     await mount()
-    expect(rowWith('Backup folder').textContent).toContain('Documents/openGym')
-    expect(rowWith('Use default folder')).toBeUndefined()
+    expect(rowWith('Backup folder').textContent).toContain('Use default folder')
+    expect(rowWith('Backup folder').textContent).not.toContain('openGym')
+    expect(rowWithTitle('Use default folder')).toBeUndefined()
   })
 
   it('choosing a folder shows its name; the default is one tap back', async () => {
@@ -43,9 +45,9 @@ describe('BackupFolderRow', () => {
     m.picked = { uri: 'content://tree/Sync', label: 'Sync' }
     await tap(rowWith('Backup folder'))
     expect(rowWith('Backup folder').textContent).toContain('Sync')
-    await tap(rowWith('Use default folder'))
-    expect(rowWith('Backup folder').textContent).toContain('Documents/openGym')
-    expect(rowWith('Use default folder')).toBeUndefined()
+    await tap(rowWithTitle('Use default folder'))
+    expect(rowWith('Backup folder').textContent).toContain('Use default folder')
+    expect(rowWithTitle('Use default folder')).toBeUndefined()
   })
 
   it('a folder the picker hands back that cannot be kept says so', async () => {
@@ -61,21 +63,23 @@ describe('BackupFolderRow', () => {
     expect(host.querySelector('.backup-lost')).toBeNull()
     await act(async () => { m.listeners.forEach(fn => fn({ lost: true, lostLabel: 'Sync' })) })
     expect(host.querySelector('.backup-lost').textContent).toContain('ASCEND can no longer write to “Sync”')
-    expect(rowWith('Backup folder').textContent).toContain('Documents/openGym')
-    await tap(rowWith('Use default folder'))
+    expect(rowWith('Backup folder').textContent).toContain('Use default folder')
+    await tap(rowWithTitle('Use default folder'))
     expect(host.querySelector('.backup-lost')).toBeNull()
   })
 })
 
-// Android QA: after another folder was chosen, the Auto-backup row still said Documents/openGym.
 describe('the Auto-backup subtitle', () => {
-  it('names the chosen folder, or the default', async () => {
+  it('names a chosen folder or describes the default without exposing its legacy path', async () => {
     const { autoBackupSubtitle } = await import('./BackupFolderRow.jsx')
     expect(autoBackupSubtitle({ uri: 'content://tree/Sync', label: 'SyncFolder' }, 14))
       .toBe('Saves a dated copy to “SyncFolder” after finishing a workout or editing a routine, and keeps the newest 14.')
     expect(autoBackupSubtitle({ uri: 'content://tree/x' }, 14))
       .toBe('Saves a dated copy to the folder you chose after finishing a workout or editing a routine, and keeps the newest 14.')
-    for (const f of [{}, null, { lost: true, lostLabel: 'SyncFolder' }]) expect(autoBackupSubtitle(f, 14)).toContain('Documents/openGym')
+    for (const f of [{}, null, { lost: true, lostLabel: 'SyncFolder' }]) {
+      expect(autoBackupSubtitle(f, 14)).toContain('your default backup folder')
+      expect(autoBackupSubtitle(f, 14)).not.toContain('openGym')
+    }
   })
 
   it('the lost-folder warning is a warning row, not a big title', async () => {
@@ -83,6 +87,7 @@ describe('the Auto-backup subtitle', () => {
     await mount()
     const warn = host.querySelector('.lrow.backup-lost')
     expect(warn.textContent).toContain('SyncFolder')
+    expect(warn.textContent).not.toContain('openGym')
     const css = (await import('node:fs')).readFileSync(process.cwd() + '/src/index.css', 'utf8')
     expect(css).toMatch(/\.lrow\.backup-lost \.lrow-t\{font-size:13px/)
   })
