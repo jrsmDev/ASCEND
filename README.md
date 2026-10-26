@@ -327,6 +327,23 @@ documentation fix or pull request helps more than anything.
 The original openGym project has a
 [Ko-fi page](https://ko-fi.com/opengym) if you want to support the upstream author.
 
+## Brand
+
+ASCEND is the product name. Use it in all caps for the product and wordmark, and the A mark from
+`frontend/public/icon.svg` for the app icon, splash, PWA and website. Keep the dark obsidian
+(`#090A09`) and lime (`#C7F45A`) palette, serif headlines, and Inter/Manrope body type.
+
+Do not rename the compatibility identifiers: package ID `ch.duartesantos.opengym`, the
+`Documents/openGym` backup folder, environment keys, backup files, or `opengym.ch`. They are
+intentionally inherited so existing data and tooling keep working. Upstream copyright and the
+Gym visual media license must stay attributed; see [COPYRIGHT](COPYRIGHT) and [NOTICE.md](NOTICE.md).
+
+## Official download
+
+Install only from this repository's GitHub release or the production site. The signed APK is about
+224 MB; a file of only a few kilobytes is not ASCEND. Verify the SHA-256 published beside the
+release before installing.
+
 ## License
 
 **ASCEND's code** is copyright (C) 2026 Joseph Rman Madrilejos and licensed under the

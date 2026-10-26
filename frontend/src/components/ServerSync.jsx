@@ -303,7 +303,7 @@ export function KeptChangesRows() {
     const state = await useStore.getState().keptState(k.server, k.uid)
     if (!state) return
     const json = JSON.stringify(state, null, 2)
-    const name = 'opengym-kept-' + String(k.name || k.uid).replace(/[^\w-]+/g, '_') + '-' + new Date().toISOString().slice(0, 10) + '.json'
+    const name = 'ascend-kept-' + String(k.name || k.uid).replace(/[^\w-]+/g, '_') + '-' + new Date().toISOString().slice(0, 10) + '.json'
     if (MOBILE) { try { await shareExport(json, name); useUI.getState().toast(t('Backup exported')) } catch { /* share sheet dismissed */ } return }
     const a = document.createElement('a'); a.href = URL.createObjectURL(new Blob([json], { type: 'application/json' })); a.download = name; a.click()
     setTimeout(() => URL.revokeObjectURL(a.href), 60000)

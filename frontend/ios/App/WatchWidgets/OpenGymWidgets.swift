@@ -93,7 +93,7 @@ struct WidgetView: View {
             } else {
                 ZStack {
                     AccessoryWidgetBackground()
-                    OpenGymLogo().padding(10)
+                    AscendMark().padding(10)
                 }
             }
         case .accessoryInline:
@@ -144,7 +144,7 @@ struct WidgetView: View {
                     }
                 } else {
                     HStack(spacing: 6) {
-                        OpenGymLogo().frame(width: 26, height: 16)
+                        AscendMark().frame(width: 26, height: 16)
                         Text(verbatim: "ASCEND").font(.headline)
                     }
                 }
@@ -198,17 +198,17 @@ struct LauncherView: View {
         case .accessoryCircular:
             ZStack {
                 AccessoryWidgetBackground()
-                OpenGymLogo().padding(9)
+                AscendMark().padding(9)
             }
         case .accessoryCorner:
-            OpenGymLogo()
+            AscendMark()
                 .padding(4)
                 .widgetLabel { Text(verbatim: "ASCEND") }
         case .accessoryInline:
             Text(verbatim: "ASCEND")
         default:
             HStack(spacing: 8) {
-                OpenGymLogo().frame(width: 30, height: 20)
+                AscendMark().frame(width: 30, height: 20)
                 VStack(alignment: .leading, spacing: 0) {
                     Text(verbatim: "ASCEND").font(.headline)
                     if entry.state.mode == "today" {

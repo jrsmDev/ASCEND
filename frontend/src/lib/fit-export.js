@@ -396,10 +396,10 @@ export function workoutFitMessages(w, { unit = 'kg', version = '', exOf = exOr }
 /** The finished workout `w` as the bytes of a .fit file. Options as workoutFitMessages. */
 export const workoutFit = (w, options) => encodeFit(workoutFitMessages(w, options))
 
-/** "opengym-2026-10-09-1830.fit": the day and the start time, so two sessions a day stay apart. */
+/** "ascend-2026-10-09-1830.fit": the day and the start time, so two sessions a day stay apart. */
 export function fitFileName(w) {
   const d = new Date(workoutAt(w))
-  if (!Number.isFinite(d.getTime())) return 'opengym-workout.fit'
+  if (!Number.isFinite(d.getTime())) return 'ascend-workout.fit'
   const p = n => String(n).padStart(2, '0')
-  return `opengym-${d.getFullYear()}-${p(d.getMonth() + 1)}-${p(d.getDate())}-${p(d.getHours())}${p(d.getMinutes())}.fit`
+  return `ascend-${d.getFullYear()}-${p(d.getMonth() + 1)}-${p(d.getDate())}-${p(d.getHours())}${p(d.getMinutes())}.fit`
 }

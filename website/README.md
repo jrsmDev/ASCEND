@@ -12,7 +12,7 @@ Committed assets:
   `social.jpg` (1200×630, the og:image on every page). `../assets/social.html` is the
   printable source, rendered from the same five screenshots. The build script is
   `build-images.sh <dist>/img`; the checked-in copies are what the local site serves. Public
-  image URLs carry `?v=2` so a browser that cached the old brand picks up the new art.
+  image URLs carry `?v=4` so a browser that cached the old brand picks up the new art.
 - `icon-180.png` / `icon-512.png` (plus the smaller favicon sizes) — copied from
   `../frontend/public/`, so the browser tab, home screen and app all match.
 
@@ -21,11 +21,11 @@ The browser-only demo is also deployed to
 
 Local-only asset:
 
-- `ASCEND-1.4.2.apk` — the signed Standard Android build served in development by
+- `ASCEND-1.4.3.apk` — the signed Standard Android build served in development by
   `run-local.mjs` and deployed beside the site. Git ignores APKs; the same bytes are attached to
-  the `v1.4.2` GitHub release as `ASCEND.apk` (SHA-256
-  `d2b0aa229aa19663ea86b3545c1dc2099ba37df31a016b461569926e41bd1c7d`).
-  The checksum is served beside it as `ASCEND-1.4.2.apk.sha256`. The download link uses
+  the `v1.4.3` GitHub release as `ASCEND.apk` (SHA-256
+  `4c51454e82805d03b457df11abf8d55a4b02baff2e16f01b23a596d9d4b4e02a`).
+  The checksum is served beside it as `ASCEND-1.4.3.apk.sha256`. The download link uses
   `download="ASCEND.apk"`, so the saved file keeps the brand name while the source file keeps
   its version. Plus and HD animation packs stay on the upstream openGym release.
 

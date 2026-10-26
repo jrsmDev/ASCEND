@@ -243,7 +243,7 @@ struct IdleView: View {
             }
         } else {
             VStack(spacing: 10) {
-                OpenGymLogo()
+                AscendMark()
                     .fill(Theme.accent)
                     .frame(width: 60, height: 30)
                     .accessibilityHidden(true)

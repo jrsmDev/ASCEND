@@ -62,24 +62,27 @@ extension WidgetState {
     }
 }
 
-/// ASCEND's mark, the app icon's barbell (frontend/public/icon-512.png), drawn as one shape so it
-/// takes the watch face's tint and stays sharp at every complication size.
-struct OpenGymLogo: Shape {
+/// ASCEND's mark, the app icon's A, drawn as one shape so it takes the watch face's tint and
+/// stays sharp at every complication size.
+struct AscendMark: Shape {
     func path(in rect: CGRect) -> Path {
-        // The icon's own coordinates (512 × 512); the barbell spans x 80…432, y 170…342.
-        let boxes: [(CGFloat, CGFloat, CGFloat, CGFloat)] = [
-            (80, 200, 36, 112), (116, 242, 16, 28), (132, 170, 46, 172),
-            (178, 242, 156, 28),
-            (334, 170, 46, 172), (380, 242, 16, 28), (396, 200, 36, 112),
+        let polygons: [[CGPoint]] = [
+            [CGPoint(x: 6, y: 194), CGPoint(x: 100, y: 4), CGPoint(x: 112, y: 30), CGPoint(x: 52, y: 194)],
+            [CGPoint(x: 137.6, y: 80), CGPoint(x: 194, y: 194), CGPoint(x: 150, y: 194), CGPoint(x: 121.8, y: 137)],
+            [CGPoint(x: 100, y: 96), CGPoint(x: 127, y: 164), CGPoint(x: 109, y: 164), CGPoint(x: 100, y: 141), CGPoint(x: 91, y: 164), CGPoint(x: 73, y: 164)],
         ]
-        let minX: CGFloat = 80, minY: CGFloat = 170, w: CGFloat = 352, h: CGFloat = 172
-        let scale = min(rect.width / w, rect.height / h)
-        let ox = rect.midX - w * scale / 2, oy = rect.midY - h * scale / 2
-        var p = Path()
-        for (x, y, bw, bh) in boxes {
-            p.addRect(CGRect(x: ox + (x - minX) * scale, y: oy + (y - minY) * scale, width: bw * scale, height: bh * scale))
+        let scale = min(rect.width / 200, rect.height / 200)
+        let ox = rect.midX - 100 * scale, oy = rect.midY - 100 * scale
+        var path = Path()
+        for polygon in polygons {
+            guard let first = polygon.first else { continue }
+            path.move(to: CGPoint(x: ox + first.x * scale, y: oy + first.y * scale))
+            for point in polygon.dropFirst() {
+                path.addLine(to: CGPoint(x: ox + point.x * scale, y: oy + point.y * scale))
+            }
+            path.closeSubpath()
         }
-        return p
+        return path
     }
 }
 

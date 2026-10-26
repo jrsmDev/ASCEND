@@ -500,7 +500,7 @@ export function planPrintHTML(S, owner, { routineId } = {}) {
   </header>
   ${week}
   ${body}
-  <footer>${esc(t('Made with ASCEND'))} · opengym.ch</footer>
+  <footer>${esc(t('Made with ASCEND'))} · github.com/jrsmDev/ASCEND</footer>
 </div></body></html>`
 }
 

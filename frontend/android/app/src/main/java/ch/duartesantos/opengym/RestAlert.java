@@ -247,7 +247,7 @@ public final class RestAlert {
         Notification.Builder b = Build.VERSION.SDK_INT >= 26
                 ? new Notification.Builder(ctx, channelId)
                 : new Notification.Builder(ctx);
-        b.setSmallIcon(R.drawable.ic_stat_dumbbell)
+        b.setSmallIcon(R.drawable.ic_stat_ascend)
                 .setContentTitle(title)
                 .setWhen(System.currentTimeMillis())
                 .setShowWhen(true)
@@ -445,7 +445,7 @@ public final class RestAlert {
         Notification.Builder b = Build.VERSION.SDK_INT >= 26
                 ? new Notification.Builder(ctx, COUNTDOWN_CHANNEL_ID)
                 : new Notification.Builder(ctx);
-        b.setSmallIcon(R.drawable.ic_stat_dumbbell)
+        b.setSmallIcon(R.drawable.ic_stat_ascend)
                 .setShowWhen(false)
                 .setOngoing(true)
                 .setCategory(Notification.CATEGORY_PROGRESS)

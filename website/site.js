@@ -619,9 +619,9 @@ function panel({ opener, panelEl, flag, closeBtn }) {
 ;(() => {
   const isLocal = location.hostname === 'localhost' || location.hostname === '127.0.0.1' || location.hostname === '[::1]'
   if (!isLocal) return
-  const btn = document.querySelector('.dl-row .btn[href*="ASCEND-1.4.2.apk"]')
+  const btn = document.querySelector('.dl-row .btn[href*="ASCEND-1.4.3.apk"]')
   if (!btn) return
-  btn.href = '/ASCEND-1.4.2.apk'
+  btn.href = '/ASCEND-1.4.3.apk'
   btn.setAttribute('download', 'ASCEND.apk')
 })()
 

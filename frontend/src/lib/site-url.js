@@ -18,5 +18,5 @@ export const SITE_URL = (
   import.meta.env.VITE_ASCEND_SITE_URL || localSite() || PROD_SITE
 ).replace(/\/$/, '')
 
-export const SITE_DOWNLOAD = `${SITE_URL}/#download`
+export const SITE_DOWNLOAD = 'https://github.com/jrsmDev/ASCEND/releases/latest'
 export const SITE_IS_LOCAL = SITE_URL.startsWith('http://localhost') || SITE_URL.startsWith('http://127.0.0.1')

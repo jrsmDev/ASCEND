@@ -6,7 +6,7 @@ openapi: 3.1.0
 
 info:
   title: ASCEND API
-  version: 1.4.2
+  version: 1.4.3
   summary: Passkey (WebAuthn) auth + per-user state storage for ASCEND
   description: |
     The backend of [ASCEND](https://opengym.ch), a free, open-source

@@ -1,5 +1,19 @@
 # Changelog
 
+## v1.4.3 (2026-10-26)
+
+> ASCEND v1.4.3 is a brand-polish release. The app, icons and marketing screenshots now use the
+> ASCEND A mark throughout; the remaining openGym names are technical identifiers and legal
+> attribution. It is signed with the same ASCEND key as v1.4.2.
+
+- **Brand.** Android notification icon, iOS watch complication logo and the adaptive-icon
+  foreground vector now use the ASCEND A mark instead of the inherited dumbbell/barbell.
+- **Marketing.** Replaced ghosted marketing screenshots with clean captures and regenerated the
+  WebP variants; added an official-download check and SHA-256 verification note.
+- **App.** Plan-share footer and exported file names now read ASCEND instead of opengym.
+- **Website.** Download links point at the v1.4.3 GitHub release; removed alternate old-brand
+  prominence from the homepage while keeping required upstream attribution.
+
 ## v1.4.2 (2026-10-26)
 
 > ASCEND v1.4.2 is the rebrand of openGym v1.4.2. Visible names and the Android APK are ASCEND;

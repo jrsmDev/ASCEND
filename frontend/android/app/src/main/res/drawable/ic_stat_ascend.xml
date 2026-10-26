@@ -1,0 +1,11 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!-- A monochrome alpha mask for the rest-timer notification small icon. -->
+<vector xmlns:android="http://schemas.android.com/apk/res/android"
+    android:width="24dp"
+    android:height="24dp"
+    android:viewportWidth="24"
+    android:viewportHeight="24">
+    <path android:fillColor="#FFFFFFFF" android:pathData="M3,22 L12,2 L13.5,5 L7,22 Z" />
+    <path android:fillColor="#FFFFFFFF" android:pathData="M16.5,9 L23,22 L18,22 L14.6,15.3 Z" />
+    <path android:fillColor="#FFFFFFFF" android:pathData="M12,12 L15.2,20 L13,20 L12,17.2 L11,20 L8.8,20 Z" />
+</vector>
