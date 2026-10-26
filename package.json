@@ -4,6 +4,7 @@
   "author": "Joseph Rman Madrilejos",
   "license": "AGPL-3.0-or-later",
   "scripts": {
+    "build": "npm run build --prefix frontend",
     "test:e2e": "playwright test --config=playwright.config.js",
     "test:e2e:ui": "playwright test --config=playwright.config.js --ui",
     "lint": "npm run lint --prefix api && npm run lint --prefix frontend",

@@ -1,0 +1,180 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width,initial-scale=1,viewport-fit=cover">
+<title>ASCEND: About</title>
+<meta name="description" content="The story behind ASCEND: built by Joseph Rman Madrilejos (jrsmDev) after seven years in fitness, two competitions, and coaching clients at every level. Free, open-source, AGPL-licensed.">
+<meta name="theme-color" content="#000000">
+<meta name="robots" content="index,follow,max-image-preview:large">
+<meta property="og:title" content="About ASCEND">
+<meta property="og:description" content="How ASCEND came to be: built by a fitness coach who competed twice and wanted his clients' data to stay theirs. Open-sourced under AGPL, every release documented.">
+<meta property="og:image" content="https://ascend-jet-xi.vercel.app/img/social.jpg?v=4">
+<meta property="og:image:width" content="1200">
+<meta property="og:image:height" content="630">
+<meta property="og:image:alt" content="ASCEND: your training, your data, your server. Two phones showing the home and workout screens.">
+<meta property="og:url" content="https://ascend-jet-xi.vercel.app/about.html">
+<meta property="og:type" content="website">
+<meta property="og:site_name" content="ASCEND">
+<meta name="twitter:card" content="summary_large_image">
+<meta name="twitter:title" content="About ASCEND">
+<meta name="twitter:image" content="https://ascend-jet-xi.vercel.app/img/social.jpg?v=4">
+<link rel="canonical" href="https://ascend-jet-xi.vercel.app/about.html">
+<link rel="icon" href="/favicon.ico" sizes="48x48">
+<link rel="icon" type="image/png" sizes="96x96" href="/icon-96.png">
+<link rel="icon" type="image/png" sizes="192x192" href="/icon-192.png">
+<link rel="icon" type="image/png" sizes="512x512" href="/icon-512.png">
+<link rel="apple-touch-icon" href="icon-180.png">
+<link rel="stylesheet" href="styles.css?v=30">
+<link rel="stylesheet" href="ascend.css?v=4">
+<script>document.documentElement.className += ' js'</script>
+</head>
+<body class="topnav">
+<a class="skip" href="#main">Skip to content</a>
+
+<nav><div class="wrap nav-in">
+  <a class="brand" href="/" aria-label="ASCEND home">
+    <svg class="brand-mark" viewBox="0 0 200 200" aria-hidden="true" focusable="false"><g fill="currentColor"><polygon points="6,194 100,4 112,30 52,194"/><polygon points="137.6,80 194,194 150,194 121.8,137"/><polygon points="100,96 127,164 109,164 100,141 91,164 73,164"/></g></svg>
+    <span class="brand-word">ASCEND</span>
+  </a>
+  <div class="nav-quick">
+    <a class="ql site" href="/#features">Features</a>
+    <a class="ql site" href="/#screens">Inside</a>
+    <a class="ql site" href="/#demo">Demo</a>
+    <a class="ql site" href="/docs.html">Docs</a>
+    <a class="ql site" href="/api.html">API</a>
+    <a class="ql site" href="/about.html">About</a>
+    <a class="ql" href="https://github.com/jrsmDev/ASCEND" rel="noopener">GitHub</a>
+    <a class="ql" href="https://discord.gg/e62jY6fwVb" rel="noopener">Community</a>
+    
+    <a class="cta" href="/#download">Download</a>
+  </div>
+  <button class="nav-toggle" id="navtoggle" aria-expanded="false" aria-controls="sitemenu" aria-label="Menu">
+    <span></span><span></span>
+  </button>
+</div></nav>
+<div class="read-progress" id="readprogress" aria-hidden="true"></div>
+
+<!-- The navigation sheet: the header's links again, for the widths where the bar has
+     room only for the brand and the download. Byte-identical on every page, like the
+     bar above it, so nothing is ever dropped because of which page you are on. -->
+<div class="navsheet" id="sitemenu" role="navigation" aria-label="Site" aria-hidden="true">
+  <div class="nl-rows">
+    <a class="nl" href="/#features">Features</a>
+    <a class="nl" href="/#screens">Inside ASCEND</a>
+    <a class="nl" href="/#demo">Demo</a>
+    <a class="nl" href="/docs.html">Docs</a>
+    <a class="nl" href="/api.html">API</a>
+    <a class="nl" href="/about.html">About</a>
+    <a class="nl" href="https://github.com/jrsmDev/ASCEND" rel="noopener">GitHub</a>
+    <a class="nl" href="https://discord.gg/e62jY6fwVb" rel="noopener">Community</a>
+    
+  </div>
+</div>
+
+<!-- The one control that opens the contents, at every width. The drawer it opens is
+     closed in CSS, so it is shut on first paint whether or not the script runs. -->
+<button class="toc-btn" id="tocbtn" aria-expanded="false" aria-controls="menu">
+  <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.9" stroke-linecap="round" aria-hidden="true"><path d="M4 6.5h16M4 12h16M4 17.5h10"/></svg>
+  Contents
+</button>
+
+<!-- The contents drawer: one list, one way in, one way out. Closed by default at
+     every width, and no preference is remembered. See .side in styles.css. -->
+<aside class="side" id="menu" aria-label="Contents" aria-hidden="true">
+  <div class="side-top">
+    <p class="side-title">Contents</p>
+    <button class="rail-close" aria-label="Close contents"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" aria-hidden="true"><path d="M5 5l14 14M19 5L5 19"/></svg></button>
+  </div>
+  <p class="side-label">On this page</p>
+  <a class="side-link" href="#milestones-h"><b>Milestones</b><span>Every release, straight from GitHub</span></a>
+  <a class="side-link" href="#principles"><b>Principles</b><span>The rules that don't move</span></a>
+  <p class="side-label">More</p>
+  <a class="side-link" href="/"><b>Home</b><span>The tour, the demo, the download</span></a>
+  <a class="side-link" href="docs.html"><b>Docs</b><span>Install, self-host, import</span></a>
+  <a class="side-link" href="api.html"><b>API</b><span>Every route, as an OpenAPI spec</span></a>
+</aside>
+
+<main id="main" class="wrap prose">
+  <h1>About ASCEND</h1>
+  <p class="lead">I have spent <b>seven years in the fitness industry</b>, competed
+     <b>twice</b>, and coached people at every level: first-time lifters, busy parents,
+     athletes, and clients coming back from injury.</p>
+
+  <p>ASCEND started a couple of months ago, not as a product but as the training log I wanted
+     for myself. I was tired of apps that were loud between sets, expensive to keep, or eager
+     to hold the one thing that should belong to the person doing the work: the record.</p>
+
+  <p>So I built the smallest useful thing first. A place to put the plan, the sets, the
+     numbers, and the story they tell over time. Then I kept using it. Every awkward tap at
+     the rack became the next fix. The guided workout flow, the weight pre-fills, the rest
+     timer, the body-weight check-in: none of that came from a feature list. It came from
+     standing in the gym with the thing in my hand.</p>
+
+  <p>ASCEND has grown into a complete training system: plans, progression, muscle maps,
+     body weight, 19 languages, importers for FitNotes, Strong, Hevy and Apple Health, and a
+     native Android app. It is free, open source under the AGPL-3.0, and it runs on a phone
+     or on a server you control.</p>
+
+  <p>I am Joseph Rman Madrilejos, jrsmDev. I design and build ASCEND, and I still log every
+     session with it. That is the quality bar: I am the first user of every release. If you
+     train with it, I want to hear what is missing.</p>
+
+  <p class="who"><a href="https://jrsm-dev-portfolio-one.vercel.app" rel="noopener">Joseph Rman Madrilejos</a>
+     <span>jrsmDev</span><br>
+     <a href="mailto:joseph.r.madrilejos@gmail.com">joseph.r.madrilejos@gmail.com</a> ·
+     <a href="https://jrsm-dev-portfolio-one.vercel.app/#skills" rel="noopener">portfolio</a></p>
+
+  <h2 id="milestones-h">Milestones</h2>
+  <!-- The releases below are a static fallback: site.js replaces them with the live list
+       of published GitHub releases, so this page never needs manual updating. Only the
+       first entry (pre-open-source) is permanent. -->
+  <ul class="tl" id="milestones">
+    <li><b>The first log</b><span class="when">a couple of months ago</span>
+      <p>A small training log, built for one user: me. The plan, the sets, the body weight.</p></li>
+    <li data-fallback><b>The system</b><span class="when">still being built</span>
+      <p>Plans, progression, muscle maps, 19 languages, and a fast workout flow that stays
+         out of the way between sets.</p></li>
+    <li data-fallback><b>Every release since</b><span class="when">ongoing</span>
+      <p>See the full list on <a href="https://github.com/jrsmDev/ASCEND/releases" rel="noopener">GitHub → Releases</a>.</p></li>
+  </ul>
+
+  <h2 id="principles">Principles</h2>
+  <ul>
+    <li><b>Your data is yours.</b> Local-first, one-file backups, no lock-in. Leaving ASCEND
+        must always be one export away.</li>
+    <li><b>No telemetry, ever.</b> If a feature needs analytics to justify itself, it does
+        not ship.</li>
+    <li><b>Dependency-light.</b> The backend is plain Node with two dependencies; the
+        frontend is React, a router and a store. Small enough to actually audit.</li>
+    <li><b>Open source that stays open.</b> AGPL-3.0, so every fork and every hosted version
+        owes its code back to everyone.</li>
+  </ul>
+
+  <div class="actions" style="margin:38px 0 0">
+    <a class="btn" href="/#download">Get ASCEND</a>
+    <a class="link" href="https://github.com/jrsmDev/ASCEND" rel="noopener">View the source on GitHub</a>
+  </div>
+</main>
+
+<footer><div class="wrap foot">
+  <span class="c">ASCEND · AGPL-3.0 · © 2026 <a href="https://jrsm-dev-portfolio-one.vercel.app" rel="noopener">Joseph Rman Madrilejos</a></span>
+  <div class="links">
+    <a href="docs.html">Docs</a>
+    <a href="about.html">About</a>
+    <a href="privacy.html">Privacy</a>
+    <a href="https://github.com/jrsmDev/ASCEND" rel="noopener">GitHub</a>
+    <a href="https://github.com/DuarteSantos8/openGym" rel="noopener">Upstream project</a>
+    <a href="https://discord.gg/e62jY6fwVb" rel="noopener">Community</a>
+    <a href="/#download">Download</a>
+  </div>
+</div></footer>
+
+<script src="site.js?v=32" defer></script>
+</body>
+</html>
+
+
+
+
+
