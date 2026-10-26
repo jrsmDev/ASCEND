@@ -32,7 +32,7 @@ import { getMediaStatus, subscribeMediaStatus, pendingRefCount } from '../lib/me
 import { limitsFrom, fmtMB, MB } from '../lib/media-limits.js'
 import { setRestAccent } from '../lib/rest-alert.js'
 import { CUSTOM, accentKey, adjustedIn, applyAccent, cleanHex, inkOn, isGrey } from '../lib/accent.js'
-import { checkForUpdate, downloadAndInstall, fetchChecksum, RELEASES_PAGE } from '../lib/update.js'
+import { checkForUpdate, downloadAndInstall, fetchChecksum } from '../lib/update.js'
 import { selfUpdates } from '../lib/channel.js'
 import { SITE_DOWNLOAD } from '../lib/site-url.js'
 import { forgetCoach } from '../lib/coach-api.js'
@@ -174,7 +174,7 @@ export default function Settings({ page = null, find = null, via = null, entryKe
     // The in-app updater installs an .apk, so it only applies to the native Android build.
     // On iOS and the web this check is skipped and the update row never appears. isAndroid()
     // already answers false off the mobile build; the MOBILE check on top keeps the web bundle
-    // from even asking (and from calling GitHub on every Settings visit). Only the pages
+    // from even asking (and from fetching the website manifest on every Settings visit). Only the pages
     // that show it ask: the root (for nothing but `android`) skips the release check.
     // The Google Play build is updated by Play (lib/channel.js): no update row there either.
     if (!MOBILE) return
@@ -220,7 +220,7 @@ export default function Settings({ page = null, find = null, via = null, entryKe
   }, [find])
 
   // The same check, on demand: the automatic one is silent when it finds nothing or cannot
-  // reach GitHub, and a person who taps "Check for updates" deserves an answer either way.
+  // reach the network, and a person who taps "Check for updates" deserves an answer either way.
   const checkNow = async () => {
     if (checking) return
     setChecking(true)
@@ -252,7 +252,7 @@ export default function Settings({ page = null, find = null, via = null, entryKe
             return <DownloadProgress ref={fn => { setProgress = fn }} />
           }, { locked: true })
           try {
-            // The release always publishes the checksum next to the APK. Without it the file is
+            // The update manifest points to a checksum for every APK. Without it the file is
             // not installed — a sideloaded binary is exactly the thing that should be verified.
             let expectedHash = null
             try { expectedHash = await fetchChecksum(updateInfo.hashUrl) } catch (e) { /* reported below */ }
@@ -268,8 +268,8 @@ export default function Settings({ page = null, find = null, via = null, entryKe
         },
       })
     } else {
-      // Update available but no APK asset — open the releases page
-      window.open(RELEASES_PAGE, '_blank', 'noopener')
+      // The website is the source of truth for downloads; never send sideloaded users to GitHub.
+      window.open(SITE_DOWNLOAD, '_blank', 'noopener')
     }
   }
 
@@ -866,7 +866,7 @@ export default function Settings({ page = null, find = null, via = null, entryKe
           release is newer (checksum verified, see onUpdateRowClick). On the web the app updates
           with its server, so the row points at the APK for the phone instead. iOS and the Google
           Play build are updated by their store. */}
-      <Section footer={MOBILE ? (selfUpdate ? t('Releases are checked on GitHub. The download is verified against its checksum before the installer opens.') : null) : t('The web app updates together with your server. The Android app installs its own updates from here.')}>
+      <Section footer={MOBILE ? (selfUpdate ? t('Updates are checked on the ASCEND website. The download is verified against its checksum before the installer opens.') : null) : t('The web app updates together with your server. The Android app installs its own updates from here.')}>
         <Row icon="info" iconTint="var(--grey)" title={t('Version')} value={'v' + __APP_VERSION__} />
         {MOBILE
           ? selfUpdate && <Row icon="download" iconTint="var(--green)"

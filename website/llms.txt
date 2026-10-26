@@ -14,7 +14,7 @@
 
 ## Try & get it
 - [Live demo](./demo/): the real app with example data, in the browser
-- [Android APK](./#download): the signed Standard build (180 px animations) direct from the site with its SHA-256; updates and notes are on the GitHub releases page
+- [Android APK](./#download): the signed Standard build (180 px animations) and its SHA-256 are served from ASCEND; in-app update checks use the website manifest and public download storage
 - [About](./about.html): the story and every release
 
 ## How it is built

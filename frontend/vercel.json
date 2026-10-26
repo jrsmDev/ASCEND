@@ -7,21 +7,6 @@
   "cleanUrls": false,
   "redirects": [
     {
-      "source": "/(.*)ASCEND-1.0.0.apk",
-      "destination": "https://github.com/jrsmDev/ASCEND/releases/download/apk-v1.0.0/ASCEND.apk",
-      "permanent": false
-    },
-    {
-      "source": "/(.*)ASCEND.apk",
-      "destination": "https://github.com/jrsmDev/ASCEND/releases/download/apk-v1.0.0/ASCEND.apk",
-      "permanent": false
-    },
-    {
-      "source": "/(.*)ASCEND-1.0.0.apk.sha256",
-      "destination": "https://github.com/jrsmDev/ASCEND/releases/download/apk-v1.0.0/ASCEND.apk.sha256",
-      "permanent": false
-    },
-    {
       "source": "/download",
       "destination": "/#download",
       "permanent": false

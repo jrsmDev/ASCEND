@@ -10,7 +10,7 @@ globalThis.IS_REACT_ACT_ENVIRONMENT = true
 // The updater downloads an .apk and hands it to the Android package installer, so its row
 // may only ever show on the native Android build: never on the web, never on iOS. Each test
 // flips the two gates (MOBILE flag, Capacitor platform) and watches whether Settings even
-// asks gitlab.com for the latest release.
+// asks the website for the latest release.
 const mocks = vi.hoisted(() => {
   const state = { S: null, MOBILE: false, android: false, channel: 'sideload' }
   state.snapshot = () => ({
@@ -151,12 +151,23 @@ describe('Settings — in-app update check', () => {
     expect(updateRow()).toBeTruthy()   // the second (default) answer had 9.9.9 — the row now offers it
   })
 
-  it('Android when gitlab.com is unreachable: stays quiet, keeps the row', async () => {
+  it('Android when the update manifest is unreachable: stays quiet, keeps the row', async () => {
     mocks.MOBILE = true
     mocks.android = true
     mocks.checkForUpdate.mockRejectedValueOnce(new Error('offline'))
     await mount()
     expect(updateRow()).toBeUndefined()
     expect(checkRow()).toBeTruthy()
+  })
+
+  it('Android update without an APK links to the website, not GitHub', async () => {
+    mocks.MOBILE = true
+    mocks.android = true
+    mocks.checkForUpdate.mockResolvedValueOnce({ hasUpdate: true, latestVersion: '9.9.9', apkUrl: null, hashUrl: null })
+    await mount()
+    const open = vi.spyOn(window, 'open').mockImplementation(() => null)
+    act(() => { updateRow().click() })
+    expect(open).toHaveBeenCalledWith(SITE_DOWNLOAD, '_blank', 'noopener')
+    expect(SITE_DOWNLOAD).not.toContain('github.com')
   })
 })

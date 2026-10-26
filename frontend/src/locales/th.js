@@ -1398,7 +1398,7 @@ export default {
   'Couldn’t check for updates. Are you online?': 'ตรวจสอบอัปเดตไม่ได้ คุณออนไลน์อยู่หรือเปล่า?',
   'Get the Android app': 'รับแอป Android',
   'Download the APK from the ASCEND site': 'ดาวน์โหลด APK จาก ASCEND site',
-  'Releases are checked on GitHub. The download is verified against its checksum before the installer opens.': 'ตรวจสอบรุ่นจาก GitHub ไฟล์ที่ดาวน์โหลดจะถูกตรวจ checksum ก่อนเปิดตัวติดตั้ง',
+  'Updates are checked on the ASCEND website. The download is verified against its checksum before the installer opens.': 'ตรวจสอบการอัปเดตจากเว็บไซต์ ASCEND ไฟล์ที่ดาวน์โหลดจะถูกตรวจ checksum ก่อนเปิดตัวติดตั้ง',
   'The web app updates together with your server. The Android app installs its own updates from here.': 'เว็บแอปอัปเดตพร้อมกับเซิร์ฟเวอร์ของคุณ แอป Android ติดตั้งอัปเดตจากที่นี่',
   'Starting download…': 'กำลังเริ่มดาวน์โหลด…',
   'Downloading update…': 'กำลังดาวน์โหลดอัปเดต…',

@@ -26,34 +26,54 @@ at `/demo/` (also reachable from the legacy `/app` path). The frontend's
 leave Vercel's Root Directory set to the repository root (`.`), and deploy; no
 separate project or environment variables are required.
 
-The standalone Android APK is version `1.0.0`; it is kept out of Vercel's static output because of
-its size. The website redirects `/ASCEND-1.0.0.apk` and `/ASCEND.apk` to
-`https://github.com/jrsmDev/ASCEND/releases/download/apk-v1.0.0/ASCEND.apk`. Publish a public GitHub
-release tagged `apk-v1.0.0` with `ASCEND.apk` and `ASCEND.apk.sha256` attached for the download and
-checksum links to work. The app stores workout data locally; no account or app-data cloud service
-is required. The in-app update checker uses GitHub releases, but workout data remains on-device.
+The standalone Android APK is kept out of Vercel's static output because of its size. APKs and
+checksums are hosted in the public Vercel Blob store `ascend-apks`; the small
+`latest-android.json` manifest is deployed with this website. The site reads its download button
+from the manifest, and the Android updater uses the same manifest, so APK downloads and updates
+do not depend on GitHub being public. Keep each upload at a versioned Blob path and update the
+manifest with the matching version, APK URL, and checksum URL. Do not commit APKs, signing
+credentials, or Blob write tokens. The app stores workout data locally; no account or app-data
+cloud service is required.
 
-This is a standalone APK-only release and does not change the website/API package version. The
-`apk-v1.0.0` tag deliberately avoids the repository's `v*` mirror/release pipeline.
+The manifest uses one entry per APK variant. For example:
+
+```json
+{
+  "version": "1.4.4",
+  "variants": {
+    "standard": {
+      "apkUrl": "https://<public-blob-url>/ASCEND-1.4.4.apk",
+      "hashUrl": "https://<public-blob-url>/ASCEND-1.4.4.apk.sha256"
+    }
+  }
+}
+```
+
+Only publish the manifest after both versioned Blob files are uploaded and their URLs are verified.
+The app refuses to install an update unless it can read a valid SHA-256 checksum. The Vercel Hobby
+Blob quota includes 1 GB of storage and 10 GB of monthly data transfer; monitor Storage usage because
+downloads stop if the account reaches its included limit.
 
 Build from the repository root in PowerShell after installing the Android SDK:
 
 ```powershell
-$env:ASCEND_ANDROID_VERSION = '1.0.0'
+$env:ASCEND_ANDROID_VERSION = '1.4.4'
 npm run build:mobile --prefix frontend
 Push-Location frontend/android
-.\gradlew.bat --no-daemon assembleSideloadRelease '-PappVersionName=1.0.0' '-PappVersionCode=1'
+.\gradlew.bat --no-daemon clean assembleSideloadRelease '-PappVersionName=1.4.4' '-PappVersionCode=29'
 Pop-Location
 ```
 
 Sign the unsigned output
 `frontend/android/app/build/outputs/apk/sideload/release/app-sideload-release-unsigned.apk`
-with the private `ascend-v1` key, then publish it as `ASCEND.apk` and its SHA-256 file as
-`ASCEND.apk.sha256`. The current key is kept outside the repository under
-`%LOCALAPPDATA%\ASCEND\signing`; back up both the keystore and its password securely. Never commit
-either file. Android cannot update an older ASCEND installation signed with the unavailable key:
-users must export a backup, uninstall the old app, install this build, then import the backup.
-Every future `apk-v1.x.y` APK must be signed with this new key and have a higher `versionCode`.
+with the private `ascend-v1` key using `zipalign` and `apksigner` from the Android SDK. Save the
+signed file as `website/ASCEND-1.4.4.apk`, calculate its SHA-256 checksum, upload both files to
+`ascend-apks`, then update `website/latest-android.json` with their public URLs. The current key
+is kept outside the repository under `%LOCALAPPDATA%\ASCEND\signing`; back up both the keystore
+and its password securely. Never commit either file. Android cannot update an older ASCEND
+installation signed with the unavailable key: users must export a backup, uninstall the old app,
+install this build, then import the backup. Every future APK must use the current key and a higher
+version name and `versionCode`.
 
 Added at deploy time:
 

@@ -1235,7 +1235,7 @@ export default {
   'Couldn’t check for updates. Are you online?': 'Не вдалося перевірити оновлення. Ти онлайн?',
   "Get the Android app": "Отримати застосунок для Android",
   "Download the APK from the ASCEND site": "Завантаж APK з ASCEND site",
-  "Releases are checked on GitHub. The download is verified against its checksum before the installer opens.": "Релізи перевіряються на GitHub. Перед відкриттям встановлювача завантаження звіряється з контрольною сумою.",
+  "Updates are checked on the ASCEND website. The download is verified against its checksum before the installer opens.": "Оновлення перевіряються на сайті ASCEND. Перед відкриттям встановлювача завантаження звіряється з контрольною сумою.",
   "The web app updates together with your server. The Android app installs its own updates from here.": "Веб-застосунок оновлюється разом із сервером. Застосунок для Android встановлює свої оновлення звідси.",
   "Starting download…": "Починаю завантаження…",
   "Downloading update…": "Завантаження оновлення…",

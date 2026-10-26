@@ -1,5 +1,5 @@
 import { describe, it, expect, vi, beforeEach, afterEach } from 'vitest'
-import { checkForUpdate, sha256, resetUpdateCheck, fetchChecksum, pickApk, APK_VARIANT, apkKind } from './update.js'
+import { checkForUpdate, sha256, resetUpdateCheck, fetchChecksum, pickApk, APK_VARIANT, apkKind, UPDATE_MANIFEST_URL } from './update.js'
 
 // __APP_VERSION__ is defined at build time by vite.config.js (reads package.json).
 // In the test environment vitest applies the same define, so it's available here.
@@ -31,107 +31,112 @@ describe('checkForUpdate', () => {
   beforeEach(() => { originalFetch = globalThis.fetch; resetUpdateCheck() })
   afterEach(() => { globalThis.fetch = originalFetch })
 
-  function mockFetch(body, status = 200) {
+  function mockManifest(body, status = 200) {
     globalThis.fetch = vi.fn(() => Promise.resolve({
       ok: status >= 200 && status < 300,
       status,
       json: () => Promise.resolve(body),
     }))
   }
-  const asset = (name, url = 'https://github.com/x/releases/download/v9/' + name) => ({ name, browser_download_url: url })
-
-  it('asks GitHub for the latest published release (never a draft or a beta)', async () => {
-    mockFetch({ tag_name: 'v' + __APP_VERSION__, assets: [] })
-    await checkForUpdate()
-    expect(globalThis.fetch.mock.calls[0][0]).toBe('https://api.github.com/repos/jrsmDev/ASCEND/releases/latest')
+  const update = (version, variant = APK_VARIANT) => ({
+    version,
+    variants: {
+      [variant]: {
+        apkUrl: `https://ascend-apks.public.blob.vercel-storage.com/${variant}/ASCEND.apk`,
+        hashUrl: `https://ascend-apks.public.blob.vercel-storage.com/${variant}/ASCEND.apk.sha256`,
+      },
+    },
   })
 
-  it('reports no update when the latest release matches the current version', async () => {
-    mockFetch({ tag_name: 'v' + __APP_VERSION__, assets: [] })
+  it('checks the website manifest without relying on GitHub', async () => {
+    mockManifest(update(__APP_VERSION__))
+    await checkForUpdate()
+    expect(globalThis.fetch).toHaveBeenCalledWith(UPDATE_MANIFEST_URL, {
+      cache: 'no-store',
+      headers: { Accept: 'application/json' },
+    })
+    expect(UPDATE_MANIFEST_URL).not.toContain('github.com')
+  })
+
+  it('reports no update when the manifest version matches the current version', async () => {
+    mockManifest(update(__APP_VERSION__))
     const result = await checkForUpdate()
     expect(result.hasUpdate).toBe(false)
     expect(result.latestVersion).toBe(__APP_VERSION__)
-    expect(result.apkUrl).toBe(null)
-    expect(result.hashUrl).toBe(null)
+    expect(result.apkUrl).toContain('ASCEND.apk')
+    expect(result.hashUrl).toContain('ASCEND.apk.sha256')
   })
 
-  it('reports no update when the latest release is older than current', async () => {
-    mockFetch({ tag_name: 'v0.0.1', assets: [] })
+  it('reports no update when the manifest version is older than current', async () => {
+    mockManifest(update('0.0.1'))
     const result = await checkForUpdate()
     expect(result.hasUpdate).toBe(false)
     expect(result.latestVersion).toBe('0.0.1')
   })
 
-  it('reports an update when the latest release is newer', async () => {
-    mockFetch({ tag_name: 'v99.0.0', assets: [] })
+  it('reports an update when the manifest version is newer', async () => {
+    mockManifest(update('99.0.0'))
     const result = await checkForUpdate()
     expect(result.hasUpdate).toBe(true)
     expect(result.latestVersion).toBe('99.0.0')
   })
 
-  it('handles tag names without a v prefix', async () => {
-    mockFetch({ tag_name: '99.1.2', assets: [] })
+  it('accepts a v-prefixed manifest version', async () => {
+    mockManifest(update('v99.1.2'))
     const result = await checkForUpdate()
     expect(result.hasUpdate).toBe(true)
     expect(result.latestVersion).toBe('99.1.2')
   })
 
-  it('handles standalone APK release tags and their download assets', async () => {
-    const apkUrl = 'https://github.com/jrsmDev/ASCEND/releases/download/apk-v99.1.2/ASCEND.apk'
-    const hashUrl = `${apkUrl}.sha256`
-    mockFetch({
-      tag_name: 'apk-v99.1.2',
-      assets: [asset('ASCEND.apk', apkUrl), asset('ASCEND.apk.sha256', hashUrl)],
+  it('uses only the APK URLs for this build variant', async () => {
+    mockManifest({
+      version: '99.1.2',
+      variants: {
+        standard: { apkUrl: 'https://cdn.example/standard.apk', hashUrl: 'https://cdn.example/standard.sha256' },
+        hd: { apkUrl: 'https://cdn.example/hd.apk', hashUrl: 'https://cdn.example/hd.sha256' },
+      },
     })
     const result = await checkForUpdate()
-    expect(result.latestVersion).toBe('99.1.2')
-    expect(result.hasUpdate).toBe(true)
-    expect(result.apkUrl).toBe(apkUrl)
-    expect(result.hashUrl).toBe(hashUrl)
+    expect(result.apkUrl).toBe(`https://cdn.example/${APK_VARIANT}.apk`)
+    expect(result.hashUrl).toBe(`https://cdn.example/${APK_VARIANT}.sha256`)
   })
 
-  // The ASCEND release asset layout: one Standard APK and the checksum named after it.
-  const REAL_RELEASE = {
-    tag_name: 'v1.4.2',
-    assets: [
-      { name: 'ASCEND.apk', browser_download_url: 'https://github.com/jrsmDev/ASCEND/releases/download/v1.4.2/ASCEND.apk' },
-      { name: 'ASCEND.apk.sha256', browser_download_url: 'https://github.com/jrsmDev/ASCEND/releases/download/v1.4.2/ASCEND.apk.sha256' },
-    ],
-  }
-
-  it('finds the APK and its checksum in the ASCEND release payload', async () => {
-    mockFetch(REAL_RELEASE)
+  it('supports SemVer build metadata', async () => {
+    mockManifest(update(`${__APP_VERSION__}+2026.10.26`))
     const result = await checkForUpdate()
-    expect(result.latestVersion).toBe('1.4.2')
-    expect(result.apkUrl).toBe('https://github.com/jrsmDev/ASCEND/releases/download/v1.4.2/ASCEND.apk')
-    expect(result.hashUrl).toBe('https://github.com/jrsmDev/ASCEND/releases/download/v1.4.2/ASCEND.apk.sha256')
+    expect(result.latestVersion).toBe(`${__APP_VERSION__}+2026.10.26`)
+    expect(result.hasUpdate).toBe(false)
   })
 
-  it('does not take the checksum for the APK when it is listed first', async () => {
-    mockFetch({ tag_name: 'v99.0.0', assets: [asset('a.apk.sha256'), asset('sbom.json'), asset('a.apk')] })
-    const result = await checkForUpdate()
-    expect(result.apkUrl).toMatch(/\/a\.apk$/)
-    expect(result.hashUrl).toMatch(/\/a\.apk\.sha256$/)
-  })
-
-  it('returns null URLs when the release has no APK or checksum', async () => {
-    mockFetch({ tag_name: 'v99.0.0', assets: [asset('changelog.md')] })
+  it('does not provide another variant or insecure URLs as downloads', async () => {
+    mockManifest({
+      version: '99.0.0',
+      variants: {
+        [APK_VARIANT]: { apkUrl: 'http://cdn.example/app.apk', hashUrl: 'javascript:alert(1)' },
+      },
+    })
     const result = await checkForUpdate()
     expect(result.hasUpdate).toBe(true)
     expect(result.apkUrl).toBe(null)
     expect(result.hashUrl).toBe(null)
   })
 
-  it('returns no update when the repository has no release yet (404)', async () => {
-    mockFetch({ message: 'Not Found' }, 404)
+  it('returns null URLs when this variant is not published', async () => {
+    mockManifest({ version: '99.0.0', variants: {} })
     const result = await checkForUpdate()
-    expect(result.hasUpdate).toBe(false)
-    expect(result.latestVersion).toBe(__APP_VERSION__)
+    expect(result.hasUpdate).toBe(true)
+    expect(result.apkUrl).toBe(null)
+    expect(result.hashUrl).toBe(null)
   })
 
-  it('throws when the API responds with an error status', async () => {
-    mockFetch(null, 500)
-    await expect(checkForUpdate()).rejects.toThrow('GitHub API 500')
+  it('throws when the manifest version is malformed', async () => {
+    mockManifest({ version: 'latest', variants: {} })
+    await expect(checkForUpdate()).rejects.toThrow('Invalid ASCEND update manifest version')
+  })
+
+  it('throws when the manifest cannot be fetched', async () => {
+    mockManifest(null, 503)
+    await expect(checkForUpdate()).rejects.toThrow('ASCEND update manifest 503')
   })
 
   it('throws on network failure', async () => {
@@ -163,10 +168,10 @@ describe('semver comparison (via checkForUpdate behavior)', () => {
   beforeEach(() => { originalFetch = globalThis.fetch; resetUpdateCheck() })
   afterEach(() => { globalThis.fetch = originalFetch })
 
-  function mockRelease(tag) {
+  function mockManifest(version) {
     globalThis.fetch = vi.fn(() => Promise.resolve({
       ok: true, status: 200,
-      json: () => Promise.resolve({ tag_name: tag, assets: [] }),
+      json: () => Promise.resolve({ version, variants: {} }),
     }))
   }
 
@@ -182,17 +187,17 @@ describe('semver comparison (via checkForUpdate behavior)', () => {
   }
 
   it('detects a patch bump as an update', async () => {
-    mockRelease(bump(2, 1))
+    mockManifest(bump(2, 1))
     expect((await checkForUpdate()).hasUpdate).toBe(true)
   })
 
   it('detects a minor bump as an update', async () => {
-    mockRelease(bump(1, 1))
+    mockManifest(bump(1, 1))
     expect((await checkForUpdate()).hasUpdate).toBe(true)
   })
 
   it('detects a major bump as an update', async () => {
-    mockRelease(bump(0, 1))
+    mockManifest(bump(0, 1))
     expect((await checkForUpdate()).hasUpdate).toBe(true)
   })
 
@@ -207,27 +212,27 @@ describe('semver comparison (via checkForUpdate behavior)', () => {
   const tagged = (maj, min, patch) => 'v' + [maj, min, patch].join('.') + BUILD
 
   it('judges a tag that carries build metadata on its numbers alone', async () => {
-    mockRelease(tagged(MAJOR, MINOR, PATCH_N + 1))
+    mockManifest(tagged(MAJOR, MINOR, PATCH_N + 1))
     expect((await checkForUpdate()).hasUpdate).toBe(true)
 
     resetUpdateCheck()
-    mockRelease(tagged(MAJOR, MINOR, PATCH_N))
+    mockManifest(tagged(MAJOR, MINOR, PATCH_N))
     const same = await checkForUpdate()
     expect(same.hasUpdate).toBe(false)                                   // the running release
     expect(same.latestVersion).toBe(__APP_VERSION__.split('+')[0] + BUILD)   // echoed as it came
 
     resetUpdateCheck()
-    mockRelease(tagged(MAJOR, Math.max(0, MINOR - 1), 0))
+    mockManifest(tagged(MAJOR, Math.max(0, MINOR - 1), 0))
     expect((await checkForUpdate()).hasUpdate).toBe(false)
 
     resetUpdateCheck()
-    mockRelease(tagged(MAJOR + 1, 0, 0))
+    mockManifest(tagged(MAJOR + 1, 0, 0))
     expect((await checkForUpdate()).hasUpdate).toBe(true)
   })
 
   it('does not flag an older patch as an update', async () => {
     // One patch below current (current patch is always >= our test floor)
-    mockRelease('v' + [MAJ, MIN, Math.max(0, PATCH - 1)].join('.'))
+    mockManifest('v' + [MAJ, MIN, Math.max(0, PATCH - 1)].join('.'))
     // Only meaningful when we could actually go lower; when patch is 0 this equals current,
     // which correctly reports no update either way.
     expect((await checkForUpdate()).hasUpdate).toBe(false)
@@ -236,7 +241,7 @@ describe('semver comparison (via checkForUpdate behavior)', () => {
   it('does not flag an older minor as an update', async () => {
     // A version guaranteed lower than any 1.x+ release: same major, minor 0, patch 0,
     // minus one on the minor when possible.
-    mockRelease('v' + [MAJ, Math.max(0, MIN - 1), 0].join('.'))
+    mockManifest('v' + [MAJ, Math.max(0, MIN - 1), 0].join('.'))
     expect((await checkForUpdate()).hasUpdate).toBe(false)
   })
 })

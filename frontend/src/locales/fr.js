@@ -1390,7 +1390,7 @@ export default {
   'Couldn’t check for updates. Are you online?': 'Impossible de vérifier les mises à jour. Es-tu en ligne ?',
   'Get the Android app': 'Télécharger l’app Android',
   'Download the APK from the ASCEND site': 'Télécharge l’APK depuis ASCEND site',
-  'Releases are checked on GitHub. The download is verified against its checksum before the installer opens.': 'Les versions sont vérifiées sur GitHub. Le téléchargement est contrôlé avec sa somme de contrôle avant l’ouverture de l’installateur.',
+  'Updates are checked on the ASCEND website. The download is verified against its checksum before the installer opens.': 'Les mises à jour sont vérifiées sur le site ASCEND. Le téléchargement est contrôlé avec sa somme de contrôle avant l’ouverture de l’installateur.',
   'The web app updates together with your server. The Android app installs its own updates from here.': 'L’app web se met à jour avec ton serveur. L’app Android installe ses mises à jour depuis ici.',
   'Starting download…': 'Démarrage du téléchargement…',
   'Downloading update…': 'Téléchargement de la mise à jour…',

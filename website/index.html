@@ -56,7 +56,7 @@ try {
  "softwareVersion":"1.0.0","datePublished":"2026-07-18","dateModified":"2026-10-26","isAccessibleForFree":true,
  "brand":{"@type":"Brand","name":"ASCEND"},
  "featureList":["Weekly plan with a routine per weekday, or a rotation","Guided workouts with rest timer, supersets, warm-up and timed sets","Progression rules: linear, Greyskull LP, double progression","Estimated 1RM, activity heatmap, muscle balance and fatigue maps","Body-weight tracking with a goal line","Edit saved workouts, with photos and videos","Structural Balance between your lifts","Import from Hevy, Strong, FitNotes and Apple Health","Passkey login and multi-device sync when self-hosted","Standalone Android APK with no account","19 languages, including Arabic right-to-left","Optional AI coach on your own API key"],
- "downloadUrl":"https://ascend-jet-xi.vercel.app/ASCEND-1.0.0.apk",
+ "downloadUrl":"https://ascend-coral-pi.vercel.app/#download",
  "author":{"@type":"Person","name":"Joseph Rman Madrilejos","alternateName":"jrsmDev","url":"https://jrsm-dev-portfolio-one.vercel.app"},
  "sameAs":["https://github.com/jrsmDev/ASCEND","https://jrsm-dev-portfolio-one.vercel.app"]}
 </script>
@@ -549,13 +549,12 @@ try {
           <li class="no">No sync across devices</li>
         </ul>
         <div class="push">
-          <!-- The release redirect keeps the large APK out of the Vercel deployment. -->
           <div class="dl-row">
-            <a class="btn" href="ASCEND-1.0.0.apk">Download ASCEND <span class="btn-arrow" aria-hidden="true">↓</span></a>
-            <a class="link" href="https://github.com/jrsmDev/ASCEND/releases" rel="noopener">Checksums &amp; other builds</a>
+            <a class="btn" id="android-download" aria-disabled="true">Download temporarily unavailable</a>
+            <a class="link" id="android-checksum" aria-disabled="true">SHA-256 checksum</a>
           </div>
-          <p class="dl-facts"><span>v1.0.0</span><span>Android 7.0+</span><span>Signed APK</span></p>
-          <p class="meta">The <a href="ASCEND-1.0.0.apk.sha256">SHA-256 checksum</a> sits beside the download.
+          <p class="dl-facts"><span id="android-version">Latest version</span><span>Android 7.0+</span><span>Signed APK</span></p>
+          <p class="meta">The SHA-256 checksum is published with the download.
              No account, no server, no store gatekeeper. The APK installs directly;
              your browser will ask once for permission to install apps. ASCEND updates install
              over it and keep your data.</p>
@@ -563,11 +562,8 @@ try {
              Android cannot update one over the other. Export a backup first, uninstall the old app,
              install ASCEND, then import the backup. See the
              <a href="docs.html#android">migration notes</a>.</p>
-          <p class="meta">Standard ships here with 180 px animations. Full updates and release notes are published on the <a href="https://github.com/jrsmDev/ASCEND/releases" rel="noopener">ASCEND releases page</a>.</p>
-          <p class="meta"><b>Download check.</b> The APK's SHA-256 is
-             <a href="ASCEND-1.0.0.apk.sha256">published beside it</a>. A file of only a few kilobytes from
-             another site is not ASCEND; install only from this page or the
-             <a href="https://github.com/jrsmDev/ASCEND/releases" rel="noopener">official release</a>.</p>
+          <p class="meta">Standard ships here with 180 px animations. Updates and release notes are published on this ASCEND website.</p>
+          <p class="meta"><b>Download check.</b> Verify the APK with the SHA-256 checksum linked beside the download. Install only the signed APK served from this ASCEND website.</p>
           <p class="meta"><b>On iPhone?</b> Use the self-hosted web app in Safari and add it to
              your home screen. See <a href="docs.html#iphone">the iPhone guide</a>.</p>
         </div>

@@ -1,20 +1,16 @@
 // Update check — compares the installed version (__APP_VERSION__) against
-// the latest release on GitHub and optionally downloads + installs the APK.
-//
-// The GitHub releases API is public, so no token is needed (60 requests an hour per address,
-// and the check runs once per app session). GitHub is ASCEND's home since v1.4.0; the GitLab
-// mirror stopped getting releases, so a phone that asked it saw no update.
+// ASCEND's website manifest and optionally downloads + installs the APK.
 // On Android (Capacitor) the APK is downloaded natively into the cache directory (the Standard
 // APK is ~224 MB: read into the WebView's memory it ran phones out of it, and
-// github.com's download redirect has no CORS headers for a WebView fetch anyway), checked
-// against its SHA-256 by the native Install plugin and handed to the system installer.
+// the download is checked against its SHA-256 by the native Install plugin and handed to the
+// system installer.
 
 import { MOBILE } from './mobile.js'
 import { BUILTIN_PX } from './anim-quality.js'
+import { SITE_DOWNLOAD } from './site-url.js'
 
-const REPO = 'jrsmDev/ASCEND'
-const LATEST_URL = `https://api.github.com/repos/${REPO}/releases/latest`
-export const RELEASES_PAGE = `https://github.com/${REPO}/releases/latest`
+const DEFAULT_UPDATE_MANIFEST_URL = 'https://ascend-coral-pi.vercel.app/latest-android.json'
+export const UPDATE_MANIFEST_URL = import.meta.env.VITE_ASCEND_UPDATE_MANIFEST_URL || DEFAULT_UPDATE_MANIFEST_URL
 
 /**
  * Compares two semver strings (e.g. "1.2.11" vs "1.3.0").
@@ -39,16 +35,15 @@ function compareSemver(a, b) {
 }
 
 /**
- * Checks GitHub for a newer version. `releases/latest` is the newest release that is neither a
- * draft nor a pre-release, so a beta never offers itself as an update.
- * Returns { hasUpdate, latestVersion, apkUrl, hashUrl } or throws on network failure.
- *   - hasUpdate: true if the latest release tag is newer than the running build
- *   - latestVersion: the semver string of the latest release (without "v" prefix)
- *   - apkUrl: direct download URL of the first .apk asset, or null
- *   - hashUrl: direct download URL of the .apk.sha256 hash file, or null
+ * Checks the public website manifest for a newer version.
+ * Returns { hasUpdate, latestVersion, apkUrl, hashUrl } or throws on network/manifest failure.
+ *   - hasUpdate: true if the manifest version is newer than the running build
+ *   - latestVersion: the semver string from the manifest (without "v" prefix)
+ *   - apkUrl: direct download URL for this build variant, or null
+ *   - hashUrl: direct download URL for its .sha256 file, or null
  */
-// One request per app session: Settings is opened often, GitHub does not need to hear
-// about it every time. The promise is cached, a failure is not.
+// Settings is opened often, so one manifest request per app session is enough. A failure is not
+// cached, allowing a later manual check to recover.
 let cached = null
 export function resetUpdateCheck() { cached = null }
 export async function checkForUpdate() {
@@ -56,16 +51,28 @@ export async function checkForUpdate() {
   return cached
 }
 async function fetchLatest() {
-  const res = await fetch(LATEST_URL, { headers: { Accept: 'application/vnd.github+json' } })
-  // 404: the repository has no published release yet
-  if (res.status === 404) return { hasUpdate: false, latestVersion: __APP_VERSION__, apkUrl: null, hashUrl: null }
-  if (!res.ok) throw new Error(`GitHub API ${res.status}`)
+  const res = await fetch(UPDATE_MANIFEST_URL, { cache: 'no-store', headers: { Accept: 'application/json' } })
+  if (!res.ok) throw new Error(`ASCEND update manifest ${res.status}`)
   const latest = await res.json()
-  const latestVersion = String(latest.tag_name || '').replace(/^(?:apk-)?v/i, '')
-  if (!latestVersion) return { hasUpdate: false, latestVersion: __APP_VERSION__, apkUrl: null, hashUrl: null }
+  const latestVersion = String(latest.version || '').replace(/^v/i, '')
+  if (!/^\d+\.\d+\.\d+(?:\+[0-9A-Za-z.-]+)?$/.test(latestVersion)) {
+    throw new Error('Invalid ASCEND update manifest version')
+  }
   const hasUpdate = compareSemver(latestVersion, __APP_VERSION__) > 0
-  const { apk, hash } = pickApk(latest.assets || [])
-  return { hasUpdate, latestVersion, apkUrl: apk?.browser_download_url || null, hashUrl: hash?.browser_download_url || null }
+  const variant = latest.variants?.[APK_VARIANT]
+  const apkUrl = publicHttpsUrl(variant?.apkUrl)
+  const hashUrl = publicHttpsUrl(variant?.hashUrl)
+  return { hasUpdate, latestVersion, apkUrl, hashUrl }
+}
+
+function publicHttpsUrl(value) {
+  if (typeof value !== 'string') return null
+  try {
+    const url = new URL(value)
+    return url.protocol === 'https:' ? url.href : null
+  } catch {
+    return null
+  }
 }
 
 /**
@@ -76,9 +83,8 @@ async function fetchLatest() {
  * which kind it is (VITE_APK_VARIANT, set by scripts/android/build-release.sh); a build without it
  * goes by what it has built in.
  * The checksum is the one named after the chosen APK, never just the first .sha256 in the list.
- * A release without an APK of this kind: no direct download (the update row then opens the
- * releases page), rather than quietly swapping it for another kind. The older openGym asset names
- * are still recognised, so a release that keeps the upstream naming also works.
+ * A release without an APK of this kind has no direct download, rather than quietly swapping it
+ * for another kind. Older asset names remain recognised for tooling that still consumes releases.
  */
 const ENV = import.meta.env || {}
 export const APK_VARIANTS = ['standard', 'plus', 'hd']
@@ -95,16 +101,16 @@ export function pickApk(assets, variant = APK_VARIANT) {
 }
 
 /**
- * The SHA-256 the release publishes next to its APK, as 64 hex characters, or null. In the app it
- * comes down natively like the APK itself (github.com answers a WebView fetch without CORS).
+ * Reads the published SHA-256 checksum as 64 hex characters, or null. On Android the small file
+ * is downloaded natively to avoid WebView cross-origin restrictions.
  */
 export async function fetchChecksum(hashUrl) {
   if (!hashUrl) return null
   let text
   if (MOBILE) {
     const { Filesystem, Directory, Encoding } = await import('@capacitor/filesystem')
-    await Filesystem.downloadFile({ url: hashUrl, path: 'opengym-update.apk.sha256', directory: Directory.Cache })
-    text = (await Filesystem.readFile({ path: 'opengym-update.apk.sha256', directory: Directory.Cache, encoding: Encoding.UTF8 })).data
+    await Filesystem.downloadFile({ url: hashUrl, path: 'ascend-update.apk.sha256', directory: Directory.Cache })
+    text = (await Filesystem.readFile({ path: 'ascend-update.apk.sha256', directory: Directory.Cache, encoding: Encoding.UTF8 })).data
   } else {
     const res = await fetch(hashUrl)
     if (!res.ok) return null
@@ -134,12 +140,12 @@ export async function sha256(buffer) {
  */
 export async function downloadAndInstall(url, expectedHash, onProgress = null) {
   if (!MOBILE) {
-    window.open(RELEASES_PAGE, '_blank', 'noopener')
+    window.open(SITE_DOWNLOAD, '_blank', 'noopener')
     return
   }
   if (!/^[0-9a-f]{64}$/i.test(expectedHash || '')) throw new Error('no checksum to verify the download against')
   const { Filesystem, Directory } = await import('@capacitor/filesystem')
-  const fileName = 'opengym-update.apk'
+  const fileName = 'ascend-update.apk'
   const listener = onProgress
     ? await Filesystem.addListener('progress', p => onProgress(p.bytes, p.contentLength))
     : null

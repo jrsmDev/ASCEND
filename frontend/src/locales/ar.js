@@ -1286,7 +1286,7 @@ export default {
   'Couldn’t check for updates. Are you online?': 'تعذّر التحقق من التحديثات. هل أنت متصل بالإنترنت؟',
   'Get the Android app': 'احصل على تطبيق أندرويد',
   'Download the APK from the ASCEND site': 'نزّل ملف APK من ASCEND site',
-  'Releases are checked on GitHub. The download is verified against its checksum before the installer opens.': 'يُتحقق من الإصدارات على GitHub. ويُتحقق من التنزيل مقابل بصمته قبل فتح المثبّت.',
+  'Updates are checked on the ASCEND website. The download is verified against its checksum before the installer opens.': 'يُتحقق من التحديثات على موقع ASCEND. ويُتحقق من التنزيل مقابل بصمته قبل فتح المثبّت.',
   'The web app updates together with your server. The Android app installs its own updates from here.': 'يتحدث تطبيق الويب مع خادمك. أما تطبيق أندرويد فيثبّت تحديثاته من هنا.',
   'Starting download…': 'جارٍ بدء التنزيل…',
   'Downloading update…': 'جارٍ تنزيل التحديث…',

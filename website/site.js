@@ -1,8 +1,7 @@
 // Behaviour for the ASCEND site: the header's navigation sheet, the contents
 // drawer and its scrollspy, the scroll reveals, the demo frame, the scroll-driven
-// screen sequence, and the two things that come from the GitHub API (repo counts,
-// release timeline). Every one of them fails soft: the page is complete without
-// any of this running.
+// screen sequence, and optional community counts. Every one of them fails soft:
+// the page is complete without any of this running.
 
 const GH_REPO = 'https://api.github.com/repos/jrsmDev/ASCEND'
 
@@ -511,55 +510,6 @@ function panel({ opener, panelEl, flag, closeBtn }) {
   } catch (e) { /* offline / blocked, the link keeps its plain label */ }
 })
 
-/* -------------------------------------------------------------- about timeline
-   Built from the published GitHub releases, so the page updates itself with every
-   release. The static entries marked data-fallback stay in place when the API is
-   unreachable; the hand-written first entry is always kept.
-
-   Drafts and pre-releases are skipped; the notes are `body`, the date `published_at`. */
-;(async () => {
-  const tl = document.getElementById('milestones')
-  if (!tl) return
-  try {
-    let rel = null
-    const cached = sessionStorage.getItem('repo_releases_gh2')
-    if (cached) rel = JSON.parse(cached)
-    else {
-      const r = await fetch(GH_REPO + '/releases?per_page=100')
-      if (!r.ok) return
-      rel = (await r.json()).filter(x => !x.draft && !x.prerelease)
-        .map(x => ({ tag: x.tag_name, name: x.name || x.tag_name, at: x.published_at, body: x.body || '', url: x.html_url }))
-      sessionStorage.setItem('repo_releases_gh2', JSON.stringify(rel))
-    }
-    if (!rel.length) return
-    const fmt = d => new Date(d).toLocaleDateString('en-GB', { year: 'numeric', month: 'long', day: 'numeric' })
-    // first paragraph of the notes (hard-wrapped lines rejoined), markdown crudely stripped
-    const blurb = md => {
-      const lines = md.replace(/\r/g, '').split('\n')
-      let start = lines.findIndex(l => l.trim() && !l.trim().startsWith('#'))
-      if (start < 0) return ''
-      let para = []
-      for (let i = start; i < lines.length && lines[i].trim(); i++) para.push(lines[i].trim())
-      const txt = para.join(' ').replace(/\[([^\]]*)\]\([^)]*\)/g, '$1').replace(/[*_`>]/g, '')
-      return txt.length > 220 ? txt.slice(0, 217).replace(/\s+\S*$/, '') + '…' : txt
-    }
-    tl.querySelectorAll('[data-fallback]').forEach(el => el.remove())
-    for (const x of rel.slice().reverse()) {   // oldest → newest, matching the timeline
-      const li = document.createElement('li')
-      const title = x.name && x.name !== x.tag ? x.name : x.tag
-      li.innerHTML = '<b></b><span class="when"></span><p></p>'
-      li.querySelector('b').textContent = title.startsWith(x.tag) ? title : x.tag + ': ' + title
-      li.querySelector('.when').textContent = fmt(x.at)
-      const p = li.querySelector('p')
-      p.textContent = blurb(x.body) + ' '
-      const a = document.createElement('a')
-      a.href = x.url; a.rel = 'noopener'; a.textContent = 'notes →'
-      p.appendChild(a)
-      tl.appendChild(li)
-    }
-  } catch (e) { /* fallback entries stay */ }
-})()
-
 /* The "and the rest of it" rail: arrows for pointers that cannot swipe. The cards are plain
    reading, so there is nothing to activate on them. */
 ;(() => {
@@ -609,21 +559,56 @@ function panel({ opener, panelEl, flag, closeBtn }) {
   setTimeout(finish, 3400)   // if the animation never fires, do not leave the hero hidden
 })()
 
-/* ------------------------------------------------------------------ local APK download
-   When the site is served from localhost (run-local.mjs on :5174), the signed APK is
-   also served from this origin under its versioned name. Keep the branded button label
-   and force the saved filename to ASCEND.apk; the static link already works without JS. */
+/* --------------------------------------------------------------- Android APK download
+   APKs live in public Blob storage, outside Vercel's static deployment size limit. The
+   website manifest is the only source of the current version and download URLs. */
 ;(() => {
-  const isLocal = location.hostname === 'localhost' || location.hostname === '127.0.0.1' || location.hostname === '[::1]'
-  const btn = document.querySelector('.dl-row .btn[href*="ASCEND-1.0.0.apk"]')
-  if (!btn) return
-  if (isLocal) {
-    btn.href = '/ASCEND-1.0.0.apk'
-    btn.setAttribute('download', 'ASCEND.apk')
-  } else {
-    btn.href = '/ASCEND-1.0.0.apk'
-    btn.removeAttribute('download')
+  const button = document.getElementById('android-download')
+  const checksum = document.getElementById('android-checksum')
+  const version = document.getElementById('android-version')
+  if (!button || !checksum || !version) return
+
+  const unavailable = () => {
+    button.removeAttribute('href')
+    button.setAttribute('aria-disabled', 'true')
+    button.textContent = 'Download temporarily unavailable'
+    checksum.removeAttribute('href')
+    checksum.setAttribute('aria-disabled', 'true')
+    version.textContent = 'Download unavailable'
   }
+  const httpsUrl = value => {
+    if (typeof value !== 'string') return null
+    try {
+      const url = new URL(value)
+      return url.protocol === 'https:' ? url.href : null
+    } catch {
+      return null
+    }
+  }
+
+  fetch('/latest-android.json', { cache: 'no-store', headers: { Accept: 'application/json' } })
+    .then(async response => {
+      if (!response.ok) throw new Error(`Update manifest ${response.status}`)
+      return response.json()
+    })
+    .then(manifest => {
+      const release = manifest.variants?.standard
+      const apkUrl = httpsUrl(release?.apkUrl)
+      const hashUrl = httpsUrl(release?.hashUrl)
+      if (!/^\d+\.\d+\.\d+(?:\+[0-9A-Za-z.-]+)?$/.test(manifest.version || '') || !apkUrl || !hashUrl) {
+        throw new Error('Invalid Standard APK entry in update manifest')
+      }
+      button.href = apkUrl
+      button.removeAttribute('aria-disabled')
+      button.textContent = 'Download ASCEND'
+      checksum.href = hashUrl
+      checksum.removeAttribute('aria-disabled')
+      version.textContent = `v${manifest.version}`
+    })
+    .catch(error => {
+      console.error('Unable to load ASCEND Android download:', error)
+      unavailable()
+    })
 })()
 
 /* ------------------------------------------------------- the ascent trace

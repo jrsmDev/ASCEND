@@ -7,11 +7,11 @@
 Plan your week, run guided workouts, log every set and your body weight,<br>
 on your phone, synced across your devices, behind your own passkey login.
 
-[![Website](https://img.shields.io/badge/website-ASCEND-a3e635?style=flat-square)](https://ascend-jet-xi.vercel.app)
+[![Website](https://img.shields.io/badge/website-ASCEND-a3e635?style=flat-square)](https://ascend-coral-pi.vercel.app)
 [![License: AGPL v3](https://img.shields.io/badge/license-AGPL--3.0-a3e635?style=flat-square)](LICENSE)
 [![GitHub](https://img.shields.io/badge/GitHub-jrsmDev%2FASCEND-a3e635?style=flat-square)](https://github.com/jrsmDev/ASCEND)
 
-[Live demo](https://ascend-jet-xi.vercel.app/demo/) ·
+[Live demo](https://ascend-coral-pi.vercel.app/demo/) ·
 [GitHub repository](https://github.com/jrsmDev/ASCEND) ·
 [Releases](https://github.com/jrsmDev/ASCEND/releases) ·
 [iPhone / PWA](docs/MOBILE.md) ·
@@ -39,7 +39,7 @@ sign-in, works offline, syncs between your phone and your laptop.
 No account on someone else's server, no subscription, no ads, no telemetry. One
 `docker compose up` and it's running.
 
-The [in-browser demo](https://ascend-jet-xi.vercel.app/demo/) is the real app with example data,
+The [in-browser demo](https://ascend-coral-pi.vercel.app/demo/) is the real app with example data,
 if you want to try it before installing anything.
 
 ## Deploy the website and demo on Vercel
@@ -51,15 +51,18 @@ No second Vercel project or dashboard environment variables are needed. The demo
 exercise media from jsDelivr, rather than adding about 190 MB of media to the Vercel deployment.
 
 The Android APK is intentionally not included in the Vercel static deployment.
-The website's download button redirects to the public `apk-v1.0.0` GitHub
-release. Build the standalone APK with `ASCEND_ANDROID_VERSION=1.0.0` and
-Gradle properties `appVersionName=1.0.0` and `appVersionCode=1`; upload it as
-`ASCEND.apk` and its SHA-256 file as `ASCEND.apk.sha256`. The release must be
-public for website visitors to download it. The `apk-v1.0.0` tag keeps this
-APK-only release out of the repo's integrated `v*` pipeline. Do not commit the
-APK or signing keystore to Git. Because the APK has a new signing key, users
-must uninstall an older ASCEND app before installing it; back up local data
-first. Keep the new keystore safe: future APK updates must use it.
+The website and Android updater read the current version and public download URLs
+from `website/latest-android.json`; APKs and SHA-256 files live in the Vercel
+Blob store, not in Git or the static Vercel output. To publish an update, build
+and sign the APK with the same keystore and a higher Android `versionCode`,
+upload the versioned APK and checksum to the public `ascend-apks` Blob store,
+then update the manifest's version and matching variant URLs. The website
+updates its download button from that manifest, and the Android app verifies
+the published SHA-256 before opening the installer. Do not commit APKs, Blob
+write tokens, or signing credentials. The current keystore is kept outside the
+repository under `%LOCALAPPDATA%\\ASCEND\\signing`; back it up securely.
+Users installing the new-key build over an older ASCEND signature must export
+a backup, uninstall the older app, install ASCEND, then import the backup.
 
 ## Features
 

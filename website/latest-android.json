@@ -1,0 +1,9 @@
+{
+  "version": "1.4.4",
+  "variants": {
+    "standard": {
+      "apkUrl": "https://gda7ttewqxrjcsm3.public.blob.vercel-storage.com/ASCEND-1.4.4.apk",
+      "hashUrl": "https://gda7ttewqxrjcsm3.public.blob.vercel-storage.com/ASCEND-1.4.4.apk.sha256"
+    }
+  }
+}

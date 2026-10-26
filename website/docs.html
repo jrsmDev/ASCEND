@@ -226,10 +226,8 @@
   </ol>
   <div class="note">There is no App Store or Google Play release. The signed APK is the way
     in; ASCEND updates install over the previous ASCEND version and keep your data.</div>
-  <p>The Standard APK is on this site and in the
-     <a href="https://github.com/jrsmDev/ASCEND/releases" rel="noopener">ASCEND GitHub releases</a>,
-     with a <code>.sha256</code> checksum beside it. Official updates are published on the <a href="https://github.com/jrsmDev/ASCEND/releases" rel="noopener">ASCEND GitHub releases page</a>. Got the file from
-     anywhere else? Check it against the published checksum before installing.</p>
+  <p>The Standard APK and its <code>.sha256</code> checksum are served from this ASCEND website.
+     Got the file from anywhere else? Check it against the published checksum before installing.</p>
   <p><b>Updates come to you:</b> when a newer release exists, Settings &rarr; About &amp; updates
      shows "ASCEND vX available". One tap downloads the signed APK, checks its SHA-256 against
      the published checksum and opens the installer (no checksum, no install; the first time
@@ -237,8 +235,9 @@
      kind it has (Standard to Standard, Plus to Plus, HD to HD), so nobody gets surprised by a
      download twice the size. Everything is stored on the phone itself; the animations are
      inside the app. The app goes online for one thing only: when you open Settings &rarr;
-     About &amp; updates, it looks at the project's release list on GitHub to see whether a
-     newer version exists.</p>
+     About &amp; updates, it checks this website's public update manifest for a newer version.
+     The APK itself is served from ASCEND's public download storage; GitHub does not need to be
+     public for downloads or update checks.</p>
   <p>The app requests notification permission only when you switch the workout-day reminder
      on, and declares <code>SCHEDULE_EXACT_ALARM</code> so reminders fire to the minute.
      Reminders are scheduled per calendar date — a day you already trained, or rescheduled
@@ -947,8 +946,9 @@ Leg Day,Leg Press,2026-08-21,200,1</code></pre>
     <li><b>The app collects nothing.</b> No telemetry, no analytics, no crash reporting, no
         accounts on anyone else's server. The exercise media are inside the mobile app.
         It goes online only for what you set up (your server, the coach, Health Connect) and, in the
-        APK from this site, for GitHub's public release list when you open Settings → About (the
-        update check). The full policy: <a href="privacy.html">Privacy</a>. In the browser, a self-hosted instance talks only to your own server.</li>
+        APK from this site, the ASCEND website manifest and download storage when you open Settings
+        → About (the update check). The full policy: <a href="privacy.html">Privacy</a>. In the
+        browser, a self-hosted instance talks only to your own server.</li>
     <li><b>Passkey private keys never leave your device</b> — the server stores only public
         keys.</li>
     <li><b>The optional activity log</b> (self-hosted, admin feature) records sign-in events
@@ -1025,7 +1025,6 @@ Leg Day,Leg Press,2026-08-21,200,1</code></pre>
 <script src="site.js?v=32" defer></script>
 </body>
 </html>
-
 
 
 
