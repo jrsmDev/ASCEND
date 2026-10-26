@@ -13,6 +13,7 @@ Committed assets:
   printable source, rendered from the same five screenshots. The build script is
   `build-images.sh <dist>/img`; the checked-in copies are what the local site serves. Public
   image URLs carry `?v=5` so browsers fetch the corrected full-frame screen art.
+- `img/founder-joseph.jpg` — optimized founder portrait used in the circular founder profile.
 - `icon-180.png` / `icon-512.png` (plus the smaller favicon sizes) — copied from
   `../frontend/public/`, so the browser tab, home screen and app all match.
 
