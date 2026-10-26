@@ -3,19 +3,19 @@
 > Free, open-source gym & body-weight tracker (AGPL-3.0). Evolve beyond your limits.
 > Runs as a standalone Android app (sideloaded APK), on iPhone through the self-hosted
 > web app (PWA), or self-hosted with Docker (passkey profiles, multi-device sync, PWA).
-> No account required, no cloud, no telemetry. The demo site is https://ascend-jet-xi.vercel.app; the
+> No account required, no cloud, no telemetry. The website is served from the project root; the
 > app is ASCEND.
 
 ## Docs
-- [Complete reference](https://ascend-jet-xi.vercel.app/docs.html): every feature, self-hosting, every .env setting, AI Coach, imports (FitNotes/Strong/Hevy/Apple Health), backups, MCP server, troubleshooting
-- [HTTP API](https://ascend-jet-xi.vercel.app/api.html): OpenAPI spec, also at [openapi.yaml](https://ascend-jet-xi.vercel.app/openapi.yaml)
+- [Complete reference](./docs.html): every feature, self-hosting, every .env setting, AI Coach, imports (FitNotes/Strong/Hevy/Apple Health), backups, MCP server, troubleshooting
+- [HTTP API](./api.html): OpenAPI spec, also at [openapi.yaml](./openapi.yaml)
 - [README](https://raw.githubusercontent.com/jrsmDev/ASCEND/main/README.md): project overview in Markdown
 - [Documentation index](https://github.com/jrsmDev/ASCEND/blob/main/docs/README.md): every guide by audience, plus an [FAQ](https://raw.githubusercontent.com/jrsmDev/ASCEND/main/docs/FAQ.md)
 
 ## Try & get it
-- [Live demo](https://ascend-jet-xi.vercel.app/): the real app with example data, in the browser
-- [Android APK](https://ascend-jet-xi.vercel.app/#download): the signed Standard build (180 px animations) direct from the site with its SHA-256; updates and notes are on the GitHub releases page
-- [About](https://ascend-jet-xi.vercel.app/about.html): the story and every release
+- [Live demo](./demo/): the real app with example data, in the browser
+- [Android APK](./#download): the signed Standard build (180 px animations) direct from the site with its SHA-256; updates and notes are on the GitHub releases page
+- [About](./about.html): the story and every release
 
 ## How it is built
 - ASCEND is an open-source gym tracker developed with modern engineering standards. ASCEND changes are reviewed, tested and released by the maintainer. The app itself needs no AI service; the AI coach and MCP server are optional.

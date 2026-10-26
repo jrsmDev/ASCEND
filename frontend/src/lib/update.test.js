@@ -76,6 +76,20 @@ describe('checkForUpdate', () => {
     expect(result.latestVersion).toBe('99.1.2')
   })
 
+  it('handles standalone APK release tags and their download assets', async () => {
+    const apkUrl = 'https://github.com/jrsmDev/ASCEND/releases/download/apk-v99.1.2/ASCEND.apk'
+    const hashUrl = `${apkUrl}.sha256`
+    mockFetch({
+      tag_name: 'apk-v99.1.2',
+      assets: [asset('ASCEND.apk', apkUrl), asset('ASCEND.apk.sha256', hashUrl)],
+    })
+    const result = await checkForUpdate()
+    expect(result.latestVersion).toBe('99.1.2')
+    expect(result.hasUpdate).toBe(true)
+    expect(result.apkUrl).toBe(apkUrl)
+    expect(result.hashUrl).toBe(hashUrl)
+  })
+
   // The ASCEND release asset layout: one Standard APK and the checksum named after it.
   const REAL_RELEASE = {
     tag_name: 'v1.4.2',

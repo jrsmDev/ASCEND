@@ -1,5 +1,9 @@
 apply plugin: 'com.android.application'
 
+def frontendVersion = new groovy.json.JsonSlurper().parse(file('../../package.json')).version
+def appVersionName = findProperty('appVersionName') ?: frontendVersion
+def appVersionCode = (findProperty('appVersionCode') ?: '28').toString().toInteger()
+
 android {
     namespace = "ch.duartesantos.opengym"
     compileSdk = rootProject.ext.compileSdkVersion
@@ -10,8 +14,8 @@ android {
         applicationId "ch.duartesantos.opengym"
         minSdkVersion rootProject.ext.minSdkVersion
         targetSdkVersion rootProject.ext.targetSdkVersion
-        versionCode 28
-        versionName "1.4.3"
+        versionCode appVersionCode
+        versionName appVersionName
         testInstrumentationRunner "androidx.test.runner.AndroidJUnitRunner"
         aaptOptions {
              // Files and dirs to omit from the packaged assets dir, modified to accommodate modern web apps.

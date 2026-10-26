@@ -288,13 +288,11 @@ function panel({ opener, panelEl, flag, closeBtn }) {
    phone is actually on screen, and never on a narrow viewport, where the CSS hides
    the frame in favour of a plain "open it full-screen" card.
 
-   Served locally (run-local.mjs), the marketing site and the app are different
-   origins on purpose: the website is :5174 and the app is :5173. Point the demo at
-   the app instead of the production /demo/ path. */
+   Locally, the marketing site and app use different ports. Production serves
+   both from one origin, with the standalone demo at /demo/. */
 ;(() => {
   const local = /^(localhost|127\.0\.0\.1|\[::1\])$/.test(location.hostname)
-  const VERCEL_DEMO = 'https://ascend-jet-xi.vercel.app/'
-  const app = local ? 'http://' + location.hostname + ':5173/?demo=1' : VERCEL_DEMO
+  const app = local ? 'http://' + location.hostname + ':5173/?demo=1' : '/demo/'
   document.querySelectorAll('a[href="/demo/"]').forEach(a => { a.href = app; a.target = '_blank'; a.rel = 'noopener' })
   const slot = document.querySelector('[data-demo]')
   if (!slot) return
@@ -617,13 +615,13 @@ function panel({ opener, panelEl, flag, closeBtn }) {
    and force the saved filename to ASCEND.apk; the static link already works without JS. */
 ;(() => {
   const isLocal = location.hostname === 'localhost' || location.hostname === '127.0.0.1' || location.hostname === '[::1]'
-  const btn = document.querySelector('.dl-row .btn[href*="ASCEND-1.4.3.apk"]')
+  const btn = document.querySelector('.dl-row .btn[href*="ASCEND-1.0.0.apk"]')
   if (!btn) return
   if (isLocal) {
-    btn.href = '/ASCEND-1.4.3.apk'
+    btn.href = '/ASCEND-1.0.0.apk'
     btn.setAttribute('download', 'ASCEND.apk')
   } else {
-    btn.href = 'https://github.com/jrsmDev/ASCEND/releases'
+    btn.href = '/ASCEND-1.0.0.apk'
     btn.removeAttribute('download')
   }
 })()
@@ -763,4 +761,3 @@ function panel({ opener, panelEl, flag, closeBtn }) {
   onScroll()
   frame()
 })()
-

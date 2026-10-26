@@ -7,20 +7,17 @@
 Plan your week, run guided workouts, log every set and your body weight,<br>
 on your phone, synced across your devices, behind your own passkey login.
 
-[![Website](https://img.shields.io/badge/demo-ascend--jet--xi.vercel.app-a3e635?style=flat-square)](https://ascend-jet-xi.vercel.app)
+[![Website](https://img.shields.io/badge/website-ASCEND-a3e635?style=flat-square)](https://ascend-jet-xi.vercel.app)
 [![License: AGPL v3](https://img.shields.io/badge/license-AGPL--3.0-a3e635?style=flat-square)](LICENSE)
 [![GitHub](https://img.shields.io/badge/GitHub-jrsmDev%2FASCEND-a3e635?style=flat-square)](https://github.com/jrsmDev/ASCEND)
 
-[Live demo](https://ascend-jet-xi.vercel.app) ·
+[Live demo](https://ascend-jet-xi.vercel.app/demo/) ·
 [GitHub repository](https://github.com/jrsmDev/ASCEND) ·
 [Releases](https://github.com/jrsmDev/ASCEND/releases) ·
 [iPhone / PWA](docs/MOBILE.md) ·
 [Self-hosting guide](docs/SELF_HOSTING.md) ·
 [Roadmap](ROADMAP.md) ·
 [Changelog](CHANGELOG.md)
-
-<p><sub>ASCEND is a rebrand of the openGym project. Visible branding is ASCEND; package IDs,<br>
-environment keys, backup folders and other technical identifiers keep their openGym names for compatibility.</sub></p>
 
 </div>
 
@@ -42,8 +39,26 @@ sign-in, works offline, syncs between your phone and your laptop.
 No account on someone else's server, no subscription, no ads, no telemetry. One
 `docker compose up` and it's running.
 
-The [in-browser demo](https://ascend-jet-xi.vercel.app) is the real app with example data,
+The [in-browser demo](https://ascend-jet-xi.vercel.app/demo/) is the real app with example data,
 if you want to try it before installing anything.
+
+## Deploy the website and demo on Vercel
+
+Import this GitHub repository into Vercel and keep the **Root Directory** at the
+repository root. The checked-in `vercel.json` builds one static deployment with
+the ASCEND website at `/` and the live demo app at `/demo/` (also at `/app`).
+No second Vercel project or app-specific environment variables are needed.
+
+The Android APK is intentionally not included in the Vercel static deployment.
+The website's download button redirects to the public `apk-v1.0.0` GitHub
+release. Build the standalone APK with `ASCEND_ANDROID_VERSION=1.0.0` and
+Gradle properties `appVersionName=1.0.0` and `appVersionCode=1`; upload it as
+`ASCEND.apk` and its SHA-256 file as `ASCEND.apk.sha256`. The release must be
+public for website visitors to download it. The `apk-v1.0.0` tag keeps this
+APK-only release out of the repo's integrated `v*` pipeline. Do not commit the
+APK or signing keystore to Git. Because the APK has a new signing key, users
+must uninstall an older ASCEND app before installing it; back up local data
+first. Keep the new keystore safe: future APK updates must use it.
 
 ## Features
 
@@ -179,14 +194,12 @@ variable. The [self-hosting guide](docs/SELF_HOSTING.md) covers every option in 
 The same codebase builds a standalone app with Capacitor: no account, no server, everything stays
 on the phone, with native reminders and a rest countdown in the notification shade.
 
-- **Android:** download the signed Standard APK from the [GitHub repository](https://github.com/jrsmDev/ASCEND)
-  or the [GitHub release](https://github.com/jrsmDev/ASCEND/releases/latest)
-  (`ASCEND-1.4.2.apk`, 180 px animations, about 224 MB). This build carries a new ASCEND
-  signing key: if an older openGym APK is already installed, export a backup, uninstall the old
-  app, then install ASCEND and import the backup. Future ASCEND builds update in place. The
-  larger Plus and HD animation packs remain on the
-  [ASCEND releases](https://github.com/jrsmDev/ASCEND/releases/latest); they use
-  the older key, so do not mix them with this build. There is no Google Play release yet.
+- **Android:** the signed standalone APK is published as
+  [ASCEND.apk](https://github.com/jrsmDev/ASCEND/releases/download/apk-v1.0.0/ASCEND.apk)
+  in the [`apk-v1.0.0` release](https://github.com/jrsmDev/ASCEND/releases/tag/apk-v1.0.0)
+  (180 px animations, about 227 MB). It uses a new signing key, so users upgrading from an older
+  build must export a backup, uninstall the old app, install ASCEND, then import the backup.
+  Future APK updates must be signed with the same key. There is no Google Play release yet.
 - **iPhone / web:** there is no App Store build. Self-host ASCEND and add the PWA to your
   home screen from Safari. The path is in [docs/MOBILE.md](docs/MOBILE.md).
 

@@ -1,41 +1,55 @@
 {
   "$schema": "https://openapi.vercel.sh/vercel.json",
-  "buildCommand": "npm run build --prefix frontend",
+  "buildCommand": "npm run build:vercel --prefix frontend",
   "outputDirectory": "frontend/dist",
   "installCommand": "npm install --prefix frontend",
   "framework": "vite",
   "cleanUrls": false,
   "redirects": [
     {
-      "source": "/(.*)ASCEND-1.4.3.apk",
-      "destination": "https://github.com/jrsmDev/ASCEND/releases/download/v1.4.3/ASCEND.apk",
+      "source": "/(.*)ASCEND-1.0.0.apk",
+      "destination": "https://github.com/jrsmDev/ASCEND/releases/download/apk-v1.0.0/ASCEND.apk",
       "permanent": false
     },
     {
       "source": "/(.*)ASCEND.apk",
-      "destination": "https://github.com/jrsmDev/ASCEND/releases/download/v1.4.3/ASCEND.apk",
+      "destination": "https://github.com/jrsmDev/ASCEND/releases/download/apk-v1.0.0/ASCEND.apk",
       "permanent": false
     },
     {
-      "source": "/(.*)ASCEND-1.4.3.apk.sha256",
-      "destination": "https://github.com/jrsmDev/ASCEND/releases/download/v1.4.3/ASCEND-1.4.3.apk.sha256",
+      "source": "/(.*)ASCEND-1.0.0.apk.sha256",
+      "destination": "https://github.com/jrsmDev/ASCEND/releases/download/apk-v1.0.0/ASCEND.apk.sha256",
       "permanent": false
     },
     {
       "source": "/download",
-      "destination": "/site#download",
+      "destination": "/#download",
+      "permanent": false
+    },
+    {
+      "source": "/app",
+      "destination": "/demo/",
+      "permanent": false
+    },
+    {
+      "source": "/app/",
+      "destination": "/demo/",
+      "permanent": false
+    },
+    {
+      "source": "/demo",
+      "destination": "/demo/",
       "permanent": false
     }
   ],
   "rewrites": [
     { "source": "/demo/exercise-media/(.*)", "destination": "/exercise-media/$1" },
-    { "source": "/site", "destination": "/site/index.html" },
-    { "source": "/site/", "destination": "/site/index.html" },
-    { "source": "/website", "destination": "/site/index.html" },
-    { "source": "/website/", "destination": "/site/index.html" },
-    { "source": "/demo", "destination": "/demo/index.html" },
     { "source": "/demo/", "destination": "/demo/index.html" },
-    { "source": "/app", "destination": "/index.html" },
-    { "source": "/app/", "destination": "/index.html" }
+    { "source": "/site", "destination": "/index.html" },
+    { "source": "/site/", "destination": "/index.html" },
+    { "source": "/site/(.*)", "destination": "/$1" },
+    { "source": "/website", "destination": "/index.html" },
+    { "source": "/website/", "destination": "/index.html" },
+    { "source": "/website/(.*)", "destination": "/$1" }
   ]
 }

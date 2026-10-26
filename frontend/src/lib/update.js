@@ -61,7 +61,7 @@ async function fetchLatest() {
   if (res.status === 404) return { hasUpdate: false, latestVersion: __APP_VERSION__, apkUrl: null, hashUrl: null }
   if (!res.ok) throw new Error(`GitHub API ${res.status}`)
   const latest = await res.json()
-  const latestVersion = String(latest.tag_name || '').replace(/^v/, '')
+  const latestVersion = String(latest.tag_name || '').replace(/^(?:apk-)?v/i, '')
   if (!latestVersion) return { hasUpdate: false, latestVersion: __APP_VERSION__, apkUrl: null, hashUrl: null }
   const hasUpdate = compareSemver(latestVersion, __APP_VERSION__) > 0
   const { apk, hash } = pickApk(latest.assets || [])

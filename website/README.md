@@ -12,27 +12,48 @@ Committed assets:
   `social.jpg` (1200×630, the og:image on every page). `../assets/social.html` is the
   printable source, rendered from the same five screenshots. The build script is
   `build-images.sh <dist>/img`; the checked-in copies are what the local site serves. Public
-  image URLs carry `?v=4` so a browser that cached the old brand picks up the new art.
+  image URLs carry `?v=5` so browsers fetch the corrected full-frame screen art.
 - `icon-180.png` / `icon-512.png` (plus the smaller favicon sizes) — copied from
   `../frontend/public/`, so the browser tab, home screen and app all match.
 
 The browser-only demo is also deployed to
 [GitHub Pages](https://jrsmdev.github.io/ASCEND/) by `.github/workflows/pages.yml`.
 
-Local-only asset:
+The same source can be deployed as one Vercel project from the repository root.
+`vercel.json` builds the ASCEND website at `/` and `/site/`, and the browser demo
+at `/demo/` (also reachable from the legacy `/app` path). The frontend's
+`build:vercel` command stages both from this directory. Import the repository,
+leave Vercel's Root Directory set to the repository root (`.`), and deploy; no
+separate project or environment variables are required.
 
-- `ASCEND-1.4.3.apk` — the signed Standard Android build served in development by
-  `run-local.mjs` and deployed beside the site. Git ignores APKs; the same bytes are attached to
-  the `v1.4.3` GitHub release as `ASCEND.apk` (SHA-256
-  `4c51454e82805d03b457df11abf8d55a4b02baff2e16f01b23a596d9d4b4e02a`).
-  The checksum is served beside it as `ASCEND-1.4.3.apk.sha256`. The download link uses
-  `download="ASCEND.apk"`, so the saved file keeps the brand name while the source file keeps
-  its version. Plus and HD animation packs stay on the upstream ASCEND release.
+The standalone Android APK is version `1.0.0`; it is kept out of Vercel's static output because of
+its size. The website redirects `/ASCEND-1.0.0.apk` and `/ASCEND.apk` to
+`https://github.com/jrsmDev/ASCEND/releases/download/apk-v1.0.0/ASCEND.apk`. Publish a public GitHub
+release tagged `apk-v1.0.0` with `ASCEND.apk` and `ASCEND.apk.sha256` attached for the download and
+checksum links to work. The app stores workout data locally; no account or app-data cloud service
+is required. The in-app update checker uses GitHub releases, but workout data remains on-device.
 
-  This build is signed with the new ASCEND release key, not the upstream ASCEND key. Android
-  therefore cannot update the old upstream-signed app in place: export a backup, uninstall the
-  old app, install ASCEND, then import the backup. The in-app updater only installs a newer build
-  with the same key.
+This is a standalone APK-only release and does not change the website/API package version. The
+`apk-v1.0.0` tag deliberately avoids the repository's `v*` mirror/release pipeline.
+
+Build from the repository root in PowerShell after installing the Android SDK:
+
+```powershell
+$env:ASCEND_ANDROID_VERSION = '1.0.0'
+npm run build:mobile --prefix frontend
+Push-Location frontend/android
+.\gradlew.bat --no-daemon assembleSideloadRelease '-PappVersionName=1.0.0' '-PappVersionCode=1'
+Pop-Location
+```
+
+Sign the unsigned output
+`frontend/android/app/build/outputs/apk/sideload/release/app-sideload-release-unsigned.apk`
+with the private `ascend-v1` key, then publish it as `ASCEND.apk` and its SHA-256 file as
+`ASCEND.apk.sha256`. The current key is kept outside the repository under
+`%LOCALAPPDATA%\ASCEND\signing`; back up both the keystore and its password securely. Never commit
+either file. Android cannot update an older ASCEND installation signed with the unavailable key:
+users must export a backup, uninstall the old app, install this build, then import the backup.
+Every future `apk-v1.x.y` APK must be signed with this new key and have a higher `versionCode`.
 
 Added at deploy time:
 
