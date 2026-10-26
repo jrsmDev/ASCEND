@@ -13,10 +13,16 @@ Committed assets:
   `build-images.sh <dist>/img`; the checked-in copies are what the local site serves.
 - `icon-180.png` / `icon-512.png` (plus the smaller favicon sizes) — copied from
   `../frontend/public/`, so the browser tab, home screen and app all match.
-- `ASCEND-1.4.2.apk`: the local signed Standard Android build served in development and by
-  `run-local.mjs`. The download link uses `download="ASCEND.apk"`, so the saved file keeps the
-  brand name while the source file keeps its version. Plus and HD animation packs stay on the
-  GitHub release.
+
+Local-only asset:
+
+- `ASCEND-1.4.2.apk` — the signed Standard Android build served in development by
+  `run-local.mjs` and deployed beside the site. It is ignored by Git because the account's LFS
+  budget is exhausted. A backup is attached to this repository's private `v1.4.2-ascend` GitHub
+  release as `ASCEND.apk` (SHA-256 `b53fb87e1f200cec23fd1c0d6a5454f502c4141f483c9fe02a3da555581b9c26`).
+  The download link uses `download="ASCEND.apk"`, so the saved file keeps the brand name while
+  the source file keeps its version. Plus and HD animation packs stay on the upstream openGym
+  release.
 
 Added at deploy time:
 

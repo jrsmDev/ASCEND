@@ -20,6 +20,9 @@ blob-report/
 frontend/dist/
 node_modules/
 *.log
+
+# Signed APKs are not committed; the current build is attached to a GitHub release and served locally.
+*.apk
 .DS_Store
 node_modules
 .claude/
