@@ -70,6 +70,11 @@ What that means in practice:
 - The media may not be used to train, prompt or feed any AI system, or as a basis for generated
   images, animations or video.
 
+ASCEND-specific exception: Gym visual has separately granted ASCEND written permission to host
+these assets in its public media repository and serve them through the ASCEND website/CDN. This
+permission applies only to ASCEND's hosting and does not grant third parties rights to reuse or
+redistribute the assets. All other restrictions above remain in force.
+
 ## Exercise text (names, muscles, descriptions, instructions)
 
 The catalogue in `catalogue/` is openGym's own and is edited by its community (see
