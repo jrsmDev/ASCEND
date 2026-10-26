@@ -122,8 +122,10 @@ const narrative = document.querySelector('.horizontal-scroll')
 const narrativeTrack = narrative?.querySelector('.horizontal-track')
 const narrativeRail = narrative?.querySelector('.horizontal-rail')
 const narrativePanels = narrative ? [...narrative.querySelectorAll('.horizontal-panel')] : []
+const narrativeContent = narrativePanels.map(panel => panel.querySelector('.panel-content'))
+const narrativeVisuals = narrativePanels.map(panel => panel.querySelector('.panel-visual'))
 const narrativeProgressFill = document.getElementById('narrative-progress-fill')
-if (narrative && narrativeTrack && narrativeRail && narrativePanels.length && !reduceMotion) {
+if (narrative && narrativeTrack && narrativeRail && narrativePanels.length && narrativeContent.every(Boolean) && narrativeVisuals.every(Boolean) && !reduceMotion) {
   let narrativeFrame = 0
   const updateNarrative = () => {
     narrativeFrame = 0
@@ -137,8 +139,14 @@ if (narrative && narrativeTrack && narrativeRail && narrativePanels.length && !r
     narrativePanels.forEach((panel, index) => {
       const distance = currentPosition - index
       const opacity = Math.pow(Math.max(0, 1 - Math.abs(distance)), 1.7)
-      panel.style.setProperty('--story-opacity', String(opacity))
-      panel.style.setProperty('--story-depth', `${Math.max(-42, Math.min(42, distance * -42))}px`)
+      const depth = Math.max(-42, Math.min(42, distance * -42))
+      const content = narrativeContent[index]
+      const visual = narrativeVisuals[index]
+      if (!content || !visual) return
+      content.style.opacity = String(opacity)
+      content.style.translate = `${-depth}px 0`
+      visual.style.opacity = String(opacity)
+      visual.style.translate = `${depth}px 0`
       panel.classList.toggle('is-current', Math.abs(distance) < .5)
     })
     narrativeProgressFill?.parentElement?.style.setProperty('--story-progress', String(progress))
