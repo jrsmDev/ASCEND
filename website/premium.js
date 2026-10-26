@@ -155,9 +155,11 @@ if (!reduceMotion) {
   
   if (horizontalScroll && horizontalTrack) {
     const panels = horizontalTrack.querySelectorAll('.horizontal-panel')
-    horizontalScroll.style.height = panels.length * 125 + 'vh'
+    horizontalScroll.style.height = panels.length * 150 + 'vh'
     horizontalTrack.style.width = panels.length * 100 + 'vw'
     horizontalTrack.style.position = 'fixed'
+    horizontalTrack.style.top = '0'
+    horizontalTrack.style.left = '0'
     
     window.addEventListener('scroll', () => {
       const scrollTop = window.scrollY
@@ -167,10 +169,13 @@ if (!reduceMotion) {
         const progress = (scrollTop - start) / (end - start)
         const translateX = progress * (horizontalTrack.scrollWidth - window.innerWidth)
         horizontalTrack.style.transform = `translateX(-${translateX}px)`
+        horizontalTrack.style.visibility = 'visible'
       } else if (scrollTop < start) {
         horizontalTrack.style.transform = 'translateX(0px)'
+        horizontalTrack.style.visibility = 'visible'
       } else {
         horizontalTrack.style.transform = `translateX(-${horizontalTrack.scrollWidth - window.innerWidth}px)`
+        horizontalTrack.style.visibility = 'visible'
       }
     }, { passive: true })
   }
