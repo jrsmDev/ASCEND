@@ -1,5 +1,6 @@
 const menuButton = document.querySelector('.menu-toggle')
 const menu = document.getElementById('site-menu')
+const reduceMotion = window.matchMedia('(prefers-reduced-motion: reduce)').matches
 
 const closeMenu = () => {
   if (!menuButton || !menu) return
@@ -105,7 +106,7 @@ if (story && storySteps.length && storyScreens.length && storyCaption && storyCo
     storySteps.forEach((item, itemIndex) => item.classList.toggle('is-active', itemIndex === index))
     storyScreens.forEach(screen => screen.classList.toggle('is-active', screen.dataset.screenVisual === screenName))
     storyCaption.textContent = step.dataset.title || step.querySelector('h3')?.textContent || ''
-    storyCount.innerHTML = `${String(index + 1).padStart(2, '0')} <i>/ ${String(storySteps.length).padStart(2, '0')}</i>`
+    storyCount.textContent = `${String(index + 1).padStart(2, '0')} / ${String(storySteps.length).padStart(2, '0')}`
   }
   const updateStory = () => {
     const storyBounds = story.getBoundingClientRect()
@@ -148,94 +149,21 @@ if (readingProgress) {
   updateProgress()
 }
 
-// Horizontal scroll effect
-function initHorizontalScroll() {
-  if (window.matchMedia('(prefers-reduced-motion: reduce)').matches) return
-  const horizontalScroll = document.querySelector('.horizontal-scroll')
-  const horizontalTrack = document.querySelector('.horizontal-track')
-  
-  if (horizontalScroll && horizontalTrack) {
-    const panels = horizontalTrack.querySelectorAll('.horizontal-panel')
-    horizontalScroll.style.height = panels.length * 200 + 'vh'
-    horizontalTrack.style.width = panels.length * 100 + 'vw'
-    horizontalTrack.style.position = 'fixed'
-    horizontalTrack.style.top = '0'
-    horizontalTrack.style.left = '0'
-    horizontalTrack.style.zIndex = '10'
-    
-    function updateHorizontalScroll() {
-      const scrollTop = window.pageYOffset || document.documentElement.scrollTop
-      const start = horizontalScroll.offsetTop
-      const end = start + horizontalScroll.offsetHeight - window.innerHeight
-      if (scrollTop >= start && scrollTop <= end) {
-        const progress = (scrollTop - start) / (end - start)
-        const translateX = progress * (horizontalTrack.scrollWidth - window.innerWidth)
-        horizontalTrack.style.transform = `translateX(-${translateX}px)`
-      } else if (scrollTop < start) {
-        horizontalTrack.style.transform = 'translateX(0px)'
-      } else {
-        horizontalTrack.style.transform = `translateX(-${horizontalTrack.scrollWidth - window.innerWidth}px)`
-      }
-    }
-    
-    window.addEventListener('scroll', updateHorizontalScroll, { passive: true })
-    window.addEventListener('resize', updateHorizontalScroll, { passive: true })
-    updateHorizontalScroll()
-  }
-}
-
-if (document.readyState === 'loading') {
-  document.addEventListener('DOMContentLoaded', initHorizontalScroll)
+const revealTargets = document.querySelectorAll('.hero-copy > *, .experience-card, .screen-step, .demo-head, .download-content, .founder-copy')
+if (reduceMotion || !('IntersectionObserver' in window)) {
+  revealTargets.forEach(target => target.classList.add('is-visible'))
 } else {
-  initHorizontalScroll()
-}
-    }, { passive: true })
-  }
-}
-}
-
-// Scroll-driven parallax for hero
-if (!reduceMotion) {
-  const hero = document.querySelector('.hero')
-  const phone = document.querySelector('.phone-frame')
-  const orbits = document.querySelectorAll('.visual-orbit')
-  const glow = document.querySelector('.visual-glow')
-  
-  window.addEventListener('scroll', () => {
-    const scrolled = window.scrollY
-    if (phone && scrolled < window.innerHeight) {
-      phone.style.transform = `rotate(-2.6deg) perspective(1200px) rotateY(${-5 + scrolled * 0.015}deg) rotateX(${scrolled * 0.008}deg) translateY(${scrolled * 0.4}px) scale(${1 - scrolled * 0.0003})`
-    }
-    orbits.forEach((orbit, i) => {
-      orbit.style.transform = `scale(${0.78 + i * 0.27}) rotate(${scrolled * 0.12 * (i + 1)}deg)`
-    })
-    if (glow && scrolled < window.innerHeight) {
-      glow.style.transform = `scale(${1 + scrolled * 0.0005}) translateY(${scrolled * 0.2}px)`
-    }
-    
-    // Float cards parallax
-    const floats = document.querySelectorAll('.visual-float')
-    floats.forEach((floatEl, i) => {
-      if (scrolled < window.innerHeight) {
-        floatEl.style.transform = `rotate(${i === 0 ? -4 : 3}deg) translateY(${scrolled * (0.25 + i * 0.1)}px) translateX(${scrolled * (i === 0 ? -0.05 : 0.05)}px)`
-      }
-    })
-  }, { passive: true })
-}
-
-// Reveal animations on scroll
-if (!reduceMotion && 'IntersectionObserver' in window) {
-  const revealTargets = document.querySelectorAll('.hero-copy > *, .experience-card, .screen-step, .demo-head, .download-content, .founder-copy')
   const revealObserver = new IntersectionObserver(entries => {
     for (const entry of entries) {
       if (!entry.isIntersecting) continue
-      entry.target.classList.add('in-view')
+      entry.target.classList.add('is-visible')
       revealObserver.unobserve(entry.target)
     }
-  }, { threshold: 0.1, rootMargin: '0px 0px -10% 0px' })
+  }, { threshold: 0.12, rootMargin: '0px 0px -8% 0px' })
 
   revealTargets.forEach((target, index) => {
-    target.style.setProperty('--reveal-delay', `${index * 0.05}s`)
+    target.classList.add('scroll-reveal')
+    target.style.setProperty('--reveal-delay', `${Math.min(index, 8) * 0.045}s`)
     revealObserver.observe(target)
   })
 }
