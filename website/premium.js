@@ -148,21 +148,40 @@ if (readingProgress) {
   updateProgress()
 }
 
-// 3D card tilt effect
-document.querySelectorAll('.experience-card').forEach(card => {
-  card.addEventListener('mousemove', (e) => {
-    const rect = card.getBoundingClientRect()
-    const x = e.clientX - rect.left
-    const y = e.clientY - rect.top
-    const centerX = rect.width / 2
-    const centerY = rect.height / 2
-    const rotateX = (y - centerY) / 10
-    const rotateY = (centerX - x) / 10
-    card.style.setProperty('--mouse-x', x + 'px')
-    card.style.setProperty('--mouse-y', y + 'px')
-    card.style.transform = `translateY(-8px) rotateX(${rotateX}deg) rotateY(${rotateY}deg)`
+// Scroll-driven parallax for hero
+if (!reduceMotion) {
+  const hero = document.querySelector('.hero')
+  const phone = document.querySelector('.phone-frame')
+  const orbits = document.querySelectorAll('.visual-orbit')
+  const glow = document.querySelector('.visual-glow')
+  
+  window.addEventListener('scroll', () => {
+    const scrolled = window.scrollY
+    if (phone && scrolled < window.innerHeight) {
+      phone.style.transform = `rotate(-2.6deg) perspective(1200px) rotateY(${-5 + scrolled * 0.015}deg) rotateX(${scrolled * 0.008}deg) translateY(${scrolled * 0.4}px) scale(${1 - scrolled * 0.0003})`
+    }
+    orbits.forEach((orbit, i) => {
+      orbit.style.transform = `scale(${0.78 + i * 0.27}) rotate(${scrolled * 0.12 * (i + 1)}deg)`
+    })
+    if (glow && scrolled < window.innerHeight) {
+      glow.style.transform = `scale(${1 + scrolled * 0.0005}) translateY(${scrolled * 0.2}px)`
+    }
+  }, { passive: true })
+}
+
+// Reveal animations on scroll
+if (!reduceMotion && 'IntersectionObserver' in window) {
+  const revealTargets = document.querySelectorAll('.hero-copy > *, .experience-card, .screen-step, .demo-head, .download-content, .founder-copy')
+  const revealObserver = new IntersectionObserver(entries => {
+    for (const entry of entries) {
+      if (!entry.isIntersecting) continue
+      entry.target.classList.add('in-view')
+      revealObserver.unobserve(entry.target)
+    }
+  }, { threshold: 0.1, rootMargin: '0px 0px -10% 0px' })
+
+  revealTargets.forEach((target, index) => {
+    target.style.setProperty('--reveal-delay', `${index * 0.05}s`)
+    revealObserver.observe(target)
   })
-  card.addEventListener('mouseleave', () => {
-    card.style.transform = 'translateY(0px) rotateX(0deg) rotateY(0deg)'
-  })
-})
+}
