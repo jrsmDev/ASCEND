@@ -80,8 +80,8 @@ describe('checkForUpdate', () => {
   const REAL_RELEASE = {
     tag_name: 'v1.4.2',
     assets: [
-      { name: 'ASCEND.apk', browser_download_url: 'https://github.com/jrsmDev/ASCEND/releases/download/v1.4.2-ascend/ASCEND.apk' },
-      { name: 'ASCEND.apk.sha256', browser_download_url: 'https://github.com/jrsmDev/ASCEND/releases/download/v1.4.2-ascend/ASCEND.apk.sha256' },
+      { name: 'ASCEND.apk', browser_download_url: 'https://github.com/jrsmDev/ASCEND/releases/download/v1.4.2/ASCEND.apk' },
+      { name: 'ASCEND.apk.sha256', browser_download_url: 'https://github.com/jrsmDev/ASCEND/releases/download/v1.4.2/ASCEND.apk.sha256' },
     ],
   }
 
@@ -89,8 +89,8 @@ describe('checkForUpdate', () => {
     mockFetch(REAL_RELEASE)
     const result = await checkForUpdate()
     expect(result.latestVersion).toBe('1.4.2')
-    expect(result.apkUrl).toBe('https://github.com/jrsmDev/ASCEND/releases/download/v1.4.2-ascend/ASCEND.apk')
-    expect(result.hashUrl).toBe('https://github.com/jrsmDev/ASCEND/releases/download/v1.4.2-ascend/ASCEND.apk.sha256')
+    expect(result.apkUrl).toBe('https://github.com/jrsmDev/ASCEND/releases/download/v1.4.2/ASCEND.apk')
+    expect(result.hashUrl).toBe('https://github.com/jrsmDev/ASCEND/releases/download/v1.4.2/ASCEND.apk.sha256')
   })
 
   it('does not take the checksum for the APK when it is listed first', async () => {
