@@ -82,10 +82,70 @@ img { display: block; max-width: 100%; }
 .nav-cta:hover { transform: translateY(-1px); background: #d8ff7b; }
 .menu-toggle { display: none; }
 
-.hero {
-  position: relative; isolation: isolate; min-height: min(920px, calc(100svh - 78px));
-  width: min(100%, var(--max)); margin: 0 auto; padding: clamp(100px, 14vw, 180px) var(--gutter) 140px;
-  display: grid; grid-template-columns: 1.15fr .85fr; align-items: center; gap: clamp(40px, 8vw, 120px);
+.horizontal-scroll {
+  height: 300vh;
+  position: relative;
+  background: linear-gradient(180deg, var(--paper) 0%, #080908 100%);
+}
+.horizontal-track {
+  position: sticky;
+  top: 0;
+  height: 100vh;
+  display: flex;
+  width: 300vw;
+}
+.horizontal-panel {
+  width: 100vw;
+  height: 100vh;
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  align-items: center;
+  gap: clamp(40px, 8vw, 100px);
+  padding: 0 var(--gutter);
+  position: relative;
+}
+.panel-1 { background: radial-gradient(ellipse at left, rgba(199, 244, 90, 0.08) 0%, transparent 60%); }
+.panel-2 { background: radial-gradient(ellipse at center, rgba(199, 244, 90, 0.06) 0%, transparent 60%); }
+.panel-3 { background: radial-gradient(ellipse at right, rgba(199, 244, 90, 0.08) 0%, transparent 60%); }
+.panel-content {
+  max-width: 600px;
+}
+.panel-number {
+  display: inline-block;
+  color: var(--lime);
+  font: 700 14px var(--sans);
+  letter-spacing: 0.2em;
+  margin-bottom: 24px;
+  opacity: 0.8;
+}
+.horizontal-panel h2 {
+  font: 800 clamp(48px, 6vw, 80px)/0.95 var(--serif);
+  letter-spacing: -0.06em;
+  text-transform: uppercase;
+  margin-bottom: 32px;
+}
+.horizontal-panel h2 span {
+  color: var(--lime);
+  display: block;
+}
+.horizontal-panel p {
+  font-size: clamp(18px, 2vw, 22px);
+  color: var(--ink-soft);
+  line-height: 1.7;
+  max-width: 480px;
+}
+.panel-visual {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+.panel-visual img {
+  width: clamp(280px, 30vw, 380px);
+  border-radius: 40px;
+  box-shadow: 
+    0 100px 200px -60px rgba(0,0,0,0.9),
+    0 0 80px rgba(199, 244, 90, 0.15);
+  border: 2px solid rgba(255,255,255,0.15);
 }
 .hero-grid {
   position: absolute; z-index: -3; inset: 0; opacity: .25;
