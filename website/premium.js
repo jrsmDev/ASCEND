@@ -27,6 +27,33 @@ window.addEventListener('resize', () => {
   if (window.innerWidth > 680) closeMenu()
 })
 
+const founderCard = document.querySelector('.founder-card')
+const founderCardHint = document.querySelector('.founder-card-hint')
+const founderCardHintText = founderCardHint?.querySelector('.founder-card-hint-text')
+if (founderCard && founderCardHint && founderCardHintText) {
+  const setFounderCardFlipped = flipped => {
+    founderCard.classList.toggle('is-flipped', flipped)
+    founderCard.setAttribute('aria-pressed', String(flipped))
+    founderCard.setAttribute('aria-label', flipped
+      ? 'ASCEND founder card showing Joseph Rman Madrilejos. Flip to see the ASCEND side.'
+      : 'ASCEND card. Flip to see founder Joseph Rman Madrilejos.')
+    founderCardHintText.textContent = flipped
+      ? 'ASCEND · NEVER SETTLE, ALWAYS ASCEND.'
+      : 'Meet the founder'
+    const hintArrow = founderCardHint.querySelector('[aria-hidden="true"]')
+    if (hintArrow) hintArrow.textContent = flipped ? '↻' : '↗'
+  }
+  let introTimer
+  founderCard.addEventListener('click', () => {
+    window.clearTimeout(introTimer)
+    setFounderCardFlipped(!founderCard.classList.contains('is-flipped'))
+  })
+
+  if (!window.matchMedia('(prefers-reduced-motion: reduce)').matches) {
+    introTimer = window.setTimeout(() => setFounderCardFlipped(true), 1800)
+  }
+}
+
 const demo = document.querySelector('[data-demo-frame]')
 if (demo) {
   const loadDemo = () => {
