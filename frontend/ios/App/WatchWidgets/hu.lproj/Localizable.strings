@@ -1,4 +1,4 @@
-/* openGym on the Apple Watch, hu. Written by ios/ci/watch-strings.mjs: change that, not this. */
+/* ASCEND on the Apple Watch, hu. Written by ios/ci/watch-strings.mjs: change that, not this. */
 
 "Today" = "Ma";
 "Start workout" = "Edzés indítása";
@@ -54,4 +54,4 @@
 "Tap to change it." = "Koppints a módosításhoz.";
 "Added weight" = "Plusz súly";
 "Your rest, your next set, or today's workout." = "A pihenőd, a következő sorozat vagy a mai edzés.";
-"Opens openGym." = "Megnyitja az openGymet.";
+"Opens ASCEND." = "Megnyitja az ASCENDet.";

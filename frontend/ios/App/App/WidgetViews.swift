@@ -230,7 +230,7 @@ struct WidgetEmpty: View {
     var body: some View {
         VStack(alignment: .leading, spacing: 6) {
             Image(systemName: "dumbbell.fill").font(.title3).foregroundStyle(.secondary)
-            Text("Open openGym once to see your plan here.").font(.caption).foregroundStyle(.secondary)
+            Text("Open ASCEND once to see your plan here.").font(.caption).foregroundStyle(.secondary)
         }
         .frame(maxWidth: .infinity, maxHeight: .infinity, alignment: .topLeading)
     }

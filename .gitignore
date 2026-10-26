@@ -18,6 +18,7 @@ blob-report/
 
 # Build output / deps
 frontend/dist/
+frontend/android/.kotlin/
 node_modules/
 *.log
 

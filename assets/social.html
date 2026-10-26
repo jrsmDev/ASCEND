@@ -1,0 +1,88 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>ASCEND social card</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=DM+Serif+Display:ital@0;1&family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet">
+<style>
+  * { box-sizing: border-box; }
+  html, body { margin: 0; width: 1200px; height: 630px; overflow: hidden; }
+  body {
+    color: #F5F7F2;
+    background:
+      radial-gradient(840px 620px at 88% 2%, rgba(199, 244, 90, .16), transparent 66%),
+      radial-gradient(720px 520px at 4% 106%, rgba(199, 244, 90, .07), transparent 70%),
+      linear-gradient(135deg, #11150F 0%, #080A08 54%, #050605 100%);
+    font-family: 'Inter', -apple-system, 'Segoe UI', sans-serif;
+    position: relative;
+  }
+  body::before {
+    content: '';
+    position: absolute;
+    inset: 0;
+    opacity: .22;
+    background-image: linear-gradient(rgba(199,244,90,.08) 1px, transparent 1px), linear-gradient(90deg, rgba(199,244,90,.08) 1px, transparent 1px);
+    background-size: 56px 56px;
+    mask-image: linear-gradient(90deg, #000, transparent 64%);
+  }
+  .frame { position: absolute; inset: 22px; border: 1px solid #2B3226; border-radius: 26px; }
+  .copy { position: absolute; left: 68px; top: 62px; width: 620px; z-index: 2; }
+  .brand { display: flex; align-items: center; gap: 17px; }
+  .brand svg { width: 38px; height: 38px; color: #C7F45A; }
+  .brand b { font-family: 'DM Serif Display', Georgia, serif; font-weight: 400; font-size: 30px; letter-spacing: 8px; }
+  .rule { width: 54px; height: 2px; margin: 34px 0 29px; background: #C7F45A; opacity: .85; }
+  h1 {
+    margin: 0;
+    font-family: 'DM Serif Display', Georgia, serif;
+    font-weight: 400;
+    font-size: 65px;
+    line-height: .99;
+    letter-spacing: -.018em;
+  }
+  h1 em { color: #C7F45A; font-style: italic; }
+  p { margin: 23px 0 0; color: #AAB2A3; font-size: 17.5px; line-height: 1.55; letter-spacing: -.005em; max-width: 555px; }
+  .chips { display: flex; gap: 10px; margin-top: 25px; }
+  .chip { padding: 9px 13px 8px; border: 1px solid #37402F; border-radius: 999px; color: #B9C1B2; font-size: 10.5px; font-weight: 600; letter-spacing: 1.55px; }
+  .foot { position: absolute; left: 70px; bottom: 51px; z-index: 2; color: #747C6D; font-size: 10.5px; font-weight: 600; letter-spacing: 2.1px; }
+  .foot b { color: #A8D92F; font-weight: 600; }
+  .phones { position: absolute; inset: 0; z-index: 1; }
+  .phone { position: absolute; width: 274px; padding: 7px; border-radius: 34px; background: #171B15; border: 1px solid #3A4233; box-shadow: 0 34px 74px rgba(0,0,0,.58), 0 4px 14px rgba(0,0,0,.4); }
+  .phone img { display: block; width: 100%; border-radius: 27px; }
+  .phone.a { left: 731px; top: 79px; transform: rotate(-6.2deg); }
+  .phone.b { left: 924px; top: 26px; transform: rotate(5.2deg); }
+  .badge {
+    position: absolute; left: 690px; top: 468px; z-index: 3;
+    padding: 13px 17px 12px; border-radius: 14px;
+    background: rgba(17, 21, 15, .91); border: 1px solid #46533B;
+    box-shadow: 0 16px 38px rgba(0,0,0,.42);
+    transform: rotate(-2deg);
+  }
+  .badge b { display: block; color: #C7F45A; font-family: 'DM Serif Display', Georgia, serif; font-size: 27px; font-weight: 400; line-height: 1; }
+  .badge span { display: block; margin-top: 6px; color: #B6BEB0; font-size: 9px; font-weight: 700; letter-spacing: 1.7px; }
+  .grain { position: absolute; inset: 0; opacity: .12; background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='140' height='140'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='.9' numOctaves='2' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23n)' opacity='.35'/%3E%3C/svg%3E"); pointer-events: none; }
+</style>
+</head>
+<body>
+  <div class="grain"></div>
+  <div class="frame"></div>
+  <div class="copy">
+    <div class="brand">
+      <svg viewBox="0 0 200 200" fill="currentColor" aria-hidden="true"><polygon points="6,194 100,4 112,30 52,194"/><polygon points="137.6,80 194,194 150,194 121.8,137"/><polygon points="100,96 127,164 109,164 100,141 91,164 73,164"/></svg>
+      <b>ASCEND</b>
+    </div>
+    <div class="rule"></div>
+    <h1>Your workouts.<br>Your weights.<br><em>Your ascent.</em></h1>
+    <p>A free, open-source strength and body-weight tracker. On Android and the web. No account, no ads, no telemetry.</p>
+    <div class="chips"><span class="chip">OPEN SOURCE</span><span class="chip">NO ACCOUNT</span><span class="chip">YOUR DATA</span></div>
+  </div>
+  <div class="phones">
+    <div class="phone a"><img src="screenshots/home.png" alt=""></div>
+    <div class="phone b"><img src="screenshots/workout.png" alt=""></div>
+  </div>
+  <div class="badge"><b>12 weeks</b><span>CURRENT STREAK</span></div>
+  <div class="foot"><b>ASCEND</b> &nbsp;·&nbsp; OPENGYM.CH &nbsp;·&nbsp; AGPL-3.0</div>
+</body>
+</html>

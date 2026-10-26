@@ -1,6 +1,11 @@
 # Changelog
 
-## v1.4.2 (2026-10-23)
+## v1.4.2 (2026-10-26)
+
+> ASCEND v1.4.2 is the rebrand of openGym v1.4.2. Visible names and the Android APK are ASCEND;
+> the application id and other technical identifiers stay `ch.duartesantos.opengym` for
+> compatibility. The Android APK is signed with a new ASCEND key, so an older openGym APK cannot
+> update over it: export a backup, uninstall openGym, install ASCEND, then import the backup.
 
 A large Android release with five reported security holes closed, a fresh look at the animations,
 and the usual flow fixes. There is no App Store or Google Play build: the signed Android APK is on
@@ -17,7 +22,7 @@ the website and the GitHub release, and the native iOS shell can be built from s
   streak too. A running workout sits on the Lock Screen and in the Dynamic Island, with a Done
   button that logs the set and starts the rest without opening the app.
 - **Apple Health.** Finished workouts and weigh-ins go to Apple Health, the same switch Android
-  has for Health Connect, offered once at the start. Delete a workout in openGym (on any of your
+  has for Health Connect, offered once at the start. Delete a workout in ASCEND (on any of your
   devices) and it leaves Apple Health too.
 - **Sharper animations, your choice.** Settings → Workout → Animation quality: Still only, built in
   (180 px), or 240, 360, 480, 720 and 1080 px, downloaded in the native build when you pick them.
@@ -32,14 +37,12 @@ the website and the GitHub release, and the native iOS shell can be built from s
   plain http, like on Android (#428).
 - **A logo instead of a black screen** while the app starts, loading its plates.
 
-**Android.** The app now targets Android 16 and needs Android 7.0 or newer (6.0 is out). The APK
-you know stays and updates itself, now in three sizes: **Standard** (`openGym-1.4.2.apk`,
-animations built in at 180 px, the small one), **Plus** (`openGym-Plus-1.4.2.apk`, 240 px) and
-**HD** (`openGym-HD-1.4.2.apk`, 360 px, sharp and hungry). Each one updates to its own kind, so
-nobody gets a surprise download twice the size. Phones on v1.4.1 update to Standard; want Plus or
-HD? Install it on top, your data stays (same goes for going back). A Google Play build is prepared
-but not live; if it ships later, it would update through Play and an APK phone could move to it
-without losing anything.
+**Android.** The app now targets Android 16 and needs Android 7.0 or newer (6.0 is out). The
+Standard APK is `ASCEND-1.4.2.apk` (animations built in at 180 px). This build carries a new ASCEND
+signing key: if an older openGym build is installed, export a backup, uninstall it, then install
+ASCEND and import the backup. Future ASCEND APKs update in place. The larger **Plus** and **HD**
+animation packs remain on the upstream openGym release; they use the older key, so do not install
+them over ASCEND. There is no Google Play build.
 
 **Your account, your call.**
 - **Delete your account** from Settings → Account. It offers your backup first, asks you to type

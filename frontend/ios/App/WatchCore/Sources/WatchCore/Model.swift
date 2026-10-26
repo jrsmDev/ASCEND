@@ -13,7 +13,7 @@ struct Snapshot: Codable, Equatable {
     var active: ActiveWorkout?
     var ready: Ready?
     var settings: WatchSettings?
-    /// Apple Health sync ids of workouts deleted in openGym ("opengym-w-<id>", newest first): the
+    /// Apple Health sync ids of workouts deleted in ASCEND ("opengym-w-<id>", newest first): the
     /// watch takes out the copies it saved itself, which the phone may not delete.
     var healthGone: [String]?
 }

@@ -19,7 +19,7 @@ git pull && docker compose pull && docker compose up -d
 ## Reporting a vulnerability
 
 Use GitHub's private vulnerability reporting:
-<https://github.com/DuarteSantos8/openGym/security/advisories/new>. The report is visible only to
+<https://github.com/jrsmDev/ASCEND/security/advisories/new>. The report is visible only to
 you and the maintainer, and it becomes the advisory thread where the fix is discussed and, once
 released, published.
 

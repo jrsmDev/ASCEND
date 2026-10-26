@@ -5,7 +5,7 @@
 	<key>CFBundleDevelopmentRegion</key>
 	<string>en</string>
 	<key>CFBundleDisplayName</key>
-	<string>openGym</string>
+	<string>ASCEND</string>
 	<key>CFBundleExecutable</key>
 	<string>$(EXECUTABLE_NAME)</string>
 	<key>CFBundleIdentifier</key>
@@ -21,9 +21,9 @@
 	<key>CFBundleVersion</key>
 	<string>$(CURRENT_PROJECT_VERSION)</string>
 	<key>NSHealthShareUsageDescription</key>
-	<string>openGym shows your heart rate during a workout and next to each set.</string>
+	<string>ASCEND shows your heart rate during a workout and next to each set.</string>
 	<key>NSHealthUpdateUsageDescription</key>
-	<string>openGym saves your workouts to Apple Health when you switch it on.</string>
+	<string>ASCEND saves your workouts to Apple Health when you switch it on.</string>
 	<key>WKBackgroundModes</key>
 	<array>
 		<string>workout-processing</string>

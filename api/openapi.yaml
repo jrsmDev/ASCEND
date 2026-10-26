@@ -130,7 +130,7 @@ info:
     identifier: AGPL-3.0-or-later
   contact:
     name: ASCEND
-    url: https://gitlab.com/DuarteSantos8/opengym
+    url: https://github.com/jrsmDev/ASCEND
 
 servers:
   - url: /

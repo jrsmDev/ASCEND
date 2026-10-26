@@ -13,7 +13,7 @@ Read [docs/SELF_HOSTING.md](../docs/SELF_HOSTING.md) first. The passkey requirem
 ## Install
 
 ```bash
-git clone https://github.com/DuarteSantos8/openGym
+git clone https://github.com/jrsmDev/ASCEND
 cd openGym
 
 helm install opengym ./helm -n fitness --create-namespace \

@@ -484,7 +484,7 @@ const html = `<!DOCTYPE html>
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
 <meta property="og:title" content="ASCEND API reference">
 <meta property="og:description" content="The complete ASCEND HTTP API as an OpenAPI spec: passkey auth, state sync, push notifications, pairing and admin routes.">
-<meta property="og:image" content="https://opengym.ch/img/social.jpg">
+<meta property="og:image" content="https://opengym.ch/img/social.jpg?v=2">
 <meta property="og:image:width" content="1200">
 <meta property="og:image:height" content="630">
 <meta property="og:image:alt" content="ASCEND: Your workouts. Your weights. Your ascent. Two phones showing the home and workout screens.">
@@ -493,7 +493,7 @@ const html = `<!DOCTYPE html>
 <meta property="og:site_name" content="ASCEND">
 <meta name="twitter:card" content="summary_large_image">
 <meta name="twitter:title" content="ASCEND API reference">
-<meta name="twitter:image" content="https://opengym.ch/img/social.jpg">
+<meta name="twitter:image" content="https://opengym.ch/img/social.jpg?v=2">
 <link rel="canonical" href="https://opengym.ch/api.html">
 <link rel="icon" href="/favicon.ico" sizes="48x48">
 <link rel="icon" type="image/png" sizes="96x96" href="/icon-96.png">
@@ -521,8 +521,8 @@ const html = `<!DOCTYPE html>
     <a class="ql site" href="/docs.html">Docs</a>
     <a class="ql site" href="/api.html">API</a>
     <a class="ql site" href="/about.html">About</a>
-    <a class="ql" href="https://github.com/DuarteSantos8/openGym" rel="noopener">GitHub <span data-gh="stars">15,891</span></a>
-    <a class="ql" href="https://discord.gg/e62jY6fwVb" rel="noopener">Discord <span data-dc="members">1,877</span></a>
+    <a class="ql" href="https://github.com/jrsmDev/ASCEND" rel="noopener">GitHub</a>
+    <a class="ql" href="https://discord.gg/e62jY6fwVb" rel="noopener">Community</a>
     <a class="cta" href="/#download">Download</a>
   </div>
   <button class="nav-toggle" id="navtoggle" aria-expanded="false" aria-controls="sitemenu" aria-label="Menu">
@@ -542,8 +542,8 @@ const html = `<!DOCTYPE html>
     <a class="nl" href="/docs.html">Docs</a>
     <a class="nl" href="/api.html">API</a>
     <a class="nl" href="/about.html">About</a>
-    <a class="nl" href="https://github.com/DuarteSantos8/openGym" rel="noopener">GitHub <span data-gh="stars">15,891</span></a>
-    <a class="nl" href="https://discord.gg/e62jY6fwVb" rel="noopener">Discord <span data-dc="members">1,877</span></a>
+    <a class="nl" href="https://github.com/jrsmDev/ASCEND" rel="noopener">GitHub</a>
+    <a class="nl" href="https://discord.gg/e62jY6fwVb" rel="noopener">Community</a>
   </div>
 </div>
 
@@ -576,7 +576,7 @@ ${railTags}
   <p class="lead">Every route the ASCEND backend serves (passkey auth, state sync,
      push, pairing, admin) as one hand-written
      OpenAPI&nbsp;spec. The same file lives
-     <a href="https://github.com/DuarteSantos8/openGym/blob/main/api/openapi.yaml" rel="noopener">in the repository</a>
+     <a href="https://github.com/jrsmDev/ASCEND/blob/main/api/openapi.yaml" rel="noopener">in the repository</a>
      at <code>api/openapi.yaml</code>, next to the one server file it documents.</p>
   <div class="actions api-actions">
     <a class="btn" href="openapi.yaml" download>
@@ -623,14 +623,14 @@ ${schemaCards}
     <a href="docs.html">Docs</a>
     <a href="about.html">About</a>
     <a href="privacy.html">Privacy</a>
-    <a href="https://github.com/DuarteSantos8/openGym" rel="noopener">GitHub</a>
-    <a href="https://gitlab.com/DuarteSantos8/opengym" rel="noopener">GitLab mirror</a>
-    <a href="https://discord.gg/e62jY6fwVb" rel="noopener">Discord</a>
+    <a href="https://github.com/jrsmDev/ASCEND" rel="noopener">GitHub</a>
+    <a href="https://github.com/DuarteSantos8/openGym" rel="noopener">Upstream</a>
+    <a href="https://discord.gg/e62jY6fwVb" rel="noopener">Community</a>
     <a href="/#download">Download</a>
   </div>
 </div></footer>
 
-<script src="site.js?v=31" defer></script>
+<script src="site.js?v=32" defer></script>
 <script>${js}</script>
 </body>
 </html>

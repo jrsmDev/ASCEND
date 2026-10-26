@@ -2,7 +2,7 @@ import SwiftUI
 import WidgetKit
 
 /*
- * openGym's complications and Smart Stack widget on the Apple Watch: the rest counting down while
+ * ASCEND's complications and Smart Stack widget on the Apple Watch: the rest counting down while
  * resting, otherwise the set up next, or today's workout to start. Read from what the watch app
  * wrote (WidgetState, App Group). Text and SF Symbols only.
  *
@@ -145,7 +145,7 @@ struct WidgetView: View {
                 } else {
                     HStack(spacing: 6) {
                         OpenGymLogo().frame(width: 26, height: 16)
-                        Text(verbatim: "openGym").font(.headline)
+                        Text(verbatim: "ASCEND").font(.headline)
                     }
                 }
             }
@@ -171,14 +171,14 @@ struct OpenGymWidget: Widget {
                 // A tap on "Start" opens the watch app and starts today's workout.
                 .widgetURL(entry.state.mode == "today" ? URL(string: "opengym-watch://start") : URL(string: "opengym-watch://open"))
         }
-        .configurationDisplayName("openGym")
+        .configurationDisplayName("ASCEND")
         .description("Your rest, your next set, or today's workout.")
         .supportedFamilies([.accessoryRectangular, .accessoryCircular, .accessoryInline, .accessoryCorner])
     }
 }
 
 /*
- * The plain one: openGym's logo on the watch face, a tap opens the app. For a face that should
+ * The plain one: ASCEND's logo on the watch face, a tap opens the app. For a face that should
  * always have the way in, whatever is going on (the other widget changes with the workout).
  */
 struct LauncherProvider: TimelineProvider {
@@ -203,14 +203,14 @@ struct LauncherView: View {
         case .accessoryCorner:
             OpenGymLogo()
                 .padding(4)
-                .widgetLabel { Text(verbatim: "openGym") }
+                .widgetLabel { Text(verbatim: "ASCEND") }
         case .accessoryInline:
-            Text(verbatim: "openGym")
+            Text(verbatim: "ASCEND")
         default:
             HStack(spacing: 8) {
                 OpenGymLogo().frame(width: 30, height: 20)
                 VStack(alignment: .leading, spacing: 0) {
-                    Text(verbatim: "openGym").font(.headline)
+                    Text(verbatim: "ASCEND").font(.headline)
                     if entry.state.mode == "today" {
                         Text(verbatim: entry.state.title).font(.caption2).foregroundStyle(.secondary).lineLimit(1)
                     }
@@ -229,8 +229,8 @@ struct OpenGymLauncher: Widget {
                 .containerBackground(.black, for: .widget)
                 .widgetURL(URL(string: "opengym-watch://open"))
         }
-        .configurationDisplayName("openGym")
-        .description("Opens openGym.")
+        .configurationDisplayName("ASCEND")
+        .description("Opens ASCEND.")
         .supportedFamilies([.accessoryCircular, .accessoryCorner, .accessoryInline, .accessoryRectangular])
     }
 }

@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <!DOCTYPE plist PUBLIC "-//Apple//DTD PLIST 1.0//EN" "http://www.apple.com/DTDs/PropertyList-1.0.dtd">
-<!-- openGym's privacy manifest. The app does not track anyone and collects nothing for its
+<!-- ASCEND's privacy manifest. The app does not track anyone and collects nothing for its
      developer: the training log stays on the phone, or goes to a server the user connects to
      themselves. The Coach talks to an AI provider only with the user's own key, after asking.
      The required-reason APIs are the ones the app's own code and its web view storage use. -->

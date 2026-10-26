@@ -51,5 +51,5 @@ Design notes for specific features, kept next to the code they describe:
 ## Still stuck?
 
 Ask on the [Discord](https://discord.gg/e62jY6fwVb) or in
-[Discussions](https://github.com/DuarteSantos8/openGym/discussions). If something in these docs was
-wrong or missing, that's worth an issue too.
+[Discussions](https://github.com/jrsmDev/ASCEND/discussions). If something in these docs was
+wrong or missing, that's worth an [issue](https://github.com/jrsmDev/ASCEND/issues) too.

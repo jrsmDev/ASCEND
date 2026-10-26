@@ -43,7 +43,7 @@ describe('checkForUpdate', () => {
   it('asks GitHub for the latest published release (never a draft or a beta)', async () => {
     mockFetch({ tag_name: 'v' + __APP_VERSION__, assets: [] })
     await checkForUpdate()
-    expect(globalThis.fetch.mock.calls[0][0]).toBe('https://api.github.com/repos/DuarteSantos8/openGym/releases/latest')
+    expect(globalThis.fetch.mock.calls[0][0]).toBe('https://api.github.com/repos/jrsmDev/ASCEND/releases/latest')
   })
 
   it('reports no update when the latest release matches the current version', async () => {
@@ -76,23 +76,21 @@ describe('checkForUpdate', () => {
     expect(result.latestVersion).toBe('99.1.2')
   })
 
-  // What api.github.com returned for releases/latest on 2026-10-10 (v1.4.0, trimmed): the APK
-  // and its checksum as release assets. The checksum file also ends in neither .apk nor
-  // anything else the APK match could take.
+  // The ASCEND release asset layout: one Standard APK and the checksum named after it.
   const REAL_RELEASE = {
-    tag_name: 'v1.4.0',
+    tag_name: 'v1.4.2',
     assets: [
-      { name: 'openGym-1.4.0.apk', browser_download_url: 'https://github.com/DuarteSantos8/openGym/releases/download/v1.4.0/openGym-1.4.0.apk' },
-      { name: 'openGym-1.4.0.apk.sha256', browser_download_url: 'https://github.com/DuarteSantos8/openGym/releases/download/v1.4.0/openGym-1.4.0.apk.sha256' },
+      { name: 'ASCEND.apk', browser_download_url: 'https://github.com/jrsmDev/ASCEND/releases/download/v1.4.2-ascend/ASCEND.apk' },
+      { name: 'ASCEND.apk.sha256', browser_download_url: 'https://github.com/jrsmDev/ASCEND/releases/download/v1.4.2-ascend/ASCEND.apk.sha256' },
     ],
   }
 
-  it('finds the APK and its checksum in a real GitHub release payload', async () => {
+  it('finds the APK and its checksum in the ASCEND release payload', async () => {
     mockFetch(REAL_RELEASE)
     const result = await checkForUpdate()
-    expect(result.latestVersion).toBe('1.4.0')
-    expect(result.apkUrl).toBe('https://github.com/DuarteSantos8/openGym/releases/download/v1.4.0/openGym-1.4.0.apk')
-    expect(result.hashUrl).toBe('https://github.com/DuarteSantos8/openGym/releases/download/v1.4.0/openGym-1.4.0.apk.sha256')
+    expect(result.latestVersion).toBe('1.4.2')
+    expect(result.apkUrl).toBe('https://github.com/jrsmDev/ASCEND/releases/download/v1.4.2-ascend/ASCEND.apk')
+    expect(result.hashUrl).toBe('https://github.com/jrsmDev/ASCEND/releases/download/v1.4.2-ascend/ASCEND.apk.sha256')
   })
 
   it('does not take the checksum for the APK when it is listed first', async () => {
@@ -135,7 +133,7 @@ describe('fetchChecksum (web)', () => {
   const serve = text => { globalThis.fetch = vi.fn(() => Promise.resolve({ ok: true, text: () => Promise.resolve(text) })) }
 
   it('reads the hash out of a sha256sum line', async () => {
-    serve('EC2822' + 'a'.repeat(58) + '  openGym-1.4.0.apk\n')
+    serve('EC2822' + 'a'.repeat(58) + '  ASCEND.apk\n')
     expect(await fetchChecksum('https://x/a.apk.sha256')).toBe('ec2822' + 'a'.repeat(58))
   })
 
@@ -294,6 +292,16 @@ describe('pickApk: Standard, Plus and HD', () => {
     expect(apkKind('openGym-HD-1.4.2.apk')).toBe('hd')
     expect(apkKind('openGym-1.5.0-plus.apk')).toBe('plus')
     expect(apkKind('openGym-surplus-1.4.2.apk')).toBe('standard')
+    expect(apkKind('ASCEND.apk')).toBe('standard')
+    expect(apkKind('ASCEND-Plus.apk')).toBe('plus')
+    expect(apkKind('ASCEND-HD.apk')).toBe('hd')
+  })
+
+  it('picks the ASCEND release asset and its checksum', () => {
+    const release = [a('ASCEND.apk'), a('ASCEND.apk.sha256')]
+    const { apk, hash } = pickApk(release, 'standard')
+    expect(apk.name).toBe('ASCEND.apk')
+    expect(hash.name).toBe('ASCEND.apk.sha256')
   })
 
   it('each kind updates only to itself, with its own checksum, in any order', () => {

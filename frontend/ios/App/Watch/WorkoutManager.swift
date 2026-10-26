@@ -159,7 +159,7 @@ final class WorkoutManager: NSObject, ObservableObject, HKWorkoutSessionDelegate
     }
 
     /// Takes out of Apple Health the workouts this app saved under these sync ids (workouts deleted
-    /// in openGym), with the calories saved along with them. Heart-rate readings are the watch's
+    /// in ASCEND), with the calories saved along with them. Heart-rate readings are the watch's
     /// sensors' own and stay, as with Apple's Workout app. `done` gets the ids that are settled:
     /// removed, or with no copy of this app's to remove. Nothing settled when Health could not be
     /// read or the delete was refused: the next snapshot tries again.

@@ -58,7 +58,7 @@ scripts/android/build-release.sh $K/opengym-release.keystore $K/keystore.pass $K
 ```
 
 Each is built from its own phone build: the **Standard** APK with the box-free 180 px animations
-built in (`quality/180`, about 315 MB), the **Plus** APK with 240 px (`quality/240`, about
+built in (`quality/180`, about 224 MB), the **Plus** APK with 240 px (`quality/240`, about
 424 MB; `PLUS_PX=0` none), the **HD** APK with 360 px (`quality/360`, about 760 MB; `HD_PX=0`
 none), the bundle with 180 px (`quality/180`, like the App Store app) and an asset
 pack for every quality above 180 that has a folder in `/mnt/backup-hdd/opengym-media/quality/`

@@ -5,7 +5,7 @@
 	<key>CFBundleDevelopmentRegion</key>
 	<string>en</string>
 	<key>CFBundleDisplayName</key>
-	<string>openGym</string>
+	<string>ASCEND</string>
 	<key>CFBundleExecutable</key>
 	<string>$(EXECUTABLE_NAME)</string>
 	<key>CFBundleIdentifier</key>
@@ -73,7 +73,7 @@
 		<true/>
 	</dict>
 	<key>NSLocalNetworkUsageDescription</key>
-	<string>Used to reach your own openGym server or AI model on your home network, when you connect one.</string>
+	<string>Used to reach your own ASCEND server or AI model on your home network, when you connect one.</string>
 	<key>NSCameraUsageDescription</key>
 	<string>Used to scan your gym membership QR code, and to take a photo or video of an exercise you add yourself.</string>
 	<key>NSMicrophoneUsageDescription</key>

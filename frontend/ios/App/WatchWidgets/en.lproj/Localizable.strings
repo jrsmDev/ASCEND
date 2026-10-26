@@ -1,4 +1,4 @@
-/* openGym on the Apple Watch, en. Written by ios/ci/watch-strings.mjs: change that, not this. */
+/* ASCEND on the Apple Watch, en. Written by ios/ci/watch-strings.mjs: change that, not this. */
 
 "Today" = "Today";
 "Start workout" = "Start workout";
@@ -54,4 +54,4 @@
 "Tap to change it." = "Tap to change it.";
 "Added weight" = "Added weight";
 "Your rest, your next set, or today's workout." = "Your rest, your next set, or today's workout.";
-"Opens openGym." = "Opens openGym.";
+"Opens ASCEND." = "Opens ASCEND.";

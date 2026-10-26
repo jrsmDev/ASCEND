@@ -213,7 +213,7 @@ final class SettingsAndWeighInTests: XCTestCase {
     }
 }
 
-/// Workouts deleted in openGym: the watch takes its own copies out of Apple Health, once.
+/// Workouts deleted in ASCEND: the watch takes its own copies out of Apple Health, once.
 final class HealthDeleteTests: XCTestCase {
     func testOnlyWorkoutIdsNotDoneYetOnceEach() {
         let todo = SessionCore.healthToDelete(gone: ["opengym-w-a", "opengym-bw-2026-10-01", "opengym-w-b", "opengym-w-a"], done: ["opengym-w-b"])

@@ -1,6 +1,6 @@
 /* api/routes/admin.js — Admin dashboard routes extracted from server.js
  *
- * This module demonstrates the route-extraction pattern for the openGym API.
+ * This module demonstrates the route-extraction pattern for the ASCEND API.
  * Each route module exports a function that receives shared dependencies (the "context")
  * and returns a plain object of `'METHOD /path': handler` entries, which server.js
  * spreads into the main routes table.

@@ -9,20 +9,27 @@ Committed assets:
 
 - `img/` — generated from the five screenshots in `../assets/screenshots/` as PNG plus
   WebP at 480/600/1170 px (served through `<picture>`), with `banner.png` and
-  `social.jpg` (1200×630, the og:image on every page). The build script is
-  `build-images.sh <dist>/img`; the checked-in copies are what the local site serves.
+  `social.jpg` (1200×630, the og:image on every page). `../assets/social.html` is the
+  printable source, rendered from the same five screenshots. The build script is
+  `build-images.sh <dist>/img`; the checked-in copies are what the local site serves. Public
+  image URLs carry `?v=2` so a browser that cached the old brand picks up the new art.
 - `icon-180.png` / `icon-512.png` (plus the smaller favicon sizes) — copied from
   `../frontend/public/`, so the browser tab, home screen and app all match.
 
 Local-only asset:
 
 - `ASCEND-1.4.2.apk` — the signed Standard Android build served in development by
-  `run-local.mjs` and deployed beside the site. It is ignored by Git because the account's LFS
-  budget is exhausted. A backup is attached to this repository's private `v1.4.2-ascend` GitHub
-  release as `ASCEND.apk` (SHA-256 `b53fb87e1f200cec23fd1c0d6a5454f502c4141f483c9fe02a3da555581b9c26`).
-  The download link uses `download="ASCEND.apk"`, so the saved file keeps the brand name while
-  the source file keeps its version. Plus and HD animation packs stay on the upstream openGym
-  release.
+  `run-local.mjs` and deployed beside the site. Git ignores APKs; the same bytes are attached to
+  the `v1.4.2-ascend` GitHub release as `ASCEND.apk` (SHA-256
+  `f7bcd1b20034e148a8fde1ea5e5cae94b8631fba57e8a0ca6f7c34e3187605d8`).
+  The checksum is served beside it as `ASCEND-1.4.2.apk.sha256`. The download link uses
+  `download="ASCEND.apk"`, so the saved file keeps the brand name while the source file keeps
+  its version. Plus and HD animation packs stay on the upstream openGym release.
+
+  This build is signed with the new ASCEND release key, not the upstream openGym key. Android
+  therefore cannot update the old upstream-signed app in place: export a backup, uninstall the
+  old app, install ASCEND, then import the backup. The in-app updater only installs a newer build
+  with the same key.
 
 Added at deploy time:
 

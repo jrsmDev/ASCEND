@@ -4,15 +4,15 @@
 // The GitHub releases API is public, so no token is needed (60 requests an hour per address,
 // and the check runs once per app session). GitHub is ASCEND's home since v1.4.0; the GitLab
 // mirror stopped getting releases, so a phone that asked it saw no update.
-// On Android (Capacitor) the APK is downloaded natively into the cache directory (an APK with
-// the animations is ~300 MB: read into the WebView's memory it ran phones out of it, and
+// On Android (Capacitor) the APK is downloaded natively into the cache directory (the Standard
+// APK is ~224 MB: read into the WebView's memory it ran phones out of it, and
 // github.com's download redirect has no CORS headers for a WebView fetch anyway), checked
 // against its SHA-256 by the native Install plugin and handed to the system installer.
 
 import { MOBILE } from './mobile.js'
 import { BUILTIN_PX } from './anim-quality.js'
 
-const REPO = 'DuarteSantos8/openGym'
+const REPO = 'jrsmDev/ASCEND'
 const LATEST_URL = `https://api.github.com/repos/${REPO}/releases/latest`
 export const RELEASES_PAGE = `https://github.com/${REPO}/releases/latest`
 
@@ -70,16 +70,15 @@ async function fetchLatest() {
 
 /**
  * Since v1.4.2 a release carries three sideloaded APKs, the same app with different animations
- * built in: Standard (180 px, openGym-<v>.apk), Plus (240 px, openGym-Plus-<v>.apk) and HD
- * (360 px, openGym-HD-<v>.apk). Each installed APK only ever updates to its own kind, so a phone
- * that picked HD keeps HD, and nobody is handed a download twice the size they never asked for.
- * The build says which kind it is (VITE_APK_VARIANT, set by scripts/android/build-release.sh); a
- * build without it goes by what it has built in.
+ * built in: Standard (180 px, ASCEND.apk), Plus (240 px, ASCEND-Plus.apk) and HD (360 px,
+ * ASCEND-HD.apk). Each installed APK only ever updates to its own kind, so a phone that picked HD
+ * keeps HD, and nobody is handed a download twice the size they never asked for. The build says
+ * which kind it is (VITE_APK_VARIANT, set by scripts/android/build-release.sh); a build without it
+ * goes by what it has built in.
  * The checksum is the one named after the chosen APK, never just the first .sha256 in the list.
  * A release without an APK of this kind: no direct download (the update row then opens the
- * releases page), rather than quietly swapping it for another kind.
- * Phones from before v1.4.2 take the first .apk of the list, and GitHub sorts assets by name:
- * "openGym-1…" comes before "openGym-HD-…" and "openGym-Plus-…", so they land on Standard.
+ * releases page), rather than quietly swapping it for another kind. The older openGym asset names
+ * are still recognised, so a release that keeps the upstream naming also works.
  */
 const ENV = import.meta.env || {}
 export const APK_VARIANTS = ['standard', 'plus', 'hd']

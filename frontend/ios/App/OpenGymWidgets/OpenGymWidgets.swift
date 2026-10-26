@@ -3,7 +3,7 @@ import UIKit
 import WidgetKit
 
 /*
- * openGym's widgets (the widget extension, ios/ci/add-widgets.rb): today's workout on the Home
+ * ASCEND's widgets (the widget extension, ios/ci/add-widgets.rb): today's workout on the Home
  * Screen in three sizes and on the Lock Screen, the streak on the Lock Screen, and the running
  * workout's Live Activity (LiveActivityWidget.swift). What they show is the snapshot the app writes
  * to the App Group (WidgetBridgePlugin.swift, lib/widgets.js); the views are in

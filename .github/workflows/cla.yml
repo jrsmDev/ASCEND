@@ -17,6 +17,8 @@ permissions:
 
 jobs:
   cla:
+    # The CLA assigns rights to the upstream openGym maintainer, so it only applies there.
+    if: github.repository == 'DuarteSantos8/openGym'
     runs-on: ubuntu-latest
     steps:
       # Comments on plain issues (the pinned CLA issue #554) are not pull requests: the action

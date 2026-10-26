@@ -51,13 +51,13 @@ describe('the tab bar across a store write', () => {
 
   it('still lights the tab for the route it is on, and follows a change of state', () => {
     act(() => { root.render(<TabBar onStart={() => {}} />) })
-    expect(tabs()[0].className).toBe('on')
-    expect(tabs()[1].className).toBe('')
-    expect(tabs()[2].className).toBe('start')
+    expect(tabs()[0].className).toBe('tab on')
+    expect(tabs()[1].className).toBe('tab')
+    expect(tabs()[4].className).toBe('start')
 
     act(() => { useStore.getState().update(s => { s.active = { id: 'a', entries: [], cur: 0 } }, false) })
-    expect(tabs()[2].className).toBe('start rec')
-    expect(tabs()[0].className).toBe('on')
+    expect(tabs()[4].className).toBe('start rec')
+    expect(tabs()[0].className).toBe('tab on')
   })
 })
 
@@ -76,24 +76,26 @@ describe('the connection dot on Home', () => {
       expect(home().getAttribute('aria-label')).toBe('Home, Connection problem')
       act(() => { useStore.setState({ sync: { status: 'ok', lastError: null, pending: false } }) })
       expect(home().querySelector('.tab-dot')).toBeNull()
-      expect(home().getAttribute('aria-label')).toBeNull()
+      expect(home().getAttribute('aria-label')).toBe('Home')
     } finally { useStore.setState({ sync: original }) }
   })
 })
 
-// v1.3.11 icon sweep: one icon per concept. Every tab carries its name under the icon, Start is a
-// play button whether or not a session runs, and Exercises is the dumbbell (no more generic list).
+// The four destinations keep their names for assistive tech; only the active one shows its word.
+// The play action is a separate circle outside the capsule, and Exercises is still the dumbbell.
 describe('the tab icons and labels', () => {
   const icon = el => el.querySelector('svg')?.getAttribute('data-icon')
   const label = el => el.querySelector('span:last-child').textContent
-  it('labels every tab and uses one icon per concept', () => {
+  it('uses one icon per concept and keeps accessible names on every action', () => {
     act(() => { root.render(<TabBar onStart={() => {}} />) })
-    expect(tabs().map(icon)).toEqual(['house', 'calendar', 'play', 'chart', 'dumbbell'])
-    expect(tabs().map(label)).toEqual(['Home', 'Plan', 'Start', 'Stats', 'Exercises'])
+    expect(tabs().map(icon)).toEqual(['house', 'calendar', 'chart', 'dumbbell', 'play'])
+    expect(tabs().map(label)).toEqual(['Home', 'Plan', 'Stats', 'Exercises', 'Start'])
+    expect(tabs().map(el => el.getAttribute('aria-label'))).toEqual(['Home', 'Plan', 'Stats', 'Exercises', 'Start'])
 
     act(() => { useStore.getState().update(s => { s.active = { id: 'a', entries: [], cur: 0 } }, false) })
-    expect(icon(tabs()[2])).toBe('play')
-    expect(label(tabs()[2])).toBe('Resume')
+    expect(icon(tabs()[4])).toBe('play')
+    expect(label(tabs()[4])).toBe('Resume')
+    expect(tabs()[4].getAttribute('aria-label')).toBe('Resume')
   })
 
   it('shows a minimized session’s running time, still named Resume', () => {
@@ -102,16 +104,17 @@ describe('the tab icons and labels', () => {
       vi.setSystemTime(new Date(2026, 9, 5, 18, 0, 0))
       act(() => { useStore.getState().update(s => { s.active = { id: 'a', entries: [], cur: 0, start: Date.now() - 754_000 } }, false) })
       act(() => { root.render(<TabBar onStart={() => {}} />) })
-      const start = tabs()[2]
+      const start = tabs()[4]
       expect(label(start)).toBe('12:34')
       expect(start.getAttribute('aria-label')).toBe('Resume')
       act(() => { vi.advanceTimersByTime(2000) })
       expect(label(start)).toBe('12:36')
-      expect(tabs()[2]).toBe(start)   // the same button, only its text ticks
+      expect(tabs()[4]).toBe(start)   // the same button, only its text ticks
 
       // a past workout being edited has no clock running
       act(() => { useStore.getState().update(s => { s.active.editingWorkoutId = 'w1' }, false) })
-      expect(label(tabs()[2])).toBe('Edit workout')
+      expect(label(tabs()[4])).toBe('Edit workout')
+      expect(tabs()[4].getAttribute('aria-label')).toBe('Edit workout')
     } finally { vi.useRealTimers() }
   })
 })

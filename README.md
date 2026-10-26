@@ -7,19 +7,9 @@
 Plan your week, run guided workouts, log every set and your body weight,<br>
 on your phone, synced across your devices, behind your own passkey login.
 
-[![Discord](https://img.shields.io/badge/dynamic/json?url=https%3A%2F%2Fdiscord.com%2Fapi%2Finvites%2Fe62jY6fwVb%3Fwith_counts%3Dtrue&query=%24.approximate_member_count&suffix=%20members&label=Discord&logo=discord&logoColor=white&color=5865F2&style=for-the-badge)](https://discord.gg/e62jY6fwVb)
-[![Online](https://img.shields.io/badge/dynamic/json?url=https%3A%2F%2Fdiscord.com%2Fapi%2Finvites%2Fe62jY6fwVb%3Fwith_counts%3Dtrue&query=%24.approximate_presence_count&suffix=%20online&label=&logo=discord&logoColor=white&color=3BA55C&style=for-the-badge)](https://discord.gg/e62jY6fwVb)
-[![GitHub stars](https://img.shields.io/github/stars/DuarteSantos8/openGym?style=for-the-badge&logo=github&logoColor=white&color=24292f)](https://github.com/DuarteSantos8/openGym/stargazers)
-
-<a href="https://trendshift.io/repositories/88268?utm_source=repository-badge&amp;utm_medium=badge&amp;utm_campaign=badge-repository-88268" target="_blank" rel="noopener noreferrer"><img src="https://trendshift.io/api/badge/repositories/88268" alt="DuarteSantos8%2FopenGym | Trendshift" width="250" height="55"/></a>
-<a href="https://trendshift.io/repositories/88268?utm_source=trendshift-badge&amp;utm_medium=badge&amp;utm_campaign=badge-trendshift-88268" target="_blank" rel="noopener noreferrer"><img src="https://trendshift.io/api/badge/trendshift/repositories/88268/weekly?language=JavaScript" alt="DuarteSantos8%2FopenGym | Trendshift" width="250" height="55"/></a>
-
-[![Release](https://img.shields.io/github/v/release/DuarteSantos8/openGym?style=flat-square)](https://github.com/DuarteSantos8/openGym/releases)
-[![Downloads](https://img.shields.io/github/downloads/DuarteSantos8/openGym/total?style=flat-square&label=downloads)](https://github.com/DuarteSantos8/openGym/releases)
-[![Tests](https://img.shields.io/github/actions/workflow/status/DuarteSantos8/openGym/test.yml?branch=main&label=tests&style=flat-square)](https://github.com/DuarteSantos8/openGym/actions/workflows/test.yml)
-[![Pipeline](https://gitlab.com/DuarteSantos8/opengym/badges/main/pipeline.svg?style=flat-square)](https://gitlab.com/DuarteSantos8/opengym/-/pipelines)
-[![Coverage](https://gitlab.com/DuarteSantos8/opengym/badges/main/coverage.svg?job=test:frontend&style=flat-square)](https://gitlab.com/DuarteSantos8/opengym/-/pipelines?ref=main)
+[![Website](https://img.shields.io/badge/website-opengym.ch-a3e635?style=flat-square)](https://opengym.ch)
 [![License: AGPL v3](https://img.shields.io/badge/license-AGPL--3.0-a3e635?style=flat-square)](LICENSE)
+[![Android](https://img.shields.io/badge/Android-signed%20APK-a3e635?style=flat-square)](https://opengym.ch/#download)
 
 [Website](https://opengym.ch) ·
 [Live demo](https://opengym.ch/demo/) ·
@@ -29,7 +19,8 @@ on your phone, synced across your devices, behind your own passkey login.
 [Roadmap](ROADMAP.md) ·
 [Changelog](CHANGELOG.md)
 
-<a href="https://ko-fi.com/opengym" target="_blank"><img src="https://ko-fi.com/img/githubbutton_sm.svg" alt="Support openGym on Ko-fi" height="45"></a>
+<p><sub>ASCEND is a rebrand of the openGym project. Visible branding is ASCEND; package IDs,<br>
+environment keys, backup folders and other technical identifiers keep their openGym names for compatibility.</sub></p>
 
 </div>
 
@@ -41,10 +32,10 @@ on your phone, synced across your devices, behind your own passkey login.
 </tr>
 </table>
 
-## Why openGym
+## Why ASCEND
 
 Most workout apps keep your data on their servers, push you towards a subscription, or vanish
-when the company does. openGym runs on your own box, keeps your data in a folder you control, and
+when the company does. ASCEND runs on your own box, keeps your data in a folder you control, and
 is yours to fork. It still behaves like a modern app: installable on the home screen, passkey
 sign-in, works offline, syncs between your phone and your laptop.
 
@@ -128,8 +119,8 @@ The full list of what changed release by release is in the [changelog](CHANGELOG
 You need [Docker](https://docs.docker.com/get-docker/) with Compose.
 
 ```bash
-git clone https://github.com/DuarteSantos8/openGym
-cd openGym
+git clone https://github.com/jrsmDev/ASCEND
+cd ASCEND
 cp .env.example .env
 docker compose pull      # prebuilt images, amd64 + arm64 (skip this to build from source)
 docker compose up -d
@@ -160,7 +151,7 @@ Traefik and nginx, and there are separate guides for
 | `NGINX_PORT` | Port the web container listens on inside the container | `80` |
 | `BACKEND` | Name of the API service that `/api` is proxied to | `api` |
 | `PORT` | Port the API listens on; the web container proxies to the same value | `3000` |
-| `RP_NAME` | Name shown in the passkey prompt | `openGym` |
+| `RP_NAME` | Name shown in the passkey prompt | `ASCEND` |
 | `SESSION_DAYS` | How long a sign-in lasts, in days | `90` |
 | `ADMIN_UIDS` | User ids that get the admin dashboard, comma-separated | *(none)* |
 | `FIRST_USER_ADMIN` | `1`: the first profile created on an empty instance becomes its admin | *(off)* |
@@ -189,12 +180,13 @@ The same codebase builds a standalone app with Capacitor: no account, no server,
 on the phone, with native reminders and a rest countdown in the notification shade.
 
 - **Android:** download the signed Standard APK from the [website](https://opengym.ch/#download)
-  (`ASCEND-1.4.2.apk`, 180 px animations, about 315 MB); Plus (`openGym-Plus-X.Y.Z.apk`, 240 px,
-  about 424 MB) and HD (`openGym-HD-X.Y.Z.apk`, 360 px, about 760 MB) sit on the
-  [latest release](https://github.com/DuarteSantos8/openGym/releases/latest) with their
-  `.sha256` files. The app checks for updates itself and stays the kind you picked. There is no
-  Google Play release yet.
-- **iPhone / web:** there is no App Store build yet. Self-host ASCEND and add the PWA to your
+  (`ASCEND-1.4.2.apk`, 180 px animations, about 224 MB). This build carries a new ASCEND
+  signing key: if an older openGym APK is already installed, export a backup, uninstall the old
+  app, then install ASCEND and import the backup. Future ASCEND builds update in place. The
+  larger Plus and HD animation packs remain on the
+  [upstream openGym release](https://github.com/DuarteSantos8/openGym/releases/latest); they use
+  the older key, so do not mix them with this build. There is no Google Play release yet.
+- **iPhone / web:** there is no App Store build. Self-host ASCEND and add the PWA to your
   home screen from Safari. The path is in [docs/MOBILE.md](docs/MOBILE.md).
 
 Details and build instructions: [docs/MOBILE.md](docs/MOBILE.md).
@@ -270,7 +262,7 @@ The [documentation index](docs/README.md) sorts every guide by who it's for. The
 
 A release roughly every two weeks, each small and themed. The full plan is in
 [ROADMAP.md](ROADMAP.md), and the issues sit in the
-[GitHub milestones](https://github.com/DuarteSantos8/openGym/milestones). The next two releases
+[GitHub milestones](https://github.com/jrsmDev/ASCEND/milestones). The next two releases
 finish the community wishes, then comes a new exercise database and a themed release every
 two weeks after it.
 
@@ -286,31 +278,27 @@ two weeks after it.
 
 ## Community
 
-- **[Discord](https://discord.gg/e62jY6fwVb)** for release announcements, self-hosting help and
-  quick back-and-forth. Usually the fastest way to get an answer.
-- **[Discussions](https://github.com/DuarteSantos8/openGym/discussions)** for questions and ideas
-  you want the next person to find by searching.
-- **[Issues](https://github.com/DuarteSantos8/openGym/issues)** for reproducible bugs and agreed-on
-  work. Login trouble is almost always an `RP_ID`/`ORIGIN` mismatch; the
+- **[Issues](https://github.com/jrsmDev/ASCEND/issues)** for reproducible bugs and agreed-on work.
+  Login trouble is almost always an `RP_ID`/`ORIGIN` mismatch; the
   [self-hosting guide](docs/SELF_HOSTING.md) covers it.
-- **[Pull requests](https://github.com/DuarteSantos8/openGym/pulls)** are welcome; start with
+- **[Discussions](https://github.com/jrsmDev/ASCEND/discussions)** for questions and ideas you want
+  the next person to find by searching.
+- **[Pull requests](https://github.com/jrsmDev/ASCEND/pulls)** are welcome; start with
   [CONTRIBUTING.md](CONTRIBUTING.md).
 
-<a href="https://github.com/DuarteSantos8/openGym/graphs/contributors">
-  <img src="https://contrib.rocks/image?repo=DuarteSantos8/openGym&max=60" alt="Contributors">
-</a>
+The original openGym community also has a
+[Discord server](https://discord.gg/e62jY6fwVb) for upstream releases and self-hosting help.
 
 ### Where the code lives
 
-GitHub is the home of the project. [gitlab.com/DuarteSantos8/opengym](https://gitlab.com/DuarteSantos8/opengym)
-is a mirror, updated by a GitHub Actions workflow on every push to `main` and every release tag. It
-exists because its CI builds the multi-arch images and the SBOMs for its registry (the APKs are
-built and signed on the release machine and attached to the GitHub release). Nothing is merged there by hand. In the changelog, `!NN` refers to a GitLab merge request
-from the weeks in August and September 2026 when the project lived there.
+ASCEND lives at [github.com/jrsmDev/ASCEND](https://github.com/jrsmDev/ASCEND). The original
+[openGym repository](https://github.com/DuarteSantos8/openGym) and its
+[GitLab mirror](https://gitlab.com/DuarteSantos8/opengym) remain the upstream source and publish
+the container images and the older APK variants.
 
-## How openGym is built
+## How ASCEND is built
 
-People have asked about this, so plainly: **openGym is developed with
+People have asked about this, so plainly: **ASCEND is developed with
 [Claude Code](https://claude.com/claude-code)**, Anthropic's coding agent. A large share of the
 code, tests and documentation is drafted in Claude Code sessions, and the repository carries a
 [`CLAUDE.md`](CLAUDE.md) with the project context those sessions start from.
@@ -332,21 +320,18 @@ the same way.
 
 ## Support
 
-openGym is free and stays free: AGPL, no paid tier, nothing held back for sponsors. If it replaced a
-paid tracker for you and you'd like to chip in, there's a Ko-fi page below. A star, a bug report
-or a pull request helps just as much.
+ASCEND is free and stays free: AGPL, no paid tier, nothing held back for sponsors. A bug report,
+documentation fix or pull request helps more than anything.
 
-<a href="https://ko-fi.com/opengym" target="_blank">
-  <img src="https://ko-fi.com/img/githubbutton_sm.svg" alt="Support openGym on Ko-fi" height="45">
-</a>
-
-[![Star History Chart](https://api.star-history.com/svg?repos=duartesantos8/opengym&type=Date)](https://star-history.com/#DuarteSantos8/openGym&Date)
+The original openGym project has a
+[Ko-fi page](https://ko-fi.com/opengym) if you want to support the upstream author.
 
 ## License
 
-**openGym's own code** is licensed under the [GNU AGPL v3.0](LICENSE). You can self-host, use,
-modify and share it; if you run a modified version as a network service, you have to offer that
-version's source under the same license.
+**ASCEND's code** is licensed under the [GNU AGPL v3.0](LICENSE), inherited from openGym. You can
+self-host, use, modify and share it; if you run a modified version as a network service, you have
+to offer that version's source under the same license. Upstream attribution and media licensing
+are recorded in [NOTICE.md](NOTICE.md).
 
 > [!IMPORTANT]
 > **The exercise media is not covered by that license.** The stills and animations are
@@ -355,8 +340,8 @@ version's source under the same license.
 > non-commercial fork may keep them unmodified with the notice; anything else needs your own licence
 > from gymvisual.com. The exercise text in `catalogue/` is openGym's and open to contributions.
 
-**Contributing:** pull requests are signed off once with the [Contributor License Agreement](CLA.md):
-you keep the copyright in your work, openGym may use and relicense it, and every version released
-under the AGPL stays AGPL.
+**Contributing:** read [CONTRIBUTING.md](CONTRIBUTING.md) before opening a pull request. The
+upstream openGym project asks contributors to sign its [Contributor License Agreement](CLA.md);
+that workflow only runs in the upstream repository, not in ASCEND.
 
 Full third-party notices, including the body-diagram geometry, are in [NOTICE.md](NOTICE.md).

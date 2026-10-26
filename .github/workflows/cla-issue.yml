@@ -16,7 +16,7 @@ concurrency:
 
 jobs:
   record:
-    if: github.event.issue.number == 554 && !github.event.issue.pull_request
+    if: github.repository == 'DuarteSantos8/openGym' && github.event.issue.number == 554 && !github.event.issue.pull_request
     runs-on: ubuntu-latest
     steps:
       - uses: actions/checkout@v7

@@ -1,13 +1,13 @@
-# openGym MCP server
+# ASCEND MCP server
 
 A [Model Context Protocol](https://modelcontextprotocol.io) bridge that lets an external LLM
-application (Claude Desktop, Cursor, Cline, Continue, etc.) read your openGym profile —
+application (Claude Desktop, Cursor, Cline, Continue, etc.) read your ASCEND profile —
 routines, workouts, body-weight log, estimated 1RMs, and muscle balance — directly from your
 self-hosted `./data` directory.
 
 It is read-only, runs locally as a stdio process spawned by the LLM client, adds no new
 container, and requires no extra authentication. The LLM never sees passkeys, VAPID keys, or
-session secrets — it can only read the same `state-<uid>.json` files the openGym api already
+session secrets — it can only read the same `state-<uid>.json` files the ASCEND api already
 writes.
 
 The numbers it answers with are computed by the **same pure functions the React UI uses**
@@ -62,7 +62,7 @@ Add the server to your LLM client's MCP config. For Claude Desktop, edit
 For Cursor and other MCP-compatible clients, see the client's MCP docs — the same `command` +
 `args` + `env` shape is what every stdio MCP server expects.
 
-Restart the client; you should see the openGym tools appear with "serving profile \<name\>" on
+Restart the client; you should see the ASCEND tools appear with "serving profile \<name\>" on
 the server's stderr.
 
 ## Tools
@@ -142,4 +142,4 @@ their own 92 tests in `frontend/src/lib/*.test.js`.
 
 ## License
 
-AGPL-3.0-or-later, same as openGym.
+AGPL-3.0-or-later, same as ASCEND.

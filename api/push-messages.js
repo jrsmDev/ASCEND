@@ -48,7 +48,7 @@ export function restTimerPush(lang) {
 }
 
 export function testPush(lang) {
-  return { title: 'openGym', body: copyFor(lang).testBody, tag: 'test' };
+  return { title: 'ASCEND', body: copyFor(lang).testBody, tag: 'test' };
 }
 
 export function dayReminderPush(lang, routine) {
@@ -76,6 +76,6 @@ const nudgeCopyFor = lang => {
 export function nudgePush(lang, tone, routine, iso) {
   const copy = nudgeCopyFor(lang)[NUDGE_COPY.en[tone] ? tone : 'friendly'];
   const line = copy.lines[lineIndex(iso, copy.lines.length)];
-  const name = routine?.name || 'openGym';
+  const name = routine?.name || 'ASCEND';
   return { title: copy.title, body: line.replace('{0}', () => name), tag: 'nudge' };
 }

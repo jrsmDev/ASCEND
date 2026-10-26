@@ -1,5 +1,5 @@
 /* ============================================================================
-   openGym — design system
+   ASCEND — design system
    ----------------------------------------------------------------------------
    Rebuilt around four rules, each aimed at a specific "generated" tell in the
    previous sheet:
@@ -2579,115 +2579,196 @@ body.no-tabbar #toast{bottom:calc(24px + var(--sab))}
   *{scrollbar-width:thin;scrollbar-color:color-mix(in srgb,var(--label) 20%,transparent) transparent}
 }
 
-/* ------------------------------------------------------- navigation dock v2 --
-   A floating capsule rather than a full-width shelf. The centre action gets the
-   only saturated fill on screen; everything else is glass, a hairline and a
-   quiet active pill. Geometry is shared between phone and desktop so the dock
-   never jumps between breakpoints. */
+/* ------------------------------------------------------- navigation dock v3 --
+   Four quiet destinations in one glass capsule, and one saturated circle for the
+   thing you came to do. The active destination is the only tab that keeps its
+   word: the others are icons, which leaves the bar calm and gives the play
+   action the room to stand on its own. Geometry is shared between phone and
+   desktop so the dock never jumps between breakpoints. */
 #tabbar{
-  left:50%;right:auto;transform:translateX(-50%);
-  bottom:calc(10px + var(--sab));
-  width:min(calc(100vw - 24px),560px);
-  padding:8px 8px 7px;
-  align-items:flex-end;
-  border:1px solid color-mix(in srgb,var(--line-strong) 72%,rgba(255,255,255,.14));
-  border-radius:28px;
-  background:
-    linear-gradient(180deg,rgba(255,255,255,.055),rgba(255,255,255,0) 38%),
-    color-mix(in srgb,var(--bg-el) 88%,transparent);
-  -webkit-backdrop-filter:blur(16px) saturate(165%);backdrop-filter:blur(16px) saturate(165%);
-  box-shadow:
-    0 24px 60px -24px rgba(0,0,0,.9),
-    0 2px 10px -4px rgba(0,0,0,.55),
-    inset 0 1px 0 rgba(255,255,255,.09);
+  position:fixed;left:50%;right:auto;bottom:calc(12px + var(--sab));z-index:50;
+  display:flex;align-items:center;justify-content:center;gap:10px;
+  width:min(calc(100vw - 24px),448px);
+  padding:0;border:0;border-radius:0;
+  background:none;
+  -webkit-backdrop-filter:none;backdrop-filter:none;
+  box-shadow:none;
+  transform:translateX(-50%);
 }
 :root[data-theme="light"] #tabbar{
-  border-color:rgba(9,10,9,.10);
+  border:0;background:none;box-shadow:none;
+}
+#tabbar .dock-shell{
+  display:flex;align-items:center;flex:1 1 auto;min-width:0;
+  height:56px;padding:5px;
+  border:1px solid color-mix(in srgb,var(--line-strong) 70%,rgba(255,255,255,.16));
+  border-radius:999px;
   background:
-    linear-gradient(180deg,rgba(255,255,255,.72),rgba(255,255,255,0) 42%),
-    color-mix(in srgb,#FFFDF7 88%,transparent);
+    linear-gradient(180deg,rgba(255,255,255,.055),rgba(255,255,255,0) 46%),
+    color-mix(in srgb,var(--bg-el) 90%,transparent);
+  -webkit-backdrop-filter:blur(16px) saturate(165%);backdrop-filter:blur(16px) saturate(165%);
   box-shadow:
-    0 22px 50px -24px rgba(40,44,30,.55),
-    0 2px 10px -6px rgba(40,44,30,.28),
+    0 22px 50px -24px rgba(0,0,0,.9),
+    0 2px 8px -5px rgba(0,0,0,.55),
+    inset 0 1px 0 rgba(255,255,255,.08);
+}
+:root[data-theme="light"] #tabbar .dock-shell{
+  border-color:rgba(22,28,20,.11);
+  background:
+    linear-gradient(180deg,rgba(255,255,255,.80),rgba(255,255,255,.30) 52%),
+    color-mix(in srgb,#FFFDF7 90%,transparent);
+  box-shadow:
+    0 20px 42px -24px rgba(40,44,30,.55),
+    0 2px 8px -6px rgba(40,44,30,.28),
     inset 0 1px 0 #fff;
 }
 #tabbar button{
-  min-width:0;gap:2px;padding:3px 0 0;
-  font-size:9.5px;font-weight:600;letter-spacing:.012em;
+  min-width:0;gap:0;padding:0;
+  font-size:12.5px;font-weight:600;letter-spacing:-.005em;
   -webkit-tap-highlight-color:transparent;
 }
-#tabbar button .tab-ic{
-  padding:5px 14px;border-radius:99px;
-  transition:background var(--fast),transform var(--fast),box-shadow var(--fast),color var(--fast);
+#tabbar button.tab{
+  display:flex;align-items:center;justify-content:center;gap:6px;
+  flex:1 1 0;height:46px;padding-inline:4px;
+  border-radius:999px;color:var(--label-2);
+  transition:background var(--fast),color var(--fast),transform var(--fast),box-shadow var(--fast),flex-grow var(--fast);
 }
-#tabbar button.on .tab-ic{
-  background:color-mix(in srgb,var(--acc) 15%,transparent);
+#tabbar button.tab .tab-ic{
+  padding:0;border-radius:0;background:none;box-shadow:none;
+  transition:transform var(--fast),color var(--fast);
+}
+#tabbar button.tab .icn{
+  font-size:22px;--icon-stroke:1.8;color:currentColor;opacity:.82;
+  transition:opacity var(--fast),transform var(--fast);
+}
+#tabbar button.tab .tab-label{
+  display:none;white-space:nowrap;
+  font-size:12.5px;font-weight:650;letter-spacing:-.015em;
+}
+#tabbar button.tab.on{
+  flex-grow:1.25;padding-inline:12px;color:var(--on-acc);
+  background:
+    linear-gradient(155deg,color-mix(in srgb,var(--acc) 86%,#fff) 0%,var(--acc) 46%,color-mix(in srgb,var(--acc) 86%,#000) 100%);
   box-shadow:
-    inset 0 0 0 1px color-mix(in srgb,var(--acc) 38%,transparent),
-    0 7px 18px -12px color-mix(in srgb,var(--acc) 65%,transparent);
+    0 10px 20px -12px color-mix(in srgb,var(--acc) 72%,transparent),
+    inset 0 1px 0 rgba(255,255,255,.48),
+    inset 0 -1px 0 rgba(0,0,0,.10);
 }
-#tabbar button:active .tab-ic{transform:scale(.94)}
+#tabbar button.tab.on .icn{opacity:1;--icon-stroke:2.1}
+#tabbar button.tab.on .tab-label{display:block}
+:root[data-theme="light"] #tabbar button.tab.on{
+  color:color-mix(in srgb,var(--acc) 38%,#0D100C);
+  background:linear-gradient(155deg,color-mix(in srgb,var(--acc) 24%,#fff) 0%,color-mix(in srgb,var(--acc) 55%,#fff) 100%);
+  box-shadow:
+    inset 0 0 0 1px color-mix(in srgb,var(--acc) 66%,transparent),
+    0 8px 16px -13px color-mix(in srgb,var(--acc) 60%,transparent);
+}
+#tabbar button.tab:active{transform:scale(.97)}
 #tabbar button:focus-visible{outline:none}
-#tabbar button:focus-visible .tab-ic{
+#tabbar button.tab:focus-visible,
+#tabbar button.start:focus-visible{outline:none}
+#tabbar button.tab:focus-visible .tab-ic,
+#tabbar button.start:focus-visible .cir{
   box-shadow:0 0 0 2px var(--bg),0 0 0 4px var(--acc-line);
 }
-#tabbar button.on:focus-visible .tab-ic{
-  box-shadow:inset 0 0 0 1px var(--acc-line),0 0 0 2px var(--bg),0 0 0 4px var(--acc-line);
+#tabbar button.tab.on:focus-visible .tab-ic{
+  box-shadow:0 0 0 2px color-mix(in srgb,var(--acc) 60%,transparent),0 0 0 4px var(--bg);
 }
+#tabbar .tab-dot{
+  top:-2px;right:-4px;
+  box-shadow:0 0 0 2px color-mix(in srgb,var(--bg-el) 90%,transparent);
+}
+
+/* The play action is a separate floating circle, not a tab in the capsule. */
 #tabbar button.start{
-  flex:0 0 74px;margin-top:-31px;
-}
-#tabbar button.start .tab-ic{padding:0;background:none;box-shadow:none}
-#tabbar button.start .cir{
-  width:58px;height:58px;
-  border:1px solid rgba(255,255,255,.48);
-  background:linear-gradient(145deg,#DBFF8B 0%,#C7F45A 42%,#A8D92F 100%);
+  position:relative;flex:0 0 56px;width:56px;height:56px;
+  margin:0;padding:0;border-radius:50%;
   color:#080B05;
+  background:linear-gradient(145deg,#DBFF8B 0%,#C7F45A 42%,#A8D92F 100%);
+  border:1px solid rgba(255,255,255,.48);
   box-shadow:
-    0 0 0 4px color-mix(in srgb,var(--bg) 86%,transparent),
-    0 0 0 5px color-mix(in srgb,var(--acc) 25%,transparent),
-    0 17px 32px -13px color-mix(in srgb,var(--acc) 82%,transparent),
+    0 0 0 4px color-mix(in srgb,var(--bg) 82%,transparent),
+    0 6px 16px -8px color-mix(in srgb,var(--acc) 80%,transparent),
+    0 14px 28px -14px color-mix(in srgb,var(--acc) 82%,transparent),
     inset 0 1px 0 rgba(255,255,255,.65),
     inset 0 -5px 12px rgba(68,94,0,.14);
   transition:transform var(--fast) var(--ease),box-shadow var(--fast);
 }
-#tabbar button.start:active .cir{
-  transform:scale(.94);
-  box-shadow:
-    0 0 0 4px color-mix(in srgb,var(--bg) 86%,transparent),
-    0 0 0 5px color-mix(in srgb,var(--acc) 25%,transparent),
-    0 9px 20px -12px color-mix(in srgb,var(--acc) 70%,transparent),
-    inset 0 1px 0 rgba(255,255,255,.55);
+#tabbar button.start .cir{
+  width:100%;height:100%;padding:0;border:0;border-radius:50%;
+  background:none;box-shadow:none;
+  display:flex;align-items:center;justify-content:center;
+  color:inherit;transform:none;
 }
-#tabbar button.start .cir .icn{font-size:25px;--icon-stroke:2.1}
-#tabbar button.start > span:last-child{margin-top:3px;font-size:9.5px;letter-spacing:.01em}
-#tabbar button.start.rec .cir{
-  background:linear-gradient(145deg,#FFC46B,#FF8A2A);
+#tabbar button.start:active .cir{transform:none}
+#tabbar button.start:active{transform:scale(.94)}
+#tabbar button.start .cir .icn{
+  font-size:24px;--icon-stroke:2.1;color:inherit;opacity:1;
+  transform:translateX(1px);
+}
+#tabbar button.start .tab-label{display:none}
+#tabbar button.start .tab-time{
+  position:absolute;left:50%;top:calc(100% + 3px);transform:translateX(-50%);
+  padding:1px 6px;border-radius:99px;white-space:nowrap;
+  background:color-mix(in srgb,var(--bg-el) 88%,transparent);
+  color:var(--acc-text);font-size:9.5px;font-weight:650;letter-spacing:.02em;
+  font-variant-numeric:tabular-nums;
+}
+:root[data-theme="light"] #tabbar button.start{
+  color:var(--acc);
+  background:linear-gradient(160deg,#20271B 0%,#0B0E08 100%);
+  border:1.5px solid color-mix(in srgb,var(--acc) 76%,#fff);
+  box-shadow:
+    0 0 0 3px color-mix(in srgb,var(--acc) 13%,transparent),
+    0 12px 26px -14px rgba(34,40,28,.75),
+    inset 0 1px 0 rgba(255,255,255,.12);
+}
+:root[data-theme="light"] #tabbar button.start .tab-time{
+  background:rgba(255,253,247,.92);
+  color:var(--acc-text);
+}
+#tabbar button.start.rec{
   color:#170B02;
+  background:linear-gradient(145deg,#FFC46B,#FF8A2A);
+  border-color:rgba(255,255,255,.42);
   box-shadow:
-    0 0 0 4px color-mix(in srgb,var(--bg) 86%,transparent),
-    0 0 0 5px color-mix(in srgb,var(--orange) 28%,transparent),
-    0 17px 32px -13px color-mix(in srgb,var(--orange) 78%,transparent),
+    0 0 0 4px color-mix(in srgb,var(--bg) 82%,transparent),
+    0 14px 30px -15px color-mix(in srgb,var(--orange) 82%,transparent),
     inset 0 1px 0 rgba(255,255,255,.55);
 }
-#tabbar button.start.rec > span:last-child{color:var(--chart-orange)}
-#tabbar .tab-dot{box-shadow:0 0 0 2px color-mix(in srgb,var(--bg-el) 88%,transparent)}
+:root[data-theme="light"] #tabbar button.start.rec{
+  color:#170B02;
+  background:linear-gradient(145deg,#FFC46B,#FF8A2A);
+  border-color:rgba(255,255,255,.6);
+  box-shadow:
+    0 0 0 3px color-mix(in srgb,var(--orange) 16%,transparent),
+    0 12px 26px -14px color-mix(in srgb,var(--orange) 70%,transparent);
+}
+#tabbar button.start.rec .cir::after{
+  content:'';position:absolute;inset:0;border-radius:50%;
+  border:2px solid var(--orange);animation:ping 1.9s var(--ease) infinite;
+}
+#tabbar button.start.rec .tab-time{color:var(--chart-orange)}
+
+@supports not ((backdrop-filter:blur(1px)) or (-webkit-backdrop-filter:blur(1px))){
+  #tabbar .dock-shell{background:var(--bg-el)}
+  :root[data-theme="light"] #tabbar .dock-shell{background:#FFFDF7}
+}
 
 @media (max-width:380px){
-  #tabbar{width:calc(100vw - 16px);padding-inline:6px;border-radius:24px}
-  #tabbar button .tab-ic{padding-inline:11px}
-  #tabbar button.start{flex-basis:66px}
-}
-@media (min-width:1000px){
-  #tabbar{
-    width:560px;
-    bottom:18px;
-    padding:9px 10px 8px;
-    border-radius:26px;
-  }
+  #tabbar{width:calc(100vw - 20px);gap:8px;bottom:calc(10px + var(--sab))}
+  #tabbar .dock-shell{height:52px;padding:4px}
+  #tabbar button.tab{height:44px;gap:5px;padding-inline:3px}
+  #tabbar button.tab.on{flex-grow:1.22;padding-inline:9px}
+  #tabbar button.tab .icn{font-size:21px}
+  #tabbar button.tab .tab-label{font-size:12px}
+  #tabbar button.start{flex-basis:52px;width:52px;height:52px}
+  #tabbar button.start .cir .icn{font-size:22px}
 }
 @media (hover:hover) and (pointer:fine){
-  #tabbar button:not(.start):hover .tab-ic{background:color-mix(in srgb,var(--label) 9%,transparent)}
-  #tabbar button.on:hover .tab-ic{background:color-mix(in srgb,var(--acc) 19%,transparent)}
-  #tabbar button.start:hover .cir{transform:translateY(-2px)}
+  #tabbar button.tab:not(.on):hover{color:var(--label);background:color-mix(in srgb,var(--label) 7%,transparent)}
+  #tabbar button.tab.on:hover{background:linear-gradient(155deg,color-mix(in srgb,var(--acc) 92%,#fff) 0%,var(--acc) 46%,color-mix(in srgb,var(--acc) 80%,#000) 100%)}
+  :root[data-theme="light"] #tabbar button.tab.on:hover{background:linear-gradient(155deg,color-mix(in srgb,var(--acc) 20%,#fff) 0%,color-mix(in srgb,var(--acc) 50%,#fff) 100%)}
+  #tabbar button.start:hover{transform:translateY(-2px)}
+  #tabbar button.start:active{transform:scale(.94)}
 }

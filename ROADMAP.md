@@ -10,7 +10,7 @@ block, the date does not move. Version numbers follow the release rule, not the 
 the next release is the last published one plus one patch (1.3.7 → 1.3.8), and a minor bump is
 reserved for a step as big as the new exercise database (v1.4.0).
 
-- Milestones: https://github.com/DuarteSantos8/openGym/milestones (every open issue sits in exactly one)
+- Milestones: https://github.com/jrsmDev/ASCEND/milestones (every open issue sits in exactly one)
 - Tracks, in order: the Android release (v1.4.2) → community features (v1.4.3) → programmes →
   a Google Play build with the progression engine → cardio → search → accounts → trainer →
   wearables → looks and social, with database storage after that

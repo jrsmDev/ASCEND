@@ -16,7 +16,8 @@ test('core/prompts.js matches api/coach/prompts/*.md byte for byte', () => {
   const files = fs.readdirSync(dir).filter(f => f.endsWith('.md')).sort();
   assert.deepEqual(Object.keys(PROMPTS).sort(), files.map(f => f.replace(/\.md$/, '')));
   for (const f of files) {
-    assert.equal(PROMPTS[f.replace(/\.md$/, '')], fs.readFileSync(path.join(dir, f), 'utf8'), `${f} is stale — run node scripts/build-coach-assets.mjs`);
+    const source = fs.readFileSync(path.join(dir, f), 'utf8').replace(/\r\n/g, '\n');
+    assert.equal(PROMPTS[f.replace(/\.md$/, '')], source, `${f} is stale - run node scripts/build-coach-assets.mjs`);
   }
 });
 

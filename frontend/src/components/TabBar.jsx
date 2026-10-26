@@ -13,8 +13,8 @@ import { useConnectionTrouble } from './SyncBanner.jsx'
 // state it took with it is the DOM node itself: focus, the :active tint, any in-flight transition.
 function Tab({ active, icon, label, onClick, dot }) {
   return (
-    <button className={active ? 'on' : ''} onClick={onClick} aria-current={active ? 'page' : undefined} aria-label={dot ? label + ', ' + t('Connection problem') : undefined}>
-      <span className="tab-ic"><Icon name={icon} />{dot && <span className="tab-dot" aria-hidden="true" />}</span><span>{label}</span>
+    <button className={'tab' + (active ? ' on' : '')} onClick={onClick} aria-current={active ? 'page' : undefined} aria-label={dot ? label + ', ' + t('Connection problem') : label}>
+      <span className="tab-ic"><Icon name={icon} />{dot && <span className="tab-dot" aria-hidden="true" />}</span><span className="tab-label">{label}</span>
     </button>
   )
 }
@@ -42,25 +42,32 @@ export default function TabBar({ onStart }) {
     nav('/workout')
   }
 
+  const startLabel = running ? t('Resume')
+    : S.active ? (cur === 'workout' ? t('Workout') : S.active.editingWorkoutId ? t('Edit workout') : t('Resume'))
+      : t('Start')
+
   return (
     <nav id="tabbar">
-      <Tab active={on('home')} icon="house" label={t('Home')} dot={trouble} onClick={() => nav('/home')} />
-      <Tab active={on('plan')} icon="calendar" label={t('Plan')} onClick={() => nav('/plan')} />
-      {/* On the workout screen itself there is nothing to resume, so the button reads as the
-          tab it is and stays lit (#29); anywhere else it brings you back to the exercise you
-          were on — the marker is kept in S.active.cur and never moves on its own (#21). The
-          glyph is always play: start and resume are one concept, and an exercise is a dumbbell.
-          A live session you stepped away from shows its running time instead of a word, the
-          button still named Resume; a past workout being edited or logged after the fact has no
-          clock to run. */}
+      <div className="dock-shell">
+        <Tab active={on('home')} icon="house" label={t('Home')} dot={trouble} onClick={() => nav('/home')} />
+        <Tab active={on('plan')} icon="calendar" label={t('Plan')} onClick={() => nav('/plan')} />
+        <Tab active={on('stats')} icon="chart" label={t('Stats')} onClick={() => nav('/stats')} />
+        <Tab active={on('library')} icon="dumbbell" label={t('Exercises')} onClick={() => nav('/library')} />
+      </div>
+      {/* The play action is deliberately outside the capsule: one saturated circle for the
+          thing you came to do, four quiet destinations for everything else. On the workout
+          screen itself there is nothing to resume, so the button reads as that tab and stays
+          lit (#29); anywhere else it brings you back to the exercise you were on — the marker
+          is kept in S.active.cur and never moves on its own (#21). The glyph is always play:
+          start and resume are one concept. A live session you stepped away from shows its
+          running time under the button, still named Resume; a past workout being edited or
+          logged after the fact has no clock to run. */}
       <button className={'start' + (S.active ? ' rec' : '') + (S.active && cur === 'workout' ? ' on' : '')} onClick={startWorkout}
-        aria-label={running ? t('Resume') : undefined}>
+        aria-label={startLabel} title={startLabel}>
         <span className="cir"><Icon name="play" /></span>
         {running ? <span className="tab-time"><Elapsed start={S.active.start} /></span>
-          : <span>{S.active ? (cur === 'workout' ? t('Workout') : S.active.editingWorkoutId ? t('Edit workout') : t('Resume')) : t('Start')}</span>}
+          : <span className="tab-label">{startLabel}</span>}
       </button>
-      <Tab active={on('stats')} icon="chart" label={t('Stats')} onClick={() => nav('/stats')} />
-      <Tab active={on('library')} icon="dumbbell" label={t('Exercises')} onClick={() => nav('/library')} />
     </nav>
   )
 }

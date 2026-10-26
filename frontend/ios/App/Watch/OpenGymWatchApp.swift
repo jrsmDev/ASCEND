@@ -4,7 +4,7 @@ import WatchKit
 import WidgetKit
 
 /*
- * openGym on the Apple Watch, laid out like the watch's own apps: one primary action per screen
+ * ASCEND on the Apple Watch, laid out like the watch's own apps: one primary action per screen
  * as a big round button in the middle, secondary actions small at the edges, the Digital Crown as
  * the obvious value control, black background, the accent colour only on the primary action.
  *

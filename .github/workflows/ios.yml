@@ -1,4 +1,4 @@
-# Builds the iPhone app on a Mac and starts it in the simulator: nobody working on openGym has a
+# Builds the iPhone app on a Mac and starts it in the simulator: nobody working on ASCEND has a
 # Mac to hand, so this is where a change to the iOS shell (ios/, a Capacitor plugin, the mobile
 # build) is first compiled. It uses the repo's own 180 px media like every other CI build; the
 # App Store build gets its animations on the release machine (docs/APP_STORES.md).

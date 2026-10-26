@@ -409,7 +409,7 @@ final class SessionStore: NSObject, ObservableObject, WCSessionDelegate, UNUserN
         summary = nil
     }
 
-    /* ---------- workouts deleted in openGym, out of Apple Health ---------- */
+    /* ---------- workouts deleted in ASCEND, out of Apple Health ---------- */
 
     private static let healthDeletedKey = "healthDeleted"
     private var healthDeleting = false
@@ -420,7 +420,7 @@ final class SessionStore: NSObject, ObservableObject, WCSessionDelegate, UNUserN
         recentWorkouts = Array((recentWorkouts.filter { $0 != wid } + [wid]).suffix(3))
     }
 
-    /// The copies this watch saved of workouts deleted in openGym: taken out once (the ids settled
+    /// The copies this watch saved of workouts deleted in ASCEND: taken out once (the ids settled
     /// are remembered), and the phone told, so it stops retrying what it could not delete itself.
     private func removeDeletedFromHealth(_ gone: [String]?) {
         guard !isDemo, !healthDeleting else { return }
