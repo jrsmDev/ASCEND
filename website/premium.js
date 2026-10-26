@@ -118,6 +118,39 @@ if (download && checksum && version && help) {
 const copyrightYear = document.getElementById('copyright-year')
 if (copyrightYear) copyrightYear.textContent = String(new Date().getFullYear())
 
+const narrative = document.querySelector('.horizontal-scroll')
+const narrativeTrack = narrative?.querySelector('.horizontal-track')
+const narrativeRail = narrative?.querySelector('.horizontal-rail')
+const narrativePanels = narrative ? [...narrative.querySelectorAll('.horizontal-panel')] : []
+const narrativeProgressFill = document.getElementById('narrative-progress-fill')
+if (narrative && narrativeTrack && narrativeRail && narrativePanels.length && !reduceMotion) {
+  let narrativeFrame = 0
+  const updateNarrative = () => {
+    narrativeFrame = 0
+    const bounds = narrative.getBoundingClientRect()
+    const range = narrative.offsetHeight - narrativeTrack.offsetHeight
+    const progress = range > 0
+      ? Math.min(1, Math.max(0, (window.innerHeight - narrativeTrack.offsetHeight - bounds.top) / range))
+      : 0
+    const currentPosition = progress * (narrativePanels.length - 1)
+    narrativeRail.style.setProperty('--story-progress', String(progress))
+    narrativePanels.forEach((panel, index) => {
+      const distance = currentPosition - index
+      const opacity = Math.pow(Math.max(0, 1 - Math.abs(distance)), 1.7)
+      panel.style.setProperty('--story-opacity', String(opacity))
+      panel.style.setProperty('--story-depth', `${Math.max(-42, Math.min(42, distance * -42))}px`)
+      panel.classList.toggle('is-current', Math.abs(distance) < .5)
+    })
+    narrativeProgressFill?.parentElement?.style.setProperty('--story-progress', String(progress))
+  }
+  const scheduleNarrative = () => {
+    if (!narrativeFrame) narrativeFrame = window.requestAnimationFrame(updateNarrative)
+  }
+  window.addEventListener('scroll', scheduleNarrative, { passive: true })
+  window.addEventListener('resize', scheduleNarrative)
+  updateNarrative()
+}
+
 const story = document.querySelector('.screen-story')
 const storySteps = [...document.querySelectorAll('[data-screen-step]')]
 const storyScreens = [...document.querySelectorAll('[data-screen-visual]')]
@@ -176,7 +209,7 @@ if (readingProgress) {
   updateProgress()
 }
 
-const revealTargets = document.querySelectorAll('.hero-copy > *, .experience-card, .screen-step, .demo-head, .download-content, .founder-copy')
+const revealTargets = document.querySelectorAll('.hero-copy > *, .section-heading, .experience-card, .privacy-note, .screens-head, .screen-step, .story-caption, .demo-head, .download-content, .download-art, .founder-mark, .founder-copy, .founder-links')
 if (reduceMotion || !('IntersectionObserver' in window)) {
   revealTargets.forEach(target => target.classList.add('is-visible'))
 } else {
