@@ -149,34 +149,46 @@ if (readingProgress) {
 }
 
 // Horizontal scroll effect
-if (!reduceMotion) {
+function initHorizontalScroll() {
+  if (window.matchMedia('(prefers-reduced-motion: reduce)').matches) return
   const horizontalScroll = document.querySelector('.horizontal-scroll')
   const horizontalTrack = document.querySelector('.horizontal-track')
   
   if (horizontalScroll && horizontalTrack) {
     const panels = horizontalTrack.querySelectorAll('.horizontal-panel')
-    horizontalScroll.style.height = panels.length * 150 + 'vh'
+    horizontalScroll.style.height = panels.length * 200 + 'vh'
     horizontalTrack.style.width = panels.length * 100 + 'vw'
     horizontalTrack.style.position = 'fixed'
     horizontalTrack.style.top = '0'
     horizontalTrack.style.left = '0'
+    horizontalTrack.style.zIndex = '10'
     
-    window.addEventListener('scroll', () => {
-      const scrollTop = window.scrollY
+    function updateHorizontalScroll() {
+      const scrollTop = window.pageYOffset || document.documentElement.scrollTop
       const start = horizontalScroll.offsetTop
       const end = start + horizontalScroll.offsetHeight - window.innerHeight
       if (scrollTop >= start && scrollTop <= end) {
         const progress = (scrollTop - start) / (end - start)
         const translateX = progress * (horizontalTrack.scrollWidth - window.innerWidth)
         horizontalTrack.style.transform = `translateX(-${translateX}px)`
-        horizontalTrack.style.visibility = 'visible'
       } else if (scrollTop < start) {
         horizontalTrack.style.transform = 'translateX(0px)'
-        horizontalTrack.style.visibility = 'visible'
       } else {
         horizontalTrack.style.transform = `translateX(-${horizontalTrack.scrollWidth - window.innerWidth}px)`
-        horizontalTrack.style.visibility = 'visible'
       }
+    }
+    
+    window.addEventListener('scroll', updateHorizontalScroll, { passive: true })
+    window.addEventListener('resize', updateHorizontalScroll, { passive: true })
+    updateHorizontalScroll()
+  }
+}
+
+if (document.readyState === 'loading') {
+  document.addEventListener('DOMContentLoaded', initHorizontalScroll)
+} else {
+  initHorizontalScroll()
+}
     }, { passive: true })
   }
 }
