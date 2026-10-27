@@ -129,6 +129,17 @@ if (narrative && narrativeTrack && narrativePanels.length && narrativeContent.ev
   const desktopViewport = window.matchMedia('(min-width: 901px) and (pointer: fine)')
   const narrativeMotion = window.matchMedia('(prefers-reduced-motion: reduce)')
   const clamp = (value, min, max) => Math.min(max, Math.max(min, value))
+  const smoothStep = value => {
+    const progress = clamp(value, 0, 1)
+    return progress * progress * (3 - 2 * progress)
+  }
+  const lerp = (from, to, progress) => from + (to - from) * progress
+  const panelHeadings = narrativePanels.map(panel => panel.querySelector('h2'))
+  const panelParagraphs = narrativePanels.map(panel => panel.querySelector('p'))
+  const panelNumbers = narrativePanels.map(panel => panel.querySelector('.panel-number'))
+  const baseHeadingSizes = []
+  const baseParagraphSizes = []
+  const baseNumberSizes = []
   let narrativeFrame = 0
   let narrativeEnabled = desktopViewport.matches && !narrativeMotion.matches
   let narrativeStart = 0
@@ -139,17 +150,30 @@ if (narrative && narrativeTrack && narrativePanels.length && narrativeContent.ev
       panel.style.removeProperty('transform')
       panel.style.removeProperty('opacity')
       panel.style.removeProperty('z-index')
+      panel.style.removeProperty('border-color')
       panel.classList.toggle('is-current', index === 0)
-      panel.removeAttribute('aria-hidden')
+      panel.classList.remove('is-split')
       narrativeContent[index]?.style.removeProperty('opacity')
-      narrativeContent[index]?.style.removeProperty('translate')
       narrativeVisuals[index]?.style.removeProperty('opacity')
+      narrativeImages[index]?.style.removeProperty('opacity')
       narrativeImages[index]?.style.removeProperty('transform')
+      panelHeadings[index]?.style.removeProperty('font-size')
+      panelParagraphs[index]?.style.removeProperty('font-size')
+      panelNumbers[index]?.style.removeProperty('font-size')
     })
+    narrative.style.removeProperty('--narrative-spread')
     if (narrativeProgressFill) narrativeProgressFill.style.removeProperty('transform')
   }
 
   const measureNarrative = () => {
+    narrativePanels.forEach((panel, index) => {
+      panelHeadings[index].style.removeProperty('font-size')
+      panelParagraphs[index].style.removeProperty('font-size')
+      panelNumbers[index].style.removeProperty('font-size')
+      baseHeadingSizes[index] = parseFloat(getComputedStyle(panelHeadings[index]).fontSize)
+      baseParagraphSizes[index] = parseFloat(getComputedStyle(panelParagraphs[index]).fontSize)
+      baseNumberSizes[index] = parseFloat(getComputedStyle(panelNumbers[index]).fontSize)
+    })
     const bounds = narrative.getBoundingClientRect()
     narrativeStart = bounds.top + window.scrollY - (window.innerHeight - narrativeTrack.offsetHeight)
     narrativeRange = Math.max(1, narrative.offsetHeight - narrativeTrack.offsetHeight)
@@ -161,39 +185,77 @@ if (narrative && narrativeTrack && narrativePanels.length && narrativeContent.ev
     if (!narrativeEnabled) return
 
     const progress = clamp((window.scrollY - narrativeStart) / narrativeRange, 0, 1)
-    const position = progress * (narrativePanels.length - 1)
-    const activeIndex = Math.min(narrativePanels.length - 1, Math.round(position))
+    const spread = smoothStep((progress - .06) / .31)
+    const storyProgress = clamp((progress - .48) / .42, 0, 1)
+    const storyPosition = storyProgress * (narrativePanels.length - 1)
+    const activeIndex = Math.round(storyPosition)
+    const handoff = smoothStep((progress - .9) / .1)
+    const trackWidth = narrativeTrack.clientWidth
+    const trackHeight = narrativeTrack.clientHeight
+    const firstPanel = narrativePanels[0]
+    const panelWidth = firstPanel.offsetWidth
+    const panelHeight = firstPanel.offsetHeight
+    const cardScale = .5
+    const panelCenterY = firstPanel.offsetTop + panelHeight / 2
+    const maxOffsetX = Math.max(0, (trackWidth - panelWidth * cardScale) / 2 - 10)
+    const maxOffsetY = Math.max(0, Math.min(
+      panelCenterY - panelHeight * cardScale / 2 - 10,
+      trackHeight - panelCenterY - panelHeight * cardScale / 2 - 10
+    ))
+    const offsetX = Math.min(trackWidth * .25, maxOffsetX)
+    const offsetY = Math.min(trackHeight * .24, maxOffsetY)
+    narrative.style.setProperty('--narrative-spread', String(spread))
 
     narrativePanels.forEach((panel, index) => {
-      const distance = index - position
-      const depth = Math.abs(distance)
-      const near = clamp(depth, 0, 1)
-      const far = clamp(depth - 1, 0, 2)
-      const direction = distance >= 0 ? 1 : -1
-      const offsetX = direction * (132 * near + 28 * far)
-      const offsetY = direction * (150 * near + 36 * far)
-      const scale = 1 - .12 * near - .035 * far
-      const tilt = clamp(distance * 3.2, -4, 4)
       const content = narrativeContent[index]
       const visual = narrativeVisuals[index]
       const image = narrativeImages[index]
+      const column = index % 2 === 0 ? -1 : 1
+      const row = index < 2 ? -1 : 1
+      const focus = Math.max(0, 1 - Math.abs(index - storyPosition))
+      const stackX = index * 3 * (1 - spread)
+      const stackY = index * 4 * (1 - spread)
+      const gridX = column * offsetX
+      const gridY = row * offsetY
+      const gridScale = cardScale + .03 * focus
+      const compactScale = index === activeIndex ? .82 : .27
+      const compactX = index === activeIndex ? 0 : column * trackWidth * .35
+      const compactY = index === activeIndex ? 0 : row * trackHeight * .34
+      const splitX = lerp(stackX, gridX, spread)
+      const splitY = lerp(stackY, gridY, spread)
+      const splitScale = lerp(1, gridScale, spread)
+      const x = lerp(splitX, compactX, handoff)
+      const y = lerp(splitY, compactY, handoff)
+      const scale = lerp(splitScale, compactScale, handoff)
+      const imageReveal = index === 0 ? 1 : smoothStep((spread - (.88 + index * .005)) / .12)
+      const copyReveal = index === 0 ? 1 : smoothStep((spread - (.94 + index * .005)) / .06)
+      const focusOpacity = .78 + .22 * focus
+      const isCurrent = index === activeIndex
+      const foregroundOpacity = lerp(1, index === activeIndex ? 1 : .42, handoff)
+      const contentOpacity = lerp(copyReveal * focusOpacity, index === activeIndex ? 1 : 0, handoff)
+      const visualOpacity = lerp(imageReveal * focusOpacity, index === activeIndex ? 1 : .82, handoff)
+      const headingSize = lerp(baseHeadingSizes[index], 62, spread)
+      const paragraphSize = lerp(baseParagraphSizes[index], 22, spread)
+      const numberSize = lerp(baseNumberSizes[index], 18, spread)
 
-      panel.style.transform = `translate3d(${offsetX}px, ${offsetY}px, 0) scale(${scale}) rotateX(${tilt}deg)`
-      panel.style.opacity = String(1 - .48 * near - .12 * far)
-      panel.style.zIndex = String(100 - Math.round(depth * 10))
+      panel.style.transform = `translate3d(${x}px, ${y}px, 0) scale(${scale})`
+      panel.style.opacity = String(foregroundOpacity)
+      panel.style.zIndex = String(10 + (isCurrent ? 10 : 0))
+      panel.style.borderColor = isCurrent
+        ? `rgba(199, 244, 90, ${.3 + .28 * focus})`
+        : 'rgba(199, 244, 90, .18)'
       panel.classList.toggle('is-current', index === activeIndex)
-      if (panel.getAttribute('aria-hidden') !== String(index !== activeIndex)) {
-        panel.setAttribute('aria-hidden', String(index !== activeIndex))
-      }
+      panel.classList.toggle('is-split', spread > .01)
 
-      if (content) {
-        content.style.opacity = String(1 - near)
-        content.style.translate = `0 ${clamp(distance * 36, -36, 36)}px`
-      }
+      if (content) content.style.opacity = String(contentOpacity)
       if (visual && image) {
-        visual.style.opacity = String(1 - .4 * near)
-        image.style.transform = `translate3d(${clamp(distance, -1, 1) * 16}px, ${clamp(distance, -1, 1) * 24}px, 0) rotateZ(${clamp(distance * 3.5, -4, 4)}deg) scale(${1 - .055 * near})`
+        visual.style.opacity = String(visualOpacity)
+        image.style.opacity = String(visualOpacity)
+        image.style.transform = 'translate3d(0, 0, 0) scale(1)'
       }
+      if (panelHeadings[index]) panelHeadings[index].style.fontSize = `${headingSize}px`
+      if (panelParagraphs[index]) panelParagraphs[index].style.fontSize = `${paragraphSize}px`
+      if (panelNumbers[index]) panelNumbers[index].style.fontSize = `${numberSize}px`
     })
 
     if (narrativeProgressFill) narrativeProgressFill.style.transform = `scaleX(${progress})`
@@ -219,11 +281,23 @@ if (narrative && narrativeTrack && narrativePanels.length && narrativeContent.ev
 }
 
 const story = document.querySelector('.screen-story')
+const storyPhone = story?.querySelector('.story-phone')
 const storySteps = [...document.querySelectorAll('[data-screen-step]')]
 const storyScreens = [...document.querySelectorAll('[data-screen-visual]')]
 const storyCaption = document.getElementById('story-caption')
 const storyCount = document.getElementById('story-count')
-if (story && storySteps.length && storyScreens.length && storyCaption && storyCount) {
+const demoWindow = document.querySelector('.demo-window')
+const downloadArt = document.querySelector('.download-art')
+if (story && storyPhone && storySteps.length && storyScreens.length && storyCaption && storyCount) {
+  const desktopViewport = window.matchMedia('(min-width: 901px) and (pointer: fine)')
+  const storyMotion = window.matchMedia('(prefers-reduced-motion: reduce)')
+  const clamp = (value, min, max) => Math.min(max, Math.max(min, value))
+  const smoothStep = value => {
+    const progress = clamp(value, 0, 1)
+    return progress * progress * (3 - 2 * progress)
+  }
+  let storyFrame = 0
+  let sectionMotionEnabled = desktopViewport.matches && !storyMotion.matches
   let activeStep = -1
   const setActiveStep = index => {
     if (index === activeStep || index < 0 || index >= storySteps.length) return
@@ -236,27 +310,99 @@ if (story && storySteps.length && storyScreens.length && storyCaption && storyCo
     storyCount.textContent = `${String(index + 1).padStart(2, '0')} / ${String(storySteps.length).padStart(2, '0')}`
   }
   const updateStory = () => {
+    storyFrame = 0
     const storyBounds = story.getBoundingClientRect()
-    if (storyBounds.bottom <= 0 || storyBounds.top >= window.innerHeight) return
     const center = window.innerHeight * 0.5
-    let nearestIndex = 0
-    let nearestDistance = Infinity
-    storySteps.forEach((step, index) => {
-      const bounds = step.getBoundingClientRect()
-      const distance = center < bounds.top
-        ? bounds.top - center
-        : center > bounds.bottom ? center - bounds.bottom : 0
-      if (distance < nearestDistance) {
-        nearestIndex = index
-        nearestDistance = distance
+    if (storyBounds.bottom > 0 && storyBounds.top < window.innerHeight) {
+      let nearestIndex = 0
+      let nearestDistance = Infinity
+      storySteps.forEach((step, index) => {
+        const bounds = step.getBoundingClientRect()
+        const distance = center < bounds.top
+          ? bounds.top - center
+          : center > bounds.bottom ? center - bounds.bottom : 0
+        if (distance < nearestDistance) {
+          nearestIndex = index
+          nearestDistance = distance
+        }
+      })
+      setActiveStep(nearestIndex)
+
+      const activeName = storySteps[nearestIndex]?.dataset.screenStep
+      storyScreens.forEach(screen => {
+        const isActive = screen.dataset.screenVisual === activeName
+        screen.style.opacity = isActive ? '1' : '0'
+        screen.style.transform = isActive
+          ? 'translate3d(0, 0, 0) scale(1)'
+          : 'translate3d(0, 10px, 0) scale(.985)'
+        screen.setAttribute('aria-hidden', String(!isActive))
+      })
+    }
+
+    if (sectionMotionEnabled) {
+      const firstCenter = storySteps[0]?.getBoundingClientRect()
+      const lastCenter = storySteps[storySteps.length - 1]?.getBoundingClientRect()
+      if (firstCenter && lastCenter) {
+        const firstDocumentCenter = firstCenter.top + window.scrollY + firstCenter.height / 2
+        const lastDocumentCenter = lastCenter.top + window.scrollY + lastCenter.height / 2
+        const storyProgress = clamp(
+          (window.scrollY + center - firstDocumentCenter) / Math.max(1, lastDocumentCenter - firstDocumentCenter),
+          0,
+          1
+        )
+        const ease = smoothStep(storyProgress)
+        storyPhone.style.transform = `translate3d(0, ${-5 * ease}px, 0) rotate(1deg) scale(${.985 + .035 * ease})`
       }
-    })
-    setActiveStep(nearestIndex)
+    } else {
+      storyPhone.style.removeProperty('transform')
+    }
+
+    if (sectionMotionEnabled && demoWindow) {
+      const bounds = document.querySelector('#demo')?.getBoundingClientRect()
+      if (bounds) {
+        const progress = smoothStep((window.innerHeight * .88 - bounds.top) / (window.innerHeight * .68))
+        demoWindow.style.transform = `translate3d(0, ${(1 - progress) * 28}px, 0) scale(${.975 + .025 * progress})`
+      }
+    } else {
+      demoWindow?.style.removeProperty('transform')
+    }
+
+    if (sectionMotionEnabled && downloadArt) {
+      const bounds = document.querySelector('#download')?.getBoundingClientRect()
+      if (bounds) {
+        const progress = smoothStep((window.innerHeight * .88 - bounds.top) / (window.innerHeight * .68))
+        downloadArt.style.transform = `translate3d(0, ${(1 - progress) * 22}px, 0) scale(${.965 + .035 * progress})`
+      }
+    } else {
+      downloadArt?.style.removeProperty('transform')
+    }
   }
+  const scheduleStory = () => {
+    if (!storyFrame) storyFrame = window.requestAnimationFrame(updateStory)
+  }
+  const syncStoryMotion = () => {
+    sectionMotionEnabled = desktopViewport.matches && !storyMotion.matches
+    if (!sectionMotionEnabled) {
+      storyPhone.style.removeProperty('transform')
+      demoWindow?.style.removeProperty('transform')
+      downloadArt?.style.removeProperty('transform')
+    }
+    scheduleStory()
+  }
+
   setActiveStep(0)
-  window.addEventListener('scroll', updateStory, { passive: true })
-  window.addEventListener('resize', updateStory)
-  updateStory()
+  storyScreens.forEach(screen => {
+    const isActive = screen.dataset.screenVisual === storySteps[0]?.dataset.screenStep
+    screen.style.opacity = isActive ? '1' : '0'
+    screen.setAttribute('aria-hidden', String(!isActive))
+  })
+  window.addEventListener('scroll', scheduleStory, { passive: true })
+  window.addEventListener('resize', scheduleStory, { passive: true })
+  window.addEventListener('load', scheduleStory, { once: true })
+  desktopViewport.addEventListener('change', syncStoryMotion)
+  storyMotion.addEventListener('change', syncStoryMotion)
+  document.fonts?.ready.then(scheduleStory)
+  scheduleStory()
 }
 
 const readingProgress = document.querySelector('.reading-progress')
@@ -276,7 +422,7 @@ if (readingProgress) {
   updateProgress()
 }
 
-const revealTargets = document.querySelectorAll('.hero-copy > *, .section-heading, .experience-card, .privacy-note, .screens-head, .screen-step, .story-caption, .demo-head, .download-content, .download-art, .founder-mark, .founder-copy, .founder-links')
+const revealTargets = document.querySelectorAll('.hero-copy > *, .section-heading, .experience-card, .privacy-note, .screens-head, .story-caption, .demo-head, .download-content, .founder-mark, .founder-copy, .founder-links')
 if (reduceMotion || !('IntersectionObserver' in window)) {
   revealTargets.forEach(target => target.classList.add('is-visible'))
 } else {

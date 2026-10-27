@@ -123,6 +123,7 @@ img { display: block; max-width: 100%; }
   border: 1px solid rgba(255,255,255,.1); border-radius: 12px;
   background: #0a0c08; opacity: 1; transform-origin: center center;
   backface-visibility: hidden;
+  transition: none;
 }
 .horizontal-panel.is-current { border-color: rgba(199,244,90,.32); }
 .horizontal-panel::before {
@@ -180,6 +181,7 @@ img { display: block; max-width: 100%; }
   position: relative;
   opacity: 1;
   translate: none;
+  transition: none;
 }
 .panel-visual::before {
   content: "";
@@ -198,6 +200,7 @@ img { display: block; max-width: 100%; }
   position: relative;
   z-index: 2;
   transform: rotate(0) scale(1);
+  transition: none;
 }
 .hero-grid {
   position: absolute; z-index: -3; inset: 0; opacity: .25;
@@ -494,7 +497,7 @@ h1, h2, h3, p { margin-top: 0; }
 .story-phone img {
   position: absolute; inset: 7px; width: calc(100% - 14px); height: calc(100% - 14px); object-fit: cover; object-position: top;
   border-radius: 30px; opacity: 0; transform: translateY(8px) scale(.985);
-  transition: opacity .65s cubic-bezier(.16,1,.3,1), transform .8s cubic-bezier(.16,1,.3,1);
+  transition: none;
 }
 .story-phone img.is-active { opacity: 1; transform: translateY(0) scale(1); }
 .story-caption {
@@ -510,9 +513,9 @@ h1, h2, h3, p { margin-top: 0; }
 .screen-step {
   min-height: clamp(300px, 45vh, 420px); display: flex; flex-direction: column; justify-content: center;
   padding: 42px 0; border-bottom: 1px solid rgba(255,255,255,.09);
-  opacity: .55; transition: opacity .55s ease, translate .65s cubic-bezier(.16,1,.3,1);
+  opacity: .55; transition: none;
 }
-.screen-step.is-active { opacity: 1; translate: 0 -3px; }
+.screen-step.is-active { opacity: 1; translate: none; }
 .screen-step > span { color: var(--lime); font: 700 9px var(--sans); letter-spacing: .18em; }
 .screen-step h3 { max-width: 520px; margin: 20px 0 14px; font: 700 clamp(28px, 3.5vw, 43px)/1.08 var(--serif); letter-spacing: -.035em; }
 .screen-step h3 em { color: var(--lime); font-weight: 500; }
@@ -738,4 +741,10 @@ h1, h2, h3, p { margin-top: 0; }
 }
 @media (max-width: 680px) {
   .horizontal-panel { min-height: 350px; }
+}
+@media (max-width: 900px), (pointer: coarse), (prefers-reduced-motion: reduce) {
+  .screen-story-visual { position: relative; top: auto; }
+}
+@media (min-width: 901px) and (pointer: fine) and (prefers-reduced-motion: no-preference) {
+  .horizontal-panel { will-change: transform, opacity; }
 }
