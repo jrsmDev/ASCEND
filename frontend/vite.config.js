@@ -105,6 +105,18 @@ export default defineConfig({
   define: { __APP_VERSION__: JSON.stringify(appVersion) },
   plugins: [react(), umami, flavor, swStamp, catalogueMedia],
   base: './',
+  build: {
+    chunkSizeWarningLimit: 1500,
+    rollupOptions: {
+      input: {
+        app: resolve(fileURLToPath(new URL('./index.html', import.meta.url))),
+        marketingMotion: resolve(fileURLToPath(new URL('./src/marketing-motion.js', import.meta.url)))
+      },
+      output: {
+        entryFileNames: chunk => chunk.name === 'marketingMotion' ? 'marketing-motion.js' : 'assets/[name]-[hash].js'
+      }
+    }
+  },
   server: {
     // The Coach's core (payload, validator, prompts, HTTP adapters) lives in ../api/coach/core
     // and is imported by the phone build. vite build and vitest already reach it; the dev
@@ -116,6 +128,5 @@ export default defineConfig({
         '/exercise-media': { target: media, changeOrigin: true }
       } : {})
     }
-  },
-  build: { chunkSizeWarningLimit: 1500 }
+  }
 })

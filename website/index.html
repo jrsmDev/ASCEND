@@ -23,7 +23,7 @@
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
   <link href="https://fonts.googleapis.com/css2?family=Barlow+Condensed:wght@500;600;700;800&family=Inter:wght@400;500;600;700;800&display=swap" rel="stylesheet">
-  <link rel="stylesheet" href="/premium.css?v=7">
+  <link rel="stylesheet" href="/premium.css?v=10">
   <script type="application/ld+json">
     {
       "@context": "https://schema.org",
@@ -42,7 +42,8 @@
       }
     }
   </script>
-  <script src="/premium.js?v=7" defer></script>
+  <script src="/premium.js?v=10" defer></script>
+  <script type="module" src="/marketing-motion.js?v=5"></script>
 </head>
 <body>
   <a class="skip-link" href="#main">Skip to content</a>
@@ -142,51 +143,92 @@
       </div>
     </div>
 
-    <section class="horizontal-scroll" id="narrative">
-      <div class="narrative-progress" aria-hidden="true"><span id="narrative-progress-fill"></span></div>
-      <div class="horizontal-track">
-        <div class="horizontal-rail">
-          <div class="horizontal-panel panel-1">
-            <div class="panel-content">
-              <span class="panel-number">01 — PLAN</span>
-              <h2>Structure<br><span>Your Ascent</span></h2>
-              <p>Design your training week with precision. Every session mapped, every goal intentional, every step calculated toward peak performance.</p>
-            </div>
-            <div class="panel-visual">
-              <img src="/img/plan-600.webp?v=5" alt="Training plan view" loading="lazy">
-            </div>
-          </div>
-          <div class="horizontal-panel panel-2">
-            <div class="panel-content">
-              <span class="panel-number">02 — TRAIN</span>
-              <h2>Enter<br><span>The Flow</span></h2>
-              <p>Guided workouts keep you in the zone. Track every set, monitor every rep, push beyond your limits with absolute focus.</p>
-            </div>
-            <div class="panel-visual">
-              <img src="/img/home-600.webp?v=5" alt="Workout session view" loading="lazy">
-            </div>
-          </div>
-          <div class="horizontal-panel panel-3">
-            <div class="panel-content">
-              <span class="panel-number">03 — EVOLVE</span>
-              <h2>Witness<br><span>Your Growth</span></h2>
-              <p>Data becomes motivation. Watch strength climb, endurance expand, and your potential unfold with every completed session.</p>
-            </div>
-            <div class="panel-visual">
-              <img src="/img/stats-600.webp?v=5" alt="Progress stats view" loading="lazy">
-            </div>
-          </div>
-          <div class="horizontal-panel panel-4">
-            <div class="panel-content">
-              <span class="panel-number">04 — ASCEND</span>
-              <h2>Never Settle.<br><span>Always Ascend.</span></h2>
-              <p>Built for those who refuse to plateau. Your training companion for a lifetime of relentless improvement.</p>
-            </div>
-            <div class="panel-visual">
-              <img src="/img/library-600.webp?v=5" alt="Exercise library view" loading="lazy">
-            </div>
-          </div>
+    <section class="card-story-section" id="narrative" aria-labelledby="narrative-title">
+      <div class="card-story-stage" data-card-story-stage>
+        <div class="card-story-head">
+          <p class="eyebrow">01 / The ASCEND method</p>
+          <h2 id="narrative-title">Progress is a <em>practice.</em></h2>
         </div>
+        <div class="card-story-scene" role="group" aria-label="Four parts of the ASCEND training experience">
+          <article class="story-card" data-story-card>
+            <div class="story-card-inner">
+              <div class="story-card-face story-card-front">
+                <span class="story-card-kicker">01 / PLAN</span>
+                <div class="story-card-screen">
+                  <img src="/img/plan-600.webp?v=5" alt="" width="600" height="1298" loading="lazy" decoding="async">
+                </div>
+                <h3>Plan with purpose</h3>
+                <span class="story-card-foot">A WEEK THAT WORKS FOR YOU</span>
+              </div>
+              <div class="story-card-face story-card-back" aria-hidden="true">
+                <span class="story-card-kicker">01 / PLAN</span>
+                <h3>Structure<br><em>your ascent.</em></h3>
+                <p>Design your training week with precision. Give every session a place and every goal a clear direction.</p>
+                <span class="story-card-number" aria-hidden="true">01</span>
+              </div>
+            </div>
+            <button class="story-card-toggle" type="button" aria-expanded="false">Open Plan details</button>
+          </article>
+          <article class="story-card" data-story-card>
+            <div class="story-card-inner">
+              <div class="story-card-face story-card-front">
+                <span class="story-card-kicker">02 / TRAIN</span>
+                <div class="story-card-screen">
+                  <img src="/img/workout-600.webp?v=5" alt="" width="600" height="1298" loading="lazy" decoding="async">
+                </div>
+                <h3>Stay with the work</h3>
+                <span class="story-card-foot">ONE SET AT A TIME</span>
+              </div>
+              <div class="story-card-face story-card-back" aria-hidden="true">
+                <span class="story-card-kicker">02 / TRAIN</span>
+                <h3>Enter<br><em>the flow.</em></h3>
+                <p>Keep your workout close. Track the sets and reps that make each session count.</p>
+                <span class="story-card-number" aria-hidden="true">02</span>
+              </div>
+            </div>
+            <button class="story-card-toggle" type="button" aria-expanded="false">Open Train details</button>
+          </article>
+          <article class="story-card" data-story-card>
+            <div class="story-card-inner">
+              <div class="story-card-face story-card-front">
+                <span class="story-card-kicker">03 / EVOLVE</span>
+                <div class="story-card-screen">
+                  <img src="/img/stats-600.webp?v=5" alt="" width="600" height="1298" loading="lazy" decoding="async">
+                </div>
+                <h3>See the progress</h3>
+                <span class="story-card-foot">CONSISTENCY, MADE VISIBLE</span>
+              </div>
+              <div class="story-card-face story-card-back" aria-hidden="true">
+                <span class="story-card-kicker">03 / EVOLVE</span>
+                <h3>Witness<br><em>your growth.</em></h3>
+                <p>See your training history and progress take shape, one completed session at a time.</p>
+                <span class="story-card-number" aria-hidden="true">03</span>
+              </div>
+            </div>
+            <button class="story-card-toggle" type="button" aria-expanded="false">Open Evolve details</button>
+          </article>
+          <article class="story-card" data-story-card>
+            <div class="story-card-inner">
+              <div class="story-card-face story-card-front">
+                <span class="story-card-kicker">04 / ASCEND</span>
+                <div class="story-card-screen">
+                  <img src="/img/home-600.webp?v=5" alt="" width="600" height="1298" loading="lazy" decoding="async">
+                </div>
+                <h3>Always move forward</h3>
+                <span class="story-card-foot">NEVER SETTLE. ALWAYS ASCEND.</span>
+              </div>
+              <div class="story-card-face story-card-back" aria-hidden="true">
+                <span class="story-card-kicker">04 / ASCEND</span>
+                <h3>Never settle.<br><em>Always ascend.</em></h3>
+                <p>A training companion for the plans, sessions, and progress that keep you moving forward.</p>
+                <span class="story-card-number" aria-hidden="true">04</span>
+              </div>
+            </div>
+            <button class="story-card-toggle" type="button" aria-expanded="false">Open ASCEND details</button>
+          </article>
+        </div>
+        <div class="card-story-progress" aria-hidden="true"><span data-card-story-progress></span></div>
+        <p class="card-story-cue" aria-hidden="true">Scroll to separate <span>↓</span></p>
       </div>
     </section>
 
@@ -311,7 +353,9 @@
       <a href="mailto:joseph.r.madrilejos@gmail.com">Contact</a>
       <a href="#download">Get the app</a>
     </div>
-    <small>© <span id="copyright-year">2026</span> Joseph Rman Madrilejos. All rights reserved.</small>
+    <small>
+      © <span id="copyright-year">2026</span> Joseph Rman Madrilejos. All rights reserved.
+    </small>
   </footer>
 </body>
 </html>
