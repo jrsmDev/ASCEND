@@ -223,7 +223,7 @@ jobs:
             xcrun simctl shutdown "$UDID" || true
           done
           find build/watch-promo -type f | sort
-      - uses: actions/upload-artifact@v6
+      - uses: actions/upload-artifact@v7
         if: always()
         with:
           name: ios-simulator
@@ -284,7 +284,7 @@ jobs:
           mkdir -p build/shots
           xcrun xcresulttool export attachments --path build/ui.xcresult --output-path build/shots || true
           ls build/shots
-      - uses: actions/upload-artifact@v6
+      - uses: actions/upload-artifact@v7
         if: always()
         with:
           name: ios-ui-tests
@@ -333,7 +333,7 @@ jobs:
           mkdir -p ../../../Payload && cp -R App.app ../../../Payload/
           cd ../../.. && echo "$GITHUB_SHA" > ci-commit.txt && zip -qry App-unsigned.ipa Payload ci-commit.txt
           ls -la App-unsigned.ipa
-      - uses: actions/upload-artifact@v6
+      - uses: actions/upload-artifact@v7
         with:
           name: ios-unsigned-ipa
           path: frontend/ios/App/build/App-unsigned.ipa
